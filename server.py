@@ -1,5 +1,5 @@
 import mysql.connector
-from flask import Flask, render_template
+from flask import Flask, render_template,request
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -7,7 +7,7 @@ mydb = mysql.connector.connect(
   passwd="mysql",
   database="Hemodialysis_Department"
 )
-
+ #CREATE DATABASE IF NOT EXISTS DBname;
 mycursor = mydb.cursor()
 mycursor.execute("CREATE TABLE IF NOT EXISTS Doctors(Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(11),mail VARCHAR(255),Birth_date INT(11),Doctor_ID INT(14),salary INT(11),gender VARCHAR(255),syndicate_number INT (11),adress text,jop_rank VARCHAR(255),image LONGBLOB) ")
 mycursor.execute("CREATE TABLE IF NOT EXISTS nurses (Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(11),mail VARCHAR(255),Birth_Date INT(11),Nurse_ID INT(14),salary INT(11),gender VARCHAR(255),adress text,image LONGBLOB )")
@@ -17,7 +17,7 @@ mycursor.execute("CREATE TABLE IF NOT EXISTS sessions (Date INT (11),used_device
 app = Flask(__name__,template_folder='template')
 
 @app.route('/')
-def hello_name():
+def index():
    return render_template('index.html')
 
 @app.route('/adddoctor')

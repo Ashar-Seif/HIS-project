@@ -1,12 +1,111 @@
-<!DOCTYPE html>
-<html>
-   <head>
-      <title>session</title>
-   </head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-   <body>
-      <h1>This is add session tap</h1>
-      <a href="http://127.0.0.1:5000">Back</a>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-   </body>
+    <title>addnurse</title>
+  </head>
+  <body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{{url_for('index')}}">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+            </button>
+         
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               <ul class="navbar-nav mr-auto">
+                 
+                  <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('addsession')}}">Add New Session</a>
+                  </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('viewsession')}}">View Sessions</a>
+                  </li>
+                  
+                
+               </ul>
+               
+            </div>
+            </nav>
+       
+
+   <h1>Add new sessions </h1> 
+
+
+
+   <form action="http://localhost:5000/addsession" method="POST">
+
+    
+         <div class="form-group">
+            <label for="sessdateinput">Date</label>
+            <input name="sessdate" type="number" class="form-control" id="idinput" placeholder="Enter session date">
+          </div>
+  
+
+    <div class="form-group">
+      <label for="inputused_deviceName">used_device</label>
+      <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter used_device">
+      <small id="emailHelp" class="form-text text-muted"></small>
+    </div>
+  
+    
+<div class="form-group">
+  <label for="priceinput">Price</label>
+  <input name="price" type="number" class="form-control" id="idinput" placeholder="Enter session price">
+</div>
+<div class="form-group">
+   <label for="inputrecord_byName">record_by</label>
+   <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter record_by name">
+   <small id="emailHelp" class="form-text text-muted"></small>
+ </div>
+
+ <div class="form-group">
+   <label for="after_weightinput">after_weight</label>
+   <input name="after_weight" type="number" class="form-control" id="idinput" placeholder="Enter patient after_weight">
+ </div>
+
+
+<div class="form-group">
+  <label for="durationinput">duration</label>
+  <input name="birth date" type="number" class="form-control" id="idinput" placeholder="Enter session duration">
+</div>
+<div class="form-group">
+   <label for="taken_drugsinput">taken_drugs</label>
+   <textarea class="form-control br-radius-zero" name="taken_drugs" rows="5" data-rule="required" data-msg="taken_drugs" placeholder="Please write patient taken_drugs "></textarea>
+   <div class="validation"></div>
+ </div>
+
+ <div class="form-group">
+   <label for="complicationsinput">complications</label>
+   <textarea class="form-control br-radius-zero" name="complications" rows="5" data-rule="required" data-msg="complications" placeholder="Please write complications "></textarea>
+   <div class="validation"></div>
+ </div>
+
+ <div class="form-group">
+   <label for="dealing_with_complicationsinput">dealing_with_complications</label>
+   <textarea class="form-control br-radius-zero" name="dealing_with_complications" rows="5" data-rule="required" data-msg="dealing_with_complications" placeholder="Please write dealing_with_complications"></textarea>
+   <div class="validation"></div>
+ </div>
+
+ <div class="form-group">
+   <label for="commentsinput">comments</label>
+   <textarea class="form-control br-radius-zero" name="comments" rows="5" data-rule="required" data-msg="comments" placeholder="Please write comments if found "></textarea>
+   <div class="validation"></div>
+ </div>
+ 
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
 </html> 
