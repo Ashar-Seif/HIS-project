@@ -7,9 +7,12 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   passwd="mysql",
-  database="testdb"
+  
 )
 mycursor = mydb.cursor()
+mycursor.execute("CREATE DATABASE IF NOT EXISTS testdb")
+mycursor.execute("USE testdb")
+mycursor.execute("CREATE TABLE IF NOT EXISTS accounts (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,fullname VARCHAR(255) NOT NULL,username VARCHAR(255) NOT NULL,password VARCHAR(255) NOT NULL,email VARCHAR(255) NOT NULL)")
 app = Flask(__name__)
 
 # Change this to your secret key (can be anything, it's for extra protection)
