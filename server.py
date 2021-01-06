@@ -2,10 +2,11 @@ import mysql.connector
 from flask import Flask, render_template
 
 mydb = mysql.connector.connect(
+
   host="localhost",
   user="root",
   passwd="mysql",
-  database="Hemodialysis_Department"
+  database="Hemodialysis"
 )
 
 mycursor = mydb.cursor()
