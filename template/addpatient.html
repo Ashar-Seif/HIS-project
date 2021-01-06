@@ -13,7 +13,7 @@
   <body>
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="http://127.0.0.1:5000/">Home</a>
+            <a class="navbar-brand" href="{{url_for('index')}}">Home</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
             </button>
@@ -22,10 +22,10 @@
                <ul class="navbar-nav mr-auto">
                  
                   <li class="nav-item">
-                  <a class="nav-link" href="http://127.0.0.1:5000/addpatient">Add New patient</a>
+                  <a class="nav-link" href="{{url_for('addpatient')}}">Add New patient</a>
                   </li>
                   <li class="nav-item">
-                  <a class="nav-link" href="http://127.0.0.1:5000/viewpatient">View patients</a>
+                  <a class="nav-link" href="{{url_for('viewpatient')}}">View patients</a>
                   </li>
                   
                 
@@ -43,7 +43,7 @@
       <div class="col-md">
 
     <div class="form-group">
-      <label for="inputpatName">FName</label>
+      <label for="inputpatName">Fname</label>
       <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter patient first name">
       <small id="emailHelp" class="form-text text-muted"></small>
     </div>
@@ -51,7 +51,7 @@
   <div class="col-md">
 
     <div class="form-group">
-      <label for="inputpatName">MName</label>
+      <label for="inputpatName">Mname</label>
       <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter patient mid name">
       <small id="emailHelp" class="form-text text-muted"></small>
     </div>
@@ -59,7 +59,7 @@
 
 <div class="col-md">
     <div class="form-group">
-      <label for="inputpatName">LName</label>
+      <label for="inputpatName">Lname</label>
       <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter patient last name">
       <small id="emailHelp" class="form-text text-muted"></small>
     </div>
@@ -70,14 +70,24 @@
   <input name="phonenumber" type="number" class="form-control" id="idinput" placeholder="Enter patient Phone Number">
 </div>
 <div class="mb-3">
-  <label for="Docemailinput" class="form-label">Mail</label>
+  <label for="Docemailinput" class="form-label">mail</label>
   <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
 </div>
 <div class="form-group">
-  <label for="BDinput">BD</label>
-  <input name="birth date" type="number" class="form-control" id="idinput" placeholder="Enter patient Birth Date">
+  <label for="ageinput">age</label>
+  <input name="age" type="number" class="form-control" id="idinput" placeholder="Enter patient age">
 </div>
     
+<div class="form-group">
+  <label for="inputpatsex"> gender    </label> 
+  <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+    <option selected>Open this select menu</option>
+    <option value="1">Male</option>
+    <option value="2">Female</option>
+    
+  </select>
+</div>
+
     <div class="form-group">
       <label for="idinput">P.ID</label>
       <input name="id" type="number" class="form-control" id="idinput" placeholder="Enter patient ID">
@@ -89,21 +99,13 @@
     </div>
     
 
+    
     <div class="form-group">
-      <label for="inputDocsex"> gendre    </label> 
-      <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-        <option selected>Open this select menu</option>
-        <option value="1">Male</option>
-        <option value="2">Female</option>
-        
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="salaryinput">Dry weight</label>
+      <label for="salaryinput">Dry_weight</label>
       <input name="salary" type="number" class="form-control" id="idinput" placeholder="Enter patient dry weight">
     </div>
     <div class="form-floating">
-      <label for="floatingTextarea2">Described drugs</label>
+      <label for="floatingTextarea2">Described_drugs</label>
       <textarea class="form-control" placeholder="Enter patient described drugs" id="floatingTextarea2" style="height: 100px"></textarea>
       
     </div>

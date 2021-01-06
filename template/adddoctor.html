@@ -15,12 +15,13 @@
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="http://127.0.0.1:5000/">Home</a>
+            <a class="navbar-brand" href="{{url_for('index')}}">Home</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<<<<<<< HEAD
                 <ul class="navbar-nav mr-auto">
 
                     <li class="nav-item">
@@ -33,6 +34,20 @@
 
                 </ul>
 
+=======
+               <ul class="navbar-nav mr-auto">
+                 
+                  <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('adddoctor')}}">Add New Doctor</a>
+                  </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('viewdoctor')}}">View Doctors</a>
+                  </li>
+                  
+                
+               </ul>
+               
+>>>>>>> cf7c85ca00db65ff6623534010ebff71edd9631b
             </div>
         </nav>
 
@@ -43,6 +58,7 @@
 
         <form action="http://localhost:5000/adddoctor" method="POST">
 
+<<<<<<< HEAD
             <div class="row g-3">
                 <div class="col-md">
 
@@ -94,15 +110,70 @@
             <div class="form-group">
                 <label for="inputDocsex"> gendre    </label>
                 <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+=======
+    <div class="form-group">
+      <label for="inputDocName">Fname</label>
+      <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter doctor first name">
+      <small id="emailHelp" class="form-text text-muted"></small>
+    </div>
+  </div>
+  <div class="col-md">
+
+    <div class="form-group">
+      <label for="inputDocName">Mname</label>
+      <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter doctor mid name">
+      <small id="emailHelp" class="form-text text-muted"></small>
+    </div>
+  </div>
+
+<div class="col-md">
+    <div class="form-group">
+      <label for="inputDocName">Lname</label>
+      <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter doctor last name">
+      <small id="emailHelp" class="form-text text-muted"></small>
+    </div>
+  </div>
+</div>
+<div class="form-group">
+  <label for="phoneinput">Phone</label>
+  <input name="phonenumber" type="number" class="form-control" id="idinput" placeholder="Enter doctor Phone Number">
+</div>
+<div class="mb-3">
+  <label for="Docemailinput" class="form-label">mail</label>
+  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+</div>
+<div class="form-group">
+  <label for="BDinput">Birth_date</label>
+  <input name="birth date" type="number" class="form-control" id="idinput" placeholder="Enter doctor Birth Date">
+</div>
+    
+    <div class="form-group">
+      <label for="idinput">Doctor_ID</label>
+      <input name="id" type="number" class="form-control" id="idinput" placeholder="Enter doctor ID">
+    </div>
+    <div class="form-group">
+      <label for="salaryinput">Salary</label>
+      <input name="salary" type="number" class="form-control" id="idinput" placeholder="Enter doctor salary">
+    </div>
+
+    <div class="form-group">
+      <label for="inputDocsex"> gender   </label> 
+      <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+>>>>>>> cf7c85ca00db65ff6623534010ebff71edd9631b
         <option selected>Open this select menu</option>
         <option value="1">Male</option>
         <option value="2">Female</option>
         
       </select>
+<<<<<<< HEAD
             </div>
             <div class="form-floating">
                 <label for="floatingTextarea2">Qualifications</label>
                 <textarea class="form-control" placeholder="Enter doctor Qualifications" id="floatingTextarea2" style="height: 100px"></textarea>
+=======
+    </div>
+    
+>>>>>>> cf7c85ca00db65ff6623534010ebff71edd9631b
 
             </div>
 
