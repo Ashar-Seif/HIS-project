@@ -8,12 +8,12 @@ mydb = mysql.connector.connect(
   passwd="mysql",
   database="Hemodialysis"
 )
- #CREATE DATABASE IF NOT EXISTS DBname;
+
 mycursor = mydb.cursor()
-mycursor.execute("CREATE TABLE IF NOT EXISTS Doctors(Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(11),mail VARCHAR(255),Birth_date INT(11),Doctor_ID INT(14),salary INT(11),gender VARCHAR(255),syndicate_number INT (11),adress text,jop_rank VARCHAR(255),image LONGBLOB) ")
-mycursor.execute("CREATE TABLE IF NOT EXISTS nurses (Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(11),mail VARCHAR(255),Birth_Date INT(11),Nurse_ID INT(14),salary INT(11),gender VARCHAR(255),adress text,image LONGBLOB )")
-mycursor.execute("CREATE TABLE IF NOT EXISTS patients(Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(11),mail VARCHAR(255),age INT(11),gender VARCHAR(255),adress text,Dry_weight INT (11),Described_drugs text)")
-mycursor.execute("CREATE TABLE IF NOT EXISTS sessions (Date INT (11),used_device VARCHAR(255),price INT(11),record_by VARCHAR(255),after_weight INT (11),duration INT(11),taken_drugs text,complications text, dealing_with_complications text,comments text)")
+mycursor.execute("CREATE TABLE IF NOT EXISTS Doctors(Dcode VARCHAR (255) NOT NULL PRIMARY KEY,Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(14),mail VARCHAR(255) UNIQUE,Birth_date INT(14),Doctor_ID INT(28) UNIQUE,syndicate_number INT (28) UNIQUE,salary INT(11),gender VARCHAR(255),address text,jop_rank VARCHAR(255),image LONGBLOB)")
+mycursor.execute("CREATE TABLE IF NOT EXISTS nurses (Ncode VARCHAR (255) NOT NULL PRIMARY KEY,Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(14),mail VARCHAR(255)UNIQUE,Birth_Date INT(11),Nurse_ID INT(28)UNIQUE,syndicate_number INT (28) UNIQUE,salary INT(11),gender VARCHAR(255),address text,image LONGBLOB )")
+mycursor.execute("CREATE TABLE IF NOT EXISTS patients(Pcode VARCHAR (255) NOT NULL PRIMARY KEY,Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),Numofsessions int(11),Daysofsessions text,Patient_ID INT(28)UNIQUE,phone INT(14),mail VARCHAR(255)UNIQUE,age INT(11),gender VARCHAR(255),adress text,Dry_weight INT (11),Described_drugs text,SupD VARCHAR (255),FOREIGN KEY (SupD) REFERENCES doctors(Dcode))")
+mycursor.execute("CREATE TABLE IF NOT EXISTS sessions (Scode VARCHAR (255) NOT NULL PRIMARY KEY,Date INT (11),used_device VARCHAR(255),price INT(11),record_by VARCHAR(255),after_weight INT (11),duration INT(11),taken_drugs text,complications text, dealing_with_complications text,comments text,P_code VARCHAR (255),D_code VARCHAR (255),N_code VARCHAR (255) ,FOREIGN KEY(P_code) REFERENCES patients(Pcode),FOREIGN KEY(D_code) REFERENCES doctors(Dcode),FOREIGN KEY(N_code) REFERENCES nurses(Ncode))")
 
 app = Flask(__name__,template_folder='template')
 
