@@ -7,7 +7,7 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   passwd="mysql",
-  database="Hemodialysis"
+  database="Hemo"
 )
 
 mycursor = mydb.cursor()
