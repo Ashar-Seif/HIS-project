@@ -9,6 +9,45 @@
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/font-awesome.min.css') }}">  
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/bootstrap.min.css') }}">
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <style>
+      .dropbtn {
+        background-color: rgba(16, 92, 109, 0.78);
+        color: white;
+        padding: 14px 15px 15px 14px;
+        font-size: 16px;
+        border: none;
+      }
+      
+      .dropdown {
+        position: relative;
+        display: inline-block;
+        margin-right: 10px;
+      }
+      
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 170px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+      
+      .dropdown-content a {
+        color: black;
+        padding: 10px 15px;
+        text-decoration: none;
+        display: block;
+      }
+      
+      .dropdown-content a:hover {background-color: #ddd;}
+      
+      .dropdown:hover .dropdown-content {display: block;}
+      
+      .dropdown:hover .dropbtn {background-color: rgba(53, 126, 150, 0.9)}
+    </style>
 
 
 </head>
@@ -34,6 +73,19 @@
                 <li class=""><a href="#service">About</a></li>
                 <li class=""><a href="#doctor-team">DataBase</a></li>
                 <li class=""><a href="#contact">Contact</a></li>
+                {% if 'username' not in session %}
+                <li class="active" ><a href="http://127.0.0.1:5000/login">Log In/Sign Up</a></li>
+                {% endif %}
+                {% if 'username' in session %}
+                <li class="dropdown">
+                  <button class="dropbtn"><i class="glyphicon glyphicon-user"></i></button>
+                  <div class="dropdown-content">
+                    <a href="{{ url_for('profile') }}">Profile</a>
+                    <a href="{{ url_for('logout') }}">Log Out</a>
+                  </div>
+                </li>
+                {% endif %}
+
               </ul>
             </div>
           </div>
@@ -46,6 +98,9 @@
               <img src="{{url_for('static', filename='img/logo.png')}}" class="img-responsive">
             </div>
             <div class="banner-text text-center">
+              {% if 'username' in session %}
+              <h2 class="white">Welcome back, {{ username }}!</h2>
+            {% endif %}
               <h1 class="white">Healthcare at your desk!!</h1>
               <p>We are a non-profit service organization</br>
                 The care of the patient is our reason for existence</p>
@@ -127,8 +182,8 @@
               <h3>Doctor</h3>
               <ul class="list-inline">
                 <i class="bi bi-plus-circle"></i>
-                <li><a href="{{url_for('adddoctor')}}"><i>Add</i></a></li>
-                <li><a href="{{url_for('viewdoctor')}}"><i>View</i></a></li>
+                <li><a href="http://127.0.0.1:5000/adddoctor"><i>Add</i></a></li>
+                <li><a href="http://127.0.0.1:5000/viewdoctor"><i>View</i></a></li>
               </ul>
             </div>
           </div>
@@ -139,8 +194,8 @@
             <div class="caption">
               <h3>Patient</h3>
               <ul class="list-inline">
-                <li><a href="{{url_for('addpatient')}}"><i>Add</i></a></li>
-                <li><a href="{{url_for('viewpatient')}}"><i>View</i></a></li>
+                <li><a href="http://127.0.0.1:5000/addpatient"><i>Add</i></a></li>
+                <li><a href="http://127.0.0.1:5000/viewpatient"><i>View</i></a></li>
               </ul>
             </div>
           </div>
@@ -151,8 +206,8 @@
             <div class="caption">
               <h3>Nurse</h3>
               <ul class="list-inline">
-                <li><a href="{{url_for('addnurse')}}"><i>Add</i></a></li>
-                <li><a href="{{url_for('viewnurse')}}"><i>View</i></a></li>
+                <li><a href="http://127.0.0.1:5000/addnurse"><i>Add</i></a></li>
+                <li><a href="http://127.0.0.1:5000/viewnurse"><i>View</i></a></li>
               </ul>
             </div>
           </div>
@@ -163,8 +218,8 @@
             <div class="caption">
               <h3>Sessions</h3>
               <ul class="list-inline">
-                <li><a href="{{url_for('addsession')}}"><i>Add</i></a></li>
-                <li><a href="{{url_for('viewsession')}}"><i>View</i></a></li>
+                <li><a href="http://127.0.0.1:5000/addsession"><i>Add</i></a></li>
+                <li><a href="http://127.0.0.1:5000/viewsession"><i>View</i></a></li>
               </ul>
             </div>
           </div>
@@ -262,7 +317,7 @@
             </div>
             <div class="info-sec">
               <ul class="quick-info">
-                <li><a href="index.html"><i class="fa fa-circle"></i>Home</a></li>
+                <li><a href="#banner"><i class="fa fa-circle"></i>Home</a></li>
                 <li><a href="#service"><i class="fa fa-circle"></i>Service</a></li>
                 <li><a href="#contact"><i class="fa fa-circle"></i>Appointment</a></li>
               </ul>
