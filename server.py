@@ -25,7 +25,7 @@ def index():
 @app.route('/adddoctor',methods =  ['POST', 'GET'])
 def adddoctor():
     if request.method == 'POST': ##check if there is post data
-      Dcode=122
+      Dcode=120
       Fname = request.form['Fname']
       Mname = request.form['Mname']
       Lname = request.form['Lname']
@@ -71,9 +71,27 @@ def addnurse():
 def viewnurse():
    return render_template('viewnurse.html')
 
-@app.route('/addsession')
-def addsession():
-   return render_template('addsession.html')
+@app.route('/addsession',methods =  ['POST', 'GET'])
+def addsession(): 
+   if request.method == 'POST': ##check if there is post data
+      Scode=2212
+      Date= request.form['Date']
+      used_device = request.form['used_device']
+      Price = request.form['Price']
+      record_by = request.form['record_by']
+      after_weight = request.form['after_weight']
+      duration= request.form['duration']
+      taken_drugs= request.form['taken_drugs']
+      complications= request.form['complications']
+      dealing_with_complications= request.form['dealing_with_complications']
+      comments= request.form['comments']
+      sql = "INSERT INTO sessions (Scode,Date,used_device,price,record_by,after_weight,duration,taken_drugs,complications,dealing_with_complications,comments) VALUES (%s, %s, %s,%s, %s, %s,%s, %s, %s,%s,%s)"
+      val = (Scode,Date,used_device,Price,record_by,after_weight,duration,taken_drugs,complications,dealing_with_complications,comments)
+      mycursor.execute(sql, val)
+      mydb.commit() 
+      return render_template('index.html')
+   else:
+     return render_template('addsession.html')
 
 @app.route('/viewsession')
 def viewsession():
