@@ -6,6 +6,54 @@
 
    <body>
       <h1>This is view patient tap</h1>
+      <table class="table">
+         <thead>
+             
+           <tr>
+             <th scope="col">index</th>
+             <th scope="col">Pcode</th>
+             <th scope="col">Fname</th>
+             <th scope="col">Mname</th>
+             <th scope="col">Lname</th>
+             <th scope="col">Numofsessions</th>
+             <th scope="col">Daysofsessions</th>
+             <th scope="col">Patient_ID</th>
+             <th scope="col">phone</th>
+             <th scope="col">mail</th>
+             <th scope="col">age</th>
+             <th scope="col">Gender</th>
+             <th scope="col">adress</th>
+             <th scope="col">Dry_weight</th>
+             <th scope="col">Described_drugs</th>
+             
+             
+
+           </tr>
+         </thead>
+         <tbody>
+             {% for data in patientsData %}
+           <tr>
+             <th scope="row">{{loop.index}}</th>
+             <td>{{data.0}}</td>
+             <td>{{data.1}}</td>
+             <td>{{data.2}}</td>
+             <td>{{data.3}}</td>
+             <td>{{data.4}}</td>
+             <td>{{data.5}}</td>
+             <td>{{data.6}}</td>
+             <td>{{data.7}}</td>
+             <td>{{data.8}}</td>
+             <td>{{data.9}}</td>
+             <td>{{data.10}}</td>
+             <td>{{data.11}}</td>
+             <td>{{data.12}}</td>
+             <td>{{data.13}}</td>
+             <td>{{data.14}}</td>
+           </tr>
+           {% endfor %}
+         </tbody>
+       </table>
+
       
       <form method="post" action="/upload" enctype="multipart/form-data">
          <label for="inputfile">file input</label><br>
