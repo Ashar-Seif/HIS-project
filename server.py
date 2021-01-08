@@ -25,7 +25,7 @@ def index():
 @app.route('/adddoctor',methods =  ['POST', 'GET'])
 def adddoctor():
     if request.method == 'POST': ##check if there is post data
-      Dcode=120
+      Dcode = request.form['Dcode']
       Fname = request.form['Fname']
       Mname = request.form['Mname']
       Lname = request.form['Lname']
@@ -38,8 +38,7 @@ def adddoctor():
       Syndicate_number= request.form['Syndicate_number']
       address= request.form['address']
       Job_rank= request.form['Job_rank']
-      #print(Fname,Mname,Lname,phone,mail,BD,Doctor_ID)
-      sql = "INSERT INTO doctors ( Dcode,Fname,Mname,Lname,phone,mail,Birth_date,Doctor_ID,Syndicate_number,salary,gender,address,jop_rank) VALUES (%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s)"
+      sql = "INSERT INTO doctors ( Dcode,Fname,Mname,Lname,phone,mail,Birth_date,Doctor_ID,Syndicate_number,salary,gender,address,jop_rank) VALUES (%s, %s, %s,%s, %s, %s,%s, %s, %s,%s,%s, %s,%s)"
       val = (Dcode,Fname,Mname,Lname,phone,mail,BD,Doctor_ID,Syndicate_number,Salary,gender,address,Job_rank)
       mycursor.execute(sql, val)
       mydb.commit() 
@@ -49,7 +48,10 @@ def adddoctor():
 
 @app.route('/viewdoctor')
 def viewdoctor():
-   return render_template('viewdoctor.html')
+   mycursor.execute("SELECT * FROM Doctors")
+   row_headers=[x[0] for x in mycursor.description] 
+   myresult = mycursor.fetchall()
+   return render_template('viewdoctor.html',DoctorsData = myresult)
 
 @app.route('/addpatient')
 def addpatient():
@@ -74,7 +76,7 @@ def viewnurse():
 @app.route('/addsession',methods =  ['POST', 'GET'])
 def addsession(): 
    if request.method == 'POST': ##check if there is post data
-      Scode=2212
+      Scode=request.form['Scode']
       Date= request.form['Date']
       used_device = request.form['used_device']
       Price = request.form['Price']
