@@ -8,115 +8,306 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Add Nurse</title>
 
-    <title>nurse</title>
+    <!-- ******* Style *********-->
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins');
+        body {
+            font-family: "Poppins", sans-serif;    
+            background-image: radial-gradient( circle farthest-corner at -3.1% -4.3%,  rgba(57,255,186,1) 0%, rgba(21,38,82,1) 90% );
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: fixed;
+            min-height: 600px;
+            }
+
+        a {
+            color: #92badd;
+            display:inline-block;
+            text-decoration: none;
+            font-weight: 400;
+            }
+        h2 {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            display:inline-block;
+            margin: 40px 8px 10px 8px; 
+            color: #cccccc;
+            }   
+            .wrapper {
+            display: flex;
+            align-items: center;
+            flex-direction: column; 
+            justify-content: center;
+            width: 100%;
+            min-height: 100%;
+            padding: 20px;
+		    } 
+            .fadeInDown {
+            -webkit-animation-name: fadeInDown;
+            animation-name: fadeInDown;
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            }
+            h2.inactive {
+            color: #cccccc;
+            }
+
+            h2.active {
+            color: #0d0d0d;
+            border-bottom: 2px solid #5fbae9;
+            }
+            #formContent {
+            border-radius: 10px;
+            width: 80%;
+            padding: 20px;
+            -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+            box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+            text-align: center;
+            }
+        input[type=button], input[type=submit], input[type=reset],button{
+            background-image: linear-gradient(-225deg, #473B7B 0%, #3584A7 51%, #30D2BE 100%);		
+            border: none;
+            padding: 15px 80px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 13px;
+            -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+            box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+            -webkit-border-radius: 5px 5px 5px 5px;
+            border-radius: 5px 5px 5px 5px;
+            margin: 5px 20px 40px 20px;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -ms-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            }
+        input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+            -moz-transform: scale(0.95);
+            -webkit-transform: scale(0.95);
+            -o-transform: scale(0.95);
+            -ms-transform: scale(0.95);
+            transform: scale(0.95);
+            }  
+        input[type=text],input[type=password],input[type=number],input[type=email],input[type=date],textarea{
+            background-color: white;
+            border: none;
+            color: #0d0d0d;
+            padding: 15px 2px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 5px;
+            border: 1px solid #bedbbb;
+            -webkit-transition: all 0.5s ease-in-out;
+            -moz-transition: all 0.5s ease-in-out;
+            -ms-transition: all 0.5s ease-in-out;
+            -o-transition: all 0.5s ease-in-out;
+            transition: all 0.5s ease-in-out;
+            -webkit-border-radius: 5px 5px 5px 5px;
+            border-radius: 5px 5px 5px 5px;
+            } 
+            label{
+                color: #aa3a3a;
+                padding: 5px 5px 5px 1px;
+                font-size:18px ;
+            }
+
+        .form-select{
+            background-color: #d9ecf2;
+            border: none;
+            color: #0d0d0d;
+            padding: 5px 5px 5px 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 5px;
+            border: 2px solid #bedcfa;
+            border-radius: 5px;
+        }    
+        @-webkit-keyframes fadeInDown {
+		0% {
+			opacity: 0;
+			-webkit-transform: translate3d(0, -100%, 0);
+			transform: translate3d(0, -100%, 0);
+		}
+		100% {
+			opacity: 1;
+			-webkit-transform: none;
+			transform: none;
+		}
+		}
+
+		@keyframes fadeInDown {
+		0% {
+			opacity: 0;
+			-webkit-transform: translate3d(0, -100%, 0);
+			transform: translate3d(0, -100%, 0);
+		}
+		100% {
+			opacity: 1;
+			-webkit-transform: none;
+			transform: none;
+		}
+		}
+
+		/* Simple CSS3 Fade-in Animation */
+		@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+		@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+		@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        .underlineHover:after {
+            display: block;
+            left: 0;
+            bottom: -10px;
+            width: 0;
+            height: 2px;
+            background-color: #56baed;
+            content: "";
+            transition: width 0.2s;
+            }
+
+		.underlineHover:hover {
+            color: #0d0d0d;
+            }
+
+		.underlineHover:hover:after{
+            width: 100%;
+            }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{{url_for('hello_name')}}">Home</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('addnurse')}}">Add New Nurse</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('viewnurse')}}">View Nurses</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+    <div class="wrapper fadeInDown">
+		<div id="formContent" style="background-color: #e8e8e8;">
+		  <!-- Tabs Titles -->
+		  <h2 class="active"> Add Nurse </h2>
+		  <a class="inactive underlineHover" href="{{ url_for('viewnurse') }}" style="text-decoration: none;">View Nurse</a>
+		  <!-- Icon -->
+		  <div class="fadeIn first">
+			<img src="/static/img/logo.png" id="icon" alt="User Icon" style="max-width: 20%;" />
+		  </div>
         {% block main %}
-        <h1>Add new Nurse </h1>
 
-        <form action="http://localhost:5000/addnurse" method="POST">
+            <form action="http://localhost:5000/addnurse" method="POST">
+                
+                    <div class="row g-2">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="inputPassword" >Ncode</label>
+                                <input name="Ncode" type="password" class="form-control" id="inputPassword" placeholder="Enter nurse code">
+                            </div>
+                        </div>
+                        <div class="col-md">
 
-            <div class="mb-3 row">
-                <label for="inputPassword" class="col-sm-2 col-form-label">Ncode</label>
-                <input name="Ncode" type="password" class="form-control" id="inputPassword" placeholder="Enter nurse code">
-            </div>
-
-            <div class="row g-3">
-                <div class="col-md">
-
-                    <div class="form-group">
-                        <label for="inputnurName">Fname</label>
-                        <input name="Fname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter nurse first name">
-                        <small id="emailHelp" class="form-text text-muted"></small>
+                            <div class="form-group">
+                                <label for="idinput">Nurse_ID</label>
+                                <input name="Nurse_ID" type="number" class="form-control" id="idinput" placeholder="Enter nurse ID">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md">
 
-                    <div class="form-group">
-                        <label for="inputnurName">Mname</label>
-                        <input name="Mname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter nurse mid name">
-                        <small id="emailHelp" class="form-text text-muted"></small>
+                    <div class="row g-3">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="inputnurName">Fname</label>
+                                <input name="Fname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter nurse first name">
+                                <small id="emailHelp" class="form-text text-muted"></small>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="inputnurName">Mname</label>
+                                <input name="Mname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter nurse mid name">
+                                <small id="emailHelp" class="form-text text-muted"></small>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="inputnurName">Lname</label>
+                                <input name="Lname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter nurse last name">
+                                <small id="emailHelp" class="form-text text-muted"></small>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-md">
-                    <div class="form-group">
-                        <label for="inputnurName">Lname</label>
-                        <input name="Lname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter nurse last name">
-                        <small id="emailHelp" class="form-text text-muted"></small>
+
+                    <div class="row g-2">
+                        <div class="col-md">
+
+                            <div class="form-group">
+                                <label for="BDinput">Birth_Date</label>
+                                <input name="Birth_Date" type="date" class="form-control" id="idinput" placeholder="Enter nurse Birth Date">
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="inputnursex"> Gender</label></br>
+                                <select name="gender" class="form-select form-select-sm" aria-label=".form-select-sm example" style="background-color: white;border: thistle;" >
+                                    <option value="Male" selected>Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="phoneinput">Phone</label>
-                <input name="Phone" type="number" class="form-control" id="idinput" placeholder="Enter nurse Phone Number">
-            </div>
-            <div class="mb-3">
-                <label for="nuremailinput" class="form-label">mail</label>
-                <input name="mail" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-            </div>
-            <div class="form-group">
-                <label for="BDinput">Birth_Date</label>
-                <input name="Birth_Date" type="number" class="form-control" id="idinput" placeholder="Enter nurse Birth Date">
-            </div>
-
-            <div class="form-group">
-                <label for="idinput">Nurse_ID</label>
-                <input name="Nurse_ID" type="number" class="form-control" id="idinput" placeholder="Enter nurse ID">
-            </div>
-
-            <div class="form-group">
-                <label for="codeinput">Syndicate_number</label>
-                <input name="Syndicate_number" type="number" class="form-control" id="idinput" placeholder="Enter nurse syndicate num">
-            </div>
-
-            <div class="form-group">
-                <label for="salaryinput">salary</label>
-                <input name="salary" type="number" class="form-control" id="idinput" placeholder="Enter nurse salary">
-            </div>
-
-            <div class="form-group">
-                <label for="inputnursex"> gender</label>
-                <select name="gender" class="form-select form-select-sm" aria-label=".form-select-sm example">
-        <option selected>Open this select menu</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
+                   
+                    <div class="row g-3">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="phoneinput">Phone</label>
+                                <input name="Phone" type="number" class="form-control" id="idinput" placeholder="Enter nurse Phone Number">
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="nuremailinput" class="form-label">mail</label>
+                                <input name="mail" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                            </div>
+                        </div>
+                        <div class="col-md">
         
-      </select>
-            </div>
+                            <div class="form-group">
+                                <label for="inputDocaddress">address</label>
+                                <input name="address" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter doctor address">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row g-2">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="salaryinput">salary</label>
+                                <input name="salary" type="number" class="form-control" id="idinput" placeholder="Enter nurse salary">
+                            </div>
+                        </div>
+                        <div class="col-md">
+        
+                            <div class="form-group">
+                                <label for="codeinput">Syndicate_number</label>
+                                <input name="Syndicate_number" type="number" class="form-control" id="idinput" placeholder="Enter nurse syndicate num">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <button type="submit" style="background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);">Submit</button>
+                    <a href="http://127.0.0.1:5000"><input type="button" style="background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);" value="Back"></a>
 
-            <div class="form-group">
-                <label for="inputDocaddress">address</label>
-                <input name="address" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter doctor address">
-
-            </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-
+                </form>
         {% endblock %}
+        </div>
     </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
