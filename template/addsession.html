@@ -36,12 +36,17 @@
             </div>
         </nav>
 
-
+        {% block main %}
         <h1>Add new sessions </h1>
 
 
 
         <form action="http://localhost:5000/addsession" method="POST">
+
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Scode</label>
+                <input name="Scode" type="password" class="form-control" id="inputPassword" placeholder="Enter doctor code">
+            </div>
 
 
             <div class="form-group">
@@ -104,6 +109,7 @@
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+        {% endblock %}
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

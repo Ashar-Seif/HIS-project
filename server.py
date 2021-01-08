@@ -10,9 +10,9 @@ mydb = mysql.connector.connect(
 )
 
 mycursor = mydb.cursor()
-mycursor.execute("CREATE TABLE IF NOT EXISTS Doctors(Dcode VARCHAR (255) PRIMARY KEY,Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(14),mail VARCHAR(255) UNIQUE,Birth_date INT(14),Doctor_ID INT(28) UNIQUE,syndicate_number INT (28) UNIQUE,salary INT(11),gender VARCHAR(255),address text,jop_rank VARCHAR(255),image LONGBLOB)")
-mycursor.execute("CREATE TABLE IF NOT EXISTS nurses (Ncode VARCHAR (255) NOT NULL PRIMARY KEY,Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(14),mail VARCHAR(255)UNIQUE,Birth_Date INT(11),Nurse_ID INT(28)UNIQUE,syndicate_number INT (28) UNIQUE,salary INT(11),gender VARCHAR(255),adress text,image LONGBLOB )")
-mycursor.execute("CREATE TABLE IF NOT EXISTS patients(Pcode VARCHAR (255) NOT NULL PRIMARY KEY,Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),Numofsessions int(11),Daysofsessions text,Patient_ID INT(28)UNIQUE,phone INT(14),mail VARCHAR(255)UNIQUE,age INT(11),gender VARCHAR(255),adress text,Dry_weight INT (11),Described_drugs text,SupD VARCHAR (255),FOREIGN KEY (SupD) REFERENCES doctors(Dcode))")
+mycursor.execute("CREATE TABLE IF NOT EXISTS Doctors(Dcode VARCHAR (255)  NOT NULL PRIMARY KEY,Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(14),mail VARCHAR(255) UNIQUE,Birth_date INT(14),Doctor_ID INT(28) UNIQUE,syndicate_number INT (28) UNIQUE,salary INT(11),gender VARCHAR(255),address text,jop_rank VARCHAR(255),image LONGBLOB)")
+mycursor.execute("CREATE TABLE IF NOT EXISTS nurses (Ncode VARCHAR (255) NOT NULL PRIMARY KEY,Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(14),mail VARCHAR(255)UNIQUE,Birth_Date INT(11),Nurse_ID INT(28)UNIQUE,syndicate_number INT (28) UNIQUE,salary INT(11),gender VARCHAR(255),address text,image LONGBLOB )")
+mycursor.execute("CREATE TABLE IF NOT EXISTS patients(Pcode VARCHAR (255) NOT NULL PRIMARY KEY,Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),Numofsessions int(11),Daysofsessions text,Patient_ID INT(28)UNIQUE,phone INT(14),mail VARCHAR(255)UNIQUE,age INT(11),gender VARCHAR(255),address text,Dry_weight INT (11),Described_drugs text,SupD VARCHAR (255),FOREIGN KEY (SupD) REFERENCES doctors(Dcode))")
 mycursor.execute("CREATE TABLE IF NOT EXISTS sessions (Scode VARCHAR (255) NOT NULL PRIMARY KEY,Date INT (11),used_device VARCHAR(255),price INT(11),record_by VARCHAR(255),after_weight INT (11),duration INT(11),taken_drugs text,complications text, dealing_with_complications text,comments text,P_code VARCHAR (255),D_code VARCHAR (255),N_code VARCHAR (255) ,FOREIGN KEY(P_code) REFERENCES patients(Pcode),FOREIGN KEY(D_code) REFERENCES doctors(Dcode),FOREIGN KEY(N_code) REFERENCES nurses(Ncode))")
 mycursor.execute("CREATE TABLE IF NOT EXISTS contact (name VARCHAR(255),email VARCHAR(255),subject VARCHAR(255),message text)")
 
@@ -22,6 +22,7 @@ app = Flask(__name__,template_folder='template')
 def index():
    return render_template('index.html')
 
+#START OF ADD DOCTOR 
 @app.route('/adddoctor',methods =  ['POST', 'GET'])
 def adddoctor():
     if request.method == 'POST': ##check if there is post data
@@ -45,82 +46,95 @@ def adddoctor():
       return render_template('index.html')
     else:
       return render_template('adddoctor.html')
+#END OF ADD DOCTOR 
 
+#START OF VIEW DOCTOR 
 @app.route('/viewdoctor')
 def viewdoctor():
    mycursor.execute("SELECT * FROM Doctors")
    row_headers=[x[0] for x in mycursor.description] 
    myresult = mycursor.fetchall()
    return render_template('viewdoctor.html',DoctorsData = myresult)
+#END OF VIEWCTOR 
 
+#START OF ADD PATIENT 
 @app.route('/addpatient',methods=["GET","POST"])
 def addpatient():
    if request.method == 'POST': 
-    Pcode=request.form["Pcode"]
+    Pcode=request.form ["Pcode"]
     Fname = request.form["Fname"]
     Mname = request.form["Mname"]
     Lname = request.form["Lname"]
-    Numofsessions=request.form["Numofsessions"]
-    Daysofsessions=request.form["Daysofsessions"]
+    Numofsessions=request.form["Num of sessions"]
+    Daysofsessions=request.form["Days of sessions"]
     Patient_ID = request.form["Patient_ID"]
-    phone = request.form["phone"]
+    phone = request.form["Phone"]
     mail = request.form["mail"]
     age= request.form["age"]
     gender=request.form["gender"]
-    adress = request.form["adress"]
+    address = request.form["address"]
     Dry_weight= request.form["Dry_weight"]
     Described_drugs=request.form["Described_drugs"]
     #SupD=request.form["SupD"]
-    #print(Pcode,Fname,Mname,Lname,phone,mail,age,patient_ID,Dry_weight,adress,gender,Described_drugs,SubD)
-    sql = 'INSERT INTO patients (Pcode,Fname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,adress,Dry_weight,Described_drugs) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
-    val = (Pcode,Fname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,adress,Dry_weight,Described_drugs)
+    sql = 'INSERT INTO patients (Pcode,Fname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,address,Dry_weight,Described_drugs) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    val = (Pcode,Fname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,address,Dry_weight,Described_drugs)
     mycursor.execute(sql, val)
     mydb.commit() 
-   return render_template('addpatient.html')
+    return render_template('index.html')
+   else:
+    return render_template('addpatient.html')
+#END OF ADD PATIENT 
 
+#START OF VIEW PATIENT 
 @app.route('/viewpatient')
-#@app.route("/upload",methods=["post"])
+    #@app.route("/upload",methods=["post"])
 def viewpatient():
    mycursor.execute("SELECT * FROM patients")
    row_headers =[x[0] for x in mycursor.description] #this will extract row headers
    myresult = mycursor.fetchall()
    return render_template('viewpatient.html',patientsData=myresult)
-
+#END OF VIEW PATIENT 
 #def upload():
  #   file = request.files["inputfile"]
   #  return file.filename
 
+#START OF VIEW NURSE 
 @app.route('/addnurse', methods=["GET","POST"])
 def addnurse():
    if request.method == 'POST': 
+    Ncode = request.form["Ncode"]
     Fname = request.form["Fname"]
     Mname = request.form["Mname"]
     Lname = request.form["Lname"]
-    Ncode=request.form["Ncode"]
     phone = request.form["Phone"]
     mail = request.form["mail"]
     Birth_Date = request.form["Birth_Date"]
     Nurse_ID = request.form["Nurse_ID"]
     salary = request.form["salary"]
-    adress = request.form["adress"]
+    gender = request.form["gender"]
+    address = request.form["address"]
     gender=request.form["gender"]
-    syndicate_number=request.form["syndicate_number"]
-    #print(Fname,Mname,Lname,Ncode,phone,mail,Birth_Date,Nurse_ID,salary,address,gender)
-    sql = 'INSERT INTO nurses (Fname,Mname,Lname,Ncode,phone,mail,Birth_Date,Nurse_ID,salary,adress,gender,syndicate_number) VALUES ( %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
-    val = (Fname,Mname,Lname,Ncode,phone,mail,Birth_Date,Nurse_ID,salary,adress,gender,syndicate_number)
+    syndicate_number=request.form["Syndicate_number"]
+    sql = 'INSERT INTO nurses (Ncode,Fname,Mname,Lname,phone,mail,Birth_Date,Nurse_ID,salary,address,gender,syndicate_number) VALUES ( %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    val = (Ncode,Fname,Mname,Lname,phone,mail,Birth_Date,Nurse_ID,salary,address,gender,syndicate_number)
     mycursor.execute(sql, val)
     mydb.commit() 
-   return render_template("addnurse.html")
+    return render_template('index.html')
+   else:
+    return render_template("addnurse.html")
+#END OF VIEW NURSE
  
 
+#START OF VIEW NURSE
 @app.route('/viewnurse')
 def viewnurse():
    mycursor.execute("SELECT * FROM nurses")
    row_headers =[x[0] for x in mycursor.description] #this will extract row headers
    myresult = mycursor.fetchall()
    return render_template('viewnurse.html',nursesData=myresult)
-   
+#END OF VIEW NURSE
 
+#START OF ADD sessions
 @app.route('/addsession',methods =  ['POST', 'GET'])
 def addsession(): 
    if request.method == 'POST': ##check if there is post data
@@ -141,11 +155,17 @@ def addsession():
       mydb.commit() 
       return render_template('index.html')
    else:
-     return render_template('addsession.html')
+      return render_template('addsession.html')
+#END OF ADD sessions
 
+#START OF VIEW sessions
 @app.route('/viewsession')
 def viewsession():
-   return render_template('viewsession.html')
+      mycursor.execute("SELECT * FROM sessions")
+      row_headers=[x[0] for x in mycursor.description] 
+      myresult = mycursor.fetchall()
+      return render_template('viewsession.html',sessionsData = myresult)
+#END OF VIEW sessions
 
 if __name__ == '__main__':
    #app.run()

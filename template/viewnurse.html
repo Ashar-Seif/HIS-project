@@ -1,53 +1,44 @@
-<!DOCTYPE html>
-<html>
-   <head>
-      <title>nurse</title>
-   </head>
+{% extends "addnurse.html" %} {% block main %}
+<h1>View Nurses</h1>
 
-   <body>
-      <h1>This is view nurse tap</h1>
-      <table class="table">
-         <thead>
-             
-           <tr>
-             <th scope="col">index</th>
-             <th scope="col">Ncode</th>
-             <th scope="col">Fname</th>
-             <th scope="col">Mname</th>
-             <th scope="col">Lname</th>
-             <th scope="col">phone</th>
-             <th scope="col">mail</th>
-             <th scope="col">Birth_Date</th>
-             <th scope="col">Nurse_ID</th>
-             <th scope="col">syndicate_number</th>
-             <th scope="col">salary</th>
-             <th scope="col">gender</th>
-             <th scope="col">address</th>
-             
-             
-           </tr>
-         </thead>
-         <tbody>
-             {% for data in nursesData %}
-           <tr>
-             <th scope="row">{{loop.index}}</th>
-             <td>{{data.0}}</td>
-             <td>{{data.1}}</td>
-             <td>{{data.2}}</td>
-             <td>{{data.3}}</td>
-             <td>{{data.4}}</td>
-             <td>{{data.5}}</td>
-             <td>{{data.6}}</td>
-             <td>{{data.7}}</td>
-             <td>{{data.8}}</td>
-             <td>{{data.9}}</td>
-             <td>{{data.10}}</td>
-             <td>{{data.11}}</td>
-           </tr>
-           {% endfor %}
-         </tbody>
-       </table>
-      <a href="http://127.0.0.1:5000">Back</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ncode</th>
+            <th scope="col">Fname</th>
+            <th scope="col">Mname</th>
+            <th scope="col">Lname</th>
+            <th scope="col">phone</th>
+            <th scope="col">mail</th>
+            <th scope="col">Birth_Date</th>
+            <th scope="col">Nurse_ID</th>
+            <th scope="col">syndicate_number</th>
+            <th scope="col">salary</th>
+            <th scope="col">gender</th>
+            <th scope="col">address</th>
+        </tr>
+    </thead>
 
-   </body>
-</html> 
+    <tbody>
+        {% for data in nursesData %}
+        <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{data.0}}</td>
+            <td>{{data.1}}</td>
+            <td>{{data.2}}</td>
+            <td>{{data.3}}</td>
+            <td>{{data.4}}</td>
+            <td>{{data.5}}</td>
+            <td>{{data.6}}</td>
+            <td>{{data.7}}</td>
+            <td>{{data.8}}</td>
+            <td>{{data.9}}</td>
+            <td>{{data.10}}</td>
+            <td>{{data.11}}</td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
