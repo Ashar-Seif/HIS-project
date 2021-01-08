@@ -197,7 +197,7 @@
 		  <div class="fadeIn first">
 			<img src="/static/img/logo.png" id="icon" alt="User Icon" style="max-width: 20%;" />
 		  </div>
-        {% block main %}
+        
 
                 <form action="http://localhost:5000/adddoctor" method="POST">
                     
@@ -262,7 +262,7 @@
                         <div class="col-md">
                             <div class="form-group">
                                 <label for="phoneinput">Phone</label>
-                                <input name="Phone" type="number" class="form-control" id="idinput" placeholder="Enter patient Phone Number">
+                                <input name="Phone" type="tel" class="form-control" id="idinput" placeholder="Enter patient Phone Number">
                             </div>
                         </div>
                         <div class="col-md">
@@ -313,7 +313,7 @@
                     <a href="http://127.0.0.1:5000"><input type="button" style="background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);" value="Back"></a>
 
                 </form>
-        {% endblock %}
+        
         </div>
     </div>
     </div>

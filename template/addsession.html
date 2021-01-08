@@ -197,7 +197,7 @@
 		  <div class="fadeIn first">
 			<img src="/static/img/logo.png" id="icon" alt="User Icon" style="max-width: 20%;" />
 		  </div>
-        {% block main %}
+        
 
                 <form action="http://localhost:5000/adddoctor" method="POST" >
                     
@@ -205,7 +205,7 @@
                         <div class="col-md">
                             <div class="form-group">
                                 <label for="inputPassword" class="col-sm-2 col-form-label">Scode</label>
-                                <input name="Scode" type="password" class="form-control" id="inputPassword" placeholder="Enter doctor code">
+                                <input name="Scode" type="password" class="form-control" id="inputPassword" placeholder="Enter session code">
                             </div>
                         </div>
                         <div class="col-md">
@@ -278,13 +278,33 @@
                         <label for="commentsinput">comments</label>
                         <textarea class="form-control br-radius-zero" name="comments" rows="col-auto" data-rule="required" data-msg="comments" placeholder="Please write comments if found "></textarea>
                         <div class="validation"></div>
-                    </div>                     
-                    
+                    </div>               
+
+                    <div class="row g-3">
+                        <div class="col-md">
+                    <div class="form-group">
+                        <label for="inputPassword" >P_code</label>
+                        <input name="P_code" type="password" class="form-control" id="inputPassword" placeholder="Enter patient code">
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-group">
+                        <label for="inputPassword" >D_code</label>
+                        <input name="D_code" type="password" class="form-control" id="inputPassword" placeholder="Enter doctor code">
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-group">
+                        <label for="inputPassword" >N_code</label>
+                        <input name="N_code" type="password" class="form-control" id="inputPassword" placeholder="Enter nurse code">
+                    </div>   
+                </div>
+            </div>
                     <button type="submit" style="background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);">Submit</button>
                     <a href="http://127.0.0.1:5000"><input type="button" style="background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);" value="Back"></a>
 
                 </form>
-        {% endblock %}
+        
         </div>
     </div>
     </div>
