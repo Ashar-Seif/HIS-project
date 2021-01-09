@@ -7,16 +7,16 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   passwd="mysql",
-  database="Hemo"
+  database="Hemodialysis"
 )
 
 mycursor = mydb.cursor()
-mycursor.execute("CREATE TABLE IF NOT EXISTS Doctors(Dcode VARCHAR (255)  NOT NULL PRIMARY KEY,Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(14),mail VARCHAR(255) UNIQUE,Birth_date INT(14),Doctor_ID INT(28) UNIQUE,syndicate_number INT (28) UNIQUE,salary INT(11),gender VARCHAR(255),address text,jop_rank VARCHAR(255),image LONGBLOB)")
-mycursor.execute("CREATE TABLE IF NOT EXISTS nurses (Ncode VARCHAR (255) NOT NULL PRIMARY KEY,Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(14),mail VARCHAR(255)UNIQUE,Birth_Date INT(11),Nurse_ID INT(28)UNIQUE,syndicate_number INT (28) UNIQUE,salary INT(11),gender VARCHAR(255),address text,image LONGBLOB )")
-mycursor.execute("CREATE TABLE IF NOT EXISTS patients(Pcode VARCHAR (255) NOT NULL PRIMARY KEY,Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),Numofsessions int(11),Daysofsessions text,Patient_ID INT(28)UNIQUE,phone INT(14),mail VARCHAR(255)UNIQUE,age INT(11),gender VARCHAR(255),address text,Dry_weight INT (11),Described_drugs text,SupD VARCHAR (255),FOREIGN KEY (SupD) REFERENCES doctors(Dcode))")
+mycursor.execute("CREATE TABLE IF NOT EXISTS Doctors(Dcode VARCHAR (255)  NOT NULL PRIMARY KEY,Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(14),mail VARCHAR(255) UNIQUE,Birth_date INT(14),Doctor_ID INT(50) UNIQUE,syndicate_number INT (50) UNIQUE,salary INT(11),gender VARCHAR(255),address text,jop_rank VARCHAR(255),access_level int (11),image LONGBLOB)")
+mycursor.execute("CREATE TABLE IF NOT EXISTS nurses (Ncode VARCHAR (255) NOT NULL PRIMARY KEY,Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(14),mail VARCHAR(255)UNIQUE,Birth_Date INT(11),Nurse_ID INT(50)UNIQUE,syndicate_number INT (50) UNIQUE,salary INT(11),gender VARCHAR(255),address text,access_level int (11),image LONGBLOB )")
+mycursor.execute("CREATE TABLE IF NOT EXISTS patients(Pcode VARCHAR (255) NOT NULL PRIMARY KEY,Fname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),Numofsessions int(11),Daysofsessions text,Patient_ID INT(50)UNIQUE,phone INT(14),mail VARCHAR(255)UNIQUE,age INT(11),gender VARCHAR(255),address text,Dry_weight INT (11),Described_drugs text,access_level int (11),SupD VARCHAR (255),FOREIGN KEY (SupD) REFERENCES doctors(Dcode))")
 mycursor.execute("CREATE TABLE IF NOT EXISTS sessions (Scode VARCHAR (255) NOT NULL PRIMARY KEY,Date INT (11),used_device VARCHAR(255),price INT(11),record_by VARCHAR(255),after_weight INT (11),duration INT(11),taken_drugs text,complications text, dealing_with_complications text,comments text,P_code VARCHAR (255),D_code VARCHAR (255),N_code VARCHAR (255) ,FOREIGN KEY(P_code) REFERENCES patients(Pcode),FOREIGN KEY(D_code) REFERENCES doctors(Dcode),FOREIGN KEY(N_code) REFERENCES nurses(Ncode))")
 mycursor.execute("CREATE TABLE IF NOT EXISTS contact (name VARCHAR(255),email VARCHAR(255),subject VARCHAR(255),message text)")
-mycursor.execute("CREATE TABLE IF NOT EXISTS accounts (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,fullname VARCHAR(255) NOT NULL,username VARCHAR(255) NOT NULL,password VARCHAR(255) NOT NULL,email VARCHAR(255) NOT NULL)")
+mycursor.execute("CREATE TABLE IF NOT EXISTS accounts (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,fullname VARCHAR(255) NOT NULL,username VARCHAR(255) NOT NULL,password VARCHAR(255) NOT NULL ,email VARCHAR(255) NOT NULL,access_level int (11))")
 
 app = Flask(__name__,template_folder='template')
 app.secret_key = 'team13'
@@ -48,8 +48,9 @@ def adddoctor():
       Syndicate_number= request.form['Syndicate_number']
       address= request.form['address']
       Job_rank= request.form['Job_rank']
-      sql = "INSERT INTO doctors ( Dcode,Fname,Mname,Lname,phone,mail,Birth_date,Doctor_ID,Syndicate_number,salary,gender,address,jop_rank) VALUES (%s, %s, %s,%s, %s, %s,%s, %s, %s,%s,%s, %s,%s)"
-      val = (Dcode,Fname,Mname,Lname,phone,mail,BD,Doctor_ID,Syndicate_number,Salary,gender,address,Job_rank)
+      access_level=2
+      sql = "INSERT INTO doctors ( Dcode,Fname,Mname,Lname,phone,mail,Birth_date,Doctor_ID,Syndicate_number,salary,gender,address,jop_rank,access_level) VALUES (%s, %s, %s,%s, %s, %s,%s, %s, %s,%s,%s, %s,%s,%s)"
+      val = (Dcode,Fname,Mname,Lname,phone,mail,BD,Doctor_ID,Syndicate_number,Salary,gender,address,Job_rank,access_level)
       mycursor.execute(sql, val)
       mydb.commit() 
       return render_template('index.html')
@@ -84,9 +85,10 @@ def addpatient():
     address = request.form["address"]
     Dry_weight= request.form["Dry_weight"]
     Described_drugs=request.form["Described_drugs"]
-    #SupD=request.form["SupD"]
-    sql = 'INSERT INTO patients (Pcode,Fname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,address,Dry_weight,Described_drugs) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
-    val = (Pcode,Fname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,address,Dry_weight,Described_drugs)
+    access_level=3
+    SupD=request.form["SupD"]
+    sql = 'INSERT INTO patients (Pcode,SupD,Fname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,address,Dry_weight,Described_drugs,access_level) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    val = (Pcode,SupD,Fname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,address,Dry_weight,Described_drugs,access_level)
     mycursor.execute(sql, val)
     mydb.commit() 
     return render_template('index.html')
@@ -124,9 +126,10 @@ def addnurse():
     address = request.form["address"]
     gender=request.form["gender"]
     syndicate_number=request.form["Syndicate_number"]
-    sql = 'INSERT INTO nurses (Ncode,Fname,Mname,Lname,phone,mail,Birth_Date,Nurse_ID,salary,address,gender,syndicate_number) VALUES ( %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
-    val = (Ncode,Fname,Mname,Lname,phone,mail,Birth_Date,Nurse_ID,salary,address,gender,syndicate_number)
-    mycursor.execute(sql, val)
+    access_level=4
+    sql = 'INSERT INTO nurses (Ncode,Fname,Mname,Lname,phone,mail,Birth_Date,Nurse_ID,salary,address,gender,syndicate_number,access_level) VALUES ( %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    val = (Ncode,Fname,Mname,Lname,phone,mail,Birth_Date,Nurse_ID,salary,address,gender,syndicate_number,access_level)
+    mycursor.execute(sql,val)
     mydb.commit() 
     return render_template('index.html')
    else:
@@ -148,6 +151,9 @@ def viewnurse():
 def addsession(): 
    if request.method == 'POST': ##check if there is post data
       Scode=request.form['Scode']
+      Dcode=request.form['Dcode']
+      Ncode=request.form['Ncode']
+      Pcode=request.form['Pcode']
       Date= request.form['Date']
       used_device = request.form['used_device']
       Price = request.form['Price']
@@ -158,9 +164,9 @@ def addsession():
       complications= request.form['complications']
       dealing_with_complications= request.form['dealing_with_complications']
       comments= request.form['comments']
-      sql = "INSERT INTO sessions (Scode,Date,used_device,price,record_by,after_weight,duration,taken_drugs,complications,dealing_with_complications,comments) VALUES (%s, %s, %s,%s, %s, %s,%s, %s, %s,%s,%s)"
-      val = (Scode,Date,used_device,Price,record_by,after_weight,duration,taken_drugs,complications,dealing_with_complications,comments)
-      mycursor.execute(sql, val)
+      sql = "INSERT INTO sessions (Scode,D_code,P_code,N_code,Date,used_device,price,record_by,after_weight,duration,taken_drugs,complications,dealing_with_complications,comments) VALUES (%s, %s, %s,%s, %s, %s,%s, %s, %s,%s,%s,%s, %s, %s )"
+      val = (Scode,Dcode,Pcode,Ncode,Date,used_device,Price,record_by,after_weight,duration,taken_drugs,complications,dealing_with_complications,comments)
+      mycursor.execute(sql,val)
       mydb.commit() 
       return render_template('index.html')
    else:
@@ -213,6 +219,7 @@ def register():
         username = request.form['username'] 
         password = request.form['password'] 
         email = request.form['email']  
+        access_level=1
         mycursor.execute('SELECT * FROM accounts WHERE username = %s', (username, )) 
         account = mycursor.fetchone() 
         if account: 
@@ -225,8 +232,8 @@ def register():
             msg = 'Please fill out the form !'
         else: 
             #mycursor.execute('INSERT INTO accounts VALUES (NULL, % s, % s, % s, % s)', (fullname, username, password, email))
-            sql = 'INSERT INTO accounts (id, fullname, username, password, email) VALUES (NULL, %s, %s, %s, %s)'
-            val = (fullname, username, password, email)
+            sql = 'INSERT INTO accounts (id, fullname, username, password, email,access_level) VALUES (NULL, %s, %s, %s, %s,%s)'
+            val = (fullname, username, password, email,access_level)
 
             mycursor.execute(sql, val)
             mydb.commit() 
