@@ -1,89 +1,86 @@
- 
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/view.css') }}">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
     <title>view doctor</title>
-  </head>
-  <body>
+    <style>
+        a {
+            display: inline-block;
+        }
+        
+        h5 {
+            display: inline-block;
+        }
+    </style>
+</head>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="{{url_for('hello_name')}}">Home</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-         <span class="navbar-toggler-icon"></span>
-      </button>
-   
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-         <ul class="navbar-nav mr-auto">
-            
-            <li class="nav-item">
-            <a class="nav-link" href="{{url_for('adddoctor')}}">Add New Doctor</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{{url_for('viewdoctor')}}">View Doctors</a>
-            </li>
-         
-         </ul>
-   </div>
-   </nav>
-   
-   <div class="container">
-    <h1>View Doctors!</h1>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Dcode</th>
-            <th scope="col">Fname</th>
-            <th scope="col">Mname</th>
-            <th scope="col">Lname</th>
-            <th scope="col">phone</th>
-            <th scope="col">mail</th>
-            <th scope="col">Birth_date</th>
-            <th scope="col">Doctor_ID</th>
-            <th scope="col">syndicate_number</th>
-            <th scope="col">salary</th>
-            <th scope="col">gender</th>
-            <th scope="col">address</th>
-            <th scope="col">jop_rank</th>
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent" style="overflow-x:auto;">
+            <a class="inactive underlineHover" href="{{ url_for('hello_name') }}" style="text-decoration: none; font-size: 16px;">Home</a>
+            <a class="inactive underlineHover" href="{{ url_for('adddoctor') }}" style="text-decoration: none; font-size: 16px;">Add Doctor</a>
+            <h5 class="active"> View Doctor </h5>
+            <div class="fadeIn first">
+                <img src="/static/img/logo.png" id="icon" alt="User Icon" style="max-width: 20%;" />
+            </div>
+            <table class="table" style="font-size: 12px;">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Dcode</th>
+                        <th scope="col">Fname</th>
+                        <th scope="col">Mname</th>
+                        <th scope="col">Lname</th>
+                        <th scope="col">phone</th>
+                        <th scope="col">mail</th>
+                        <th scope="col">Birth_date</th>
+                        <th scope="col">Doctor_ID</th>
+                        <th scope="col">syndicate_number</th>
+                        <th scope="col">salary</th>
+                        <th scope="col">gender</th>
+                        <th scope="col">address</th>
+                        <th scope="col">jop_rank</th>
 
-        </tr>
-    </thead>
+                    </tr>
+                </thead>
 
-    <tbody>
-        {% for data in DoctorsData %}
-        <tr>
-            <th scope="row">{{loop.index}}</th>
-            <td>{{data.0}}</td>
-            <td>{{data.1}}</td>
-            <td>{{data.2}}</td>
-            <td>{{data.3}}</td>
-            <td>{{data.4}}</td>
-            <td>{{data.5}}</td>
-            <td>{{data.6}}</td>
-            <td>{{data.7}}</td>
-            <td>{{data.8}}</td>
-            <td>{{data.9}}</td>
-            <td>{{data.10}}</td>
-            <td>{{data.11}}</td>
-            <td>{{data.12}}</td>
+                <tbody>
+                    {% for data in DoctorsData %}
+                    <tr>
+                        <th scope="row">{{loop.index}}</th>
+                        <td>{{data.0}}</td>
+                        <td>{{data.1}}</td>
+                        <td>{{data.2}}</td>
+                        <td>{{data.3}}</td>
+                        <td>{{data.4}}</td>
+                        <td>{{data.5}}</td>
+                        <td>{{data.6}}</td>
+                        <td>{{data.7}}</td>
+                        <td>{{data.8}}</td>
+                        <td>{{data.9}}</td>
+                        <td>{{data.10}}</td>
+                        <td>{{data.11}}</td>
+                        <td>{{data.12}}</td>
 
 
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-   </div>
-   <!-- Optional JavaScript -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
+</body>
+
 </html>

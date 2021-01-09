@@ -1,76 +1,48 @@
-<!doctype html>
-<html lang="en">
+{% extends "adddoctor.html" %} {% block main %}
+<h1>HI DOCTOR,Here is your Information</h1>
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Dcode</th>
+            <th scope="col">Fname</th>
+            <th scope="col">Mname</th>
+            <th scope="col">Lname</th>
+            <th scope="col">phone</th>
+            <th scope="col">mail</th>
+            <th scope="col">Birth_date</th>
+            <th scope="col">Doctor_ID</th>
+            <th scope="col">syndicate_number</th>
+            <th scope="col">salary</th>
+            <th scope="col">gender</th>
+            <th scope="col">address</th>
+            <th scope="col">jop_rank</th>
+            <th scope="col">access_level</th>
+        </tr>
+    </thead>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <tbody>
+        {% for data in DoctorprofileData %}
+        <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{data.0}}</td>
+            <td>{{data.1}}</td>
+            <td>{{data.2}}</td>
+            <td>{{data.3}}</td>
+            <td>{{data.4}}</td>
+            <td>{{data.5}}</td>
+            <td>{{data.6}}</td>
+            <td>{{data.7}}</td>
+            <td>{{data.8}}</td>
+            <td>{{data.9}}</td>
+            <td>{{data.10}}</td>
+            <td>{{data.11}}</td>
+            <td>{{data.12}}</td>
+            <td>{{data.13}}</td>
 
-    <title>Welcome</title>
-</head>
-
-<body>
-
-
-
-    <div class="container">
-        <h1>HI</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Dcode</th>
-                    <th scope="col">Pcode</th>
-                    <th scope="col">Ncode</th>
-                    <th scope="col">Scode</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Dcode</th>
-                    <th scope="col">used_device</th>
-                    <th scope="col">record_by</th>
-                    <th scope="col">Dry_weight</th>
-                    <th scope="col">after_weight</th>
-                    <th scope="col">duration</th>
-                    <th scope="col">taken_drugs</th>
-                    <th scope="col">described_drugs</th>
-                    <th scope="col">complications</th>
-                    <th scope="col">dealing_with_complications</th>
-                    <th scope="col">comments</th>
-
-                </tr>
-            </thead>
-
-            <tbody>
-                {% for data in Doctorprofile %}
-                <tr>
-                    <td>{{data.0}}</td>
-                    <td>{{data.1}}</td>
-                    <td>{{data.2}}</td>
-                    <td>{{data.3}}</td>
-                    <td>{{data.4}}</td>
-                    <td>{{data.5}}</td>
-                    <td>{{data.6}}</td>
-                    <td>{{data.7}}</td>
-                    <td>{{data.8}}</td>
-                    <td>{{data.9}}</td>
-                    <td>{{data.10}}</td>
-                    <td>{{data.11}}</td>
-                    <td>{{data.12}}</td>
-                    <td>{{data.13}}</td>
-                    <td>{{data.14}}</td>
-                    <td>{{data.15}}</td>
-
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
-
-</html>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
