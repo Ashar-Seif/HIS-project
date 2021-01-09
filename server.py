@@ -70,7 +70,7 @@ def viewdoctor():
 #START OF Doctor profile
 @app.route('/doctorprofile')
 def doctorprofile():
-   mycursor.execute("SELECT * FROM doctors JOIN sessions ON Dcode = D_code ")
+   mycursor.execute("SELECT Dcode,Ncode,Pcode,Scode,Date,used_device,record_by,Dry_weight,after_weight,duration,taken_drugs,described_drugs,complications,dealing_with_complications,comments FROM doctors JOIN sessions ON Dcode = D_code JOIN patients ON Pcode=P_code JOIN Nurses ON Ncode=N_code")
    row_headers=[x[0] for x in mycursor.description] 
    myresult = mycursor.fetchall()
    return render_template('doctorprofile.html', DoctorprofileData= myresult)
