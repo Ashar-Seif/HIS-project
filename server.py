@@ -111,7 +111,7 @@ def viewpatient():
    mycursor.execute("SELECT * FROM patients")
    row_headers =[x[0] for x in mycursor.description] #this will extract row headers
    myresult = mycursor.fetchall()
-   return render_template('viewpatient.html',patientsData=myresult)
+   return render_template('viewpatient.html',patientsData = myresult)
 #END OF VIEW PATIENT 
 #def upload():
  #   file = request.files["inputfile"]
