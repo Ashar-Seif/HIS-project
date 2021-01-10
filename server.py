@@ -66,16 +66,27 @@ def viewdoctor():
    row_headers=[x[0] for x in mycursor.description] 
    myresult = mycursor.fetchall()
    return render_template('viewdoctor.html',DoctorsData = myresult)
-#END OF VIEWCTOR 
+#END OF VIEW DOCTOR 
 
+
+#START OF DELETE DOCTOR 
+@app.route('/deletedoctor/<string:id>',methods=['GET','POST'])
+def deletedoctor(id):
+   mycursor = mydb.cursor()
+   mycursor.execute("DELETE FROM doctors WHERE Dcode = %s", [id])
+   mydb.commit()
+   return render_template('viewdoctor.html')
+#END OF DELETE DOCTOR
+ 
 #START OF Doctor profile
 @app.route('/doctorprofile')
 def doctorprofile():
-   mycursor.execute("SELECT Dcode,Ncode,Pcode,Scode,Date,used_device,record_by,Dry_weight,after_weight,duration,taken_drugs,described_drugs,complications,dealing_with_complications,comments FROM doctors JOIN sessions ON Dcode = D_code JOIN patients ON Pcode=P_code JOIN Nurses ON Ncode=N_code")
+   mycursor.execute("SELECT Dcode,Dname,Nname,Pname,Scode,Date,used_device,record_by,Dry_weight,after_weight,duration,taken_drugs,described_drugs,complications,dealing_with_complications,comments FROM doctors JOIN sessions ON Dcode = D_code JOIN patients ON Pcode=P_code JOIN Nurses ON Ncode=N_code")
    row_headers=[x[0] for x in mycursor.description] 
    myresult = mycursor.fetchall()
    return render_template('doctorprofile.html', DoctorprofileData= myresult)
 #END OF Doctor profile
+
 
 #START OF ADD PATIENT 
 @app.route('/addpatient',methods=["GET","POST"])
@@ -115,6 +126,17 @@ def viewpatient():
    myresult = mycursor.fetchall()
    return render_template('viewpatient.html',patientsData = myresult)
 #END OF VIEW PATIENT 
+
+#START OF DELETE patient
+@app.route('/deletepatient/<string:id>',methods=['GET','POST'])
+def deletepatient(id):
+   mycursor = mydb.cursor()
+   mycursor.execute("DELETE FROM patients WHERE Pcode = %s", [id])
+   mydb.commit()
+   return render_template('viewpatient.html')
+#END OF DELETE patient 
+
+
 #def upload():
  #   file = request.files["inputfile"]
   #  return file.filename
@@ -155,6 +177,17 @@ def viewnurse():
    return render_template('viewnurse.html',nursesData=myresult)
 #END OF VIEW NURSE
 
+
+#START OF DELETE patient
+@app.route('/deletenurse/<string:id>',methods=['GET','POST'])
+def deletenurse(id):
+   mycursor = mydb.cursor()
+   mycursor.execute("DELETE FROM nurses WHERE Ncode = %s", [id])
+   mydb.commit()
+   return render_template('viewnurse.html')
+#END OF DELETE nurse
+
+
 #START OF ADD sessions
 @app.route('/addsession',methods =  ['POST', 'GET'])
 def addsession(): 
@@ -190,6 +223,20 @@ def viewsession():
       myresult = mycursor.fetchall()
       return render_template('viewsession.html',sessionsData = myresult)
 #END OF VIEW sessions
+
+
+#START OF DELETE session
+@app.route('/deletesession/<string:id>',methods=['GET','POST'])
+def deletesession(id):
+   mycursor = mydb.cursor()
+   mycursor.execute("DELETE FROM sessions WHERE Scode = %s", [id])
+   mydb.commit()
+   return render_template('viewsession.html')
+#END OF DELETE session
+
+
+
+
 #**********log in page http://127.0.0.1:5000/login 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

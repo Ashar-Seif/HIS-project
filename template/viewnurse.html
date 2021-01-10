@@ -48,6 +48,7 @@
                         <th scope="col">salary</th>
                         <th scope="col">gender</th>
                         <th scope="col">address</th>
+                        <th scope="col">Action</th>
 
                     </tr>
                 </thead>
@@ -69,7 +70,9 @@
                         <td>{{data.10}}</td>
                         <td>{{data.11}}</td>
                         <td>{{data.12}}</td>
-
+                        <td width="130">
+                            <a href="/edit/{{data.id}}" class="btn btn-secondary btn-sm">Edit</a>
+                            <a class="btn btn-danger btn-delete btn-sm" onclick="return confirm('Warning : YOU NEED TO DROP THE NURSE  PATIENTS AND SESSIONS FRIST!!,  ARE YOU SURE YOU WANT TO DELETE?');" href="{{url_for('deletenurse',id=data.0)}}">Delete</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
