@@ -269,6 +269,69 @@ def login():
             msg = 'Incorrect username/password!'
     
     return render_template('login.html', msg=msg)
+
+#********** roles log in page http://127.0.0.1:5000/roleslogin
+@app.route('/roleslogin/', methods=['GET', 'POST'])
+def roleslogin():
+
+    msg = ''
+    # Check if "username" and "password" POST requests exist (user submitted form)
+    if request.method == 'POST' and 'dcode' in request.form and 'dpassword' in request.form:
+        # Create variables for easy access
+        dcode = request.form['dcode']
+        dpassword = request.form['dpassword']
+        mycursor.execute('SELECT * FROM doctors WHERE Dcode = %s AND password = %s', (dcode, dpassword))
+        daccount = mycursor.fetchone()
+        if daccount:
+            # Create session data, we can access this data in other routes
+            session['dloggedin'] = True
+            session['dcode'] = daccount[0]
+            session['dpassword'] = daccount[1]
+            # Redirect to home page
+            #return 'Logged in successfully!'
+            return redirect(url_for('hello_name')) 
+        else:
+            # Account doesnt exist or username/password incorrect
+            msg = 'Incorrect code/password!'                   
+    elif request.method == 'POST' and 'ncode' in request.form and 'npassword' in request.form:
+        # Create variables for easy access
+        ncode = request.form['ncode']
+        npassword = request.form['npassword']
+        mycursor.execute('SELECT * FROM nurses WHERE Ncode = %s AND password = %s', (ncode, npassword))
+        naccount = mycursor.fetchone()  
+        if naccount:
+            # Create session data, we can access this data in other routes
+            session['nloggedin'] = True
+            session['ncode'] = naccount[0]
+            session['npassword'] = naccount[1]
+            # Redirect to home page
+            #return 'Logged in successfully!'
+            return redirect(url_for('hello_name'))
+        else:
+            # Account doesnt exist or username/password incorrect
+            msg = 'Incorrect code/password!'              
+    elif request.method == 'POST' and 'pcode' in request.form and 'ppassword' in request.form:
+        # Create variables for easy access
+        pcode = request.form['pcode']
+        ppassword = request.form['ppassword']    
+        mycursor.execute('SELECT * FROM patients WHERE Pcode = %s AND password = %s', (pcode, ppassword))
+        paccount = mycursor.fetchone()
+        if paccount:
+            # Create session data, we can access this data in other routes
+            session['ploggedin'] = True
+            session['pcode'] = paccount[0]
+            session['ppassword'] = paccount[1]
+            # Redirect to home page
+            #return 'Logged in successfully!'
+            return redirect(url_for('hello_name')) 
+        else:
+            # Account doesnt exist or username/password incorrect
+            msg = 'Incorrect code/password!'
+
+
+    
+    return render_template('roleslogin.html', msg=msg)
+
 @app.route('/register', methods =['GET', 'POST']) 
 def register(): 
     msg = '' 
@@ -290,7 +353,7 @@ def register():
             msg = 'Please fill out the form !'
         else: 
             #mycursor.execute('INSERT INTO accounts VALUES (NULL, % s, % s, % s, % s)', (fullname, username, password, email))
-            sql = 'INSERT INTO accounts (id, fullname, username, password, email,access_level) VALUES (NULL, %s, %s, %s, %s,%s)'
+            sql = 'INSERT INTO accounts (id, fullname, username, password, email,access_level) VALUES (NULL, %s, %s, %s, %s, %s)'
             val = (fullname, username, password, email,access_level)
 
             mycursor.execute(sql, val)
@@ -326,6 +389,6 @@ def profile():
 
 
 if __name__ == '__main__':
-   #app.run()
-   app.run(debug=True)
+   app.run()
+   #app.run(debug=True)
    
