@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Login</title>
+      <title>Login As</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
 	  <style>
@@ -238,7 +238,13 @@
 		-webkit-animation-delay: 1s;
 		-moz-animation-delay: 1s;
 		animation-delay: 1s;
-		}
+        }
+        
+		.fadeIn.fourth {
+		-webkit-animation-delay: 1s;
+		-moz-animation-delay: 1s;
+		animation-delay: 1s;
+		}        
 
 		/* Simple CSS3 Fade-in Animation */
 		.underlineHover:after {
@@ -283,9 +289,9 @@
 	<div class="wrapper fadeInDown">
 		<div id="formContent">
 		  <!-- Tabs Titles -->
-		  <h2 class="active"> Sign In </h2>
-		  <a class="inactive underlineHover" href="{{ url_for('register') }}">Sign Up</a>
-		  <a class="inactive underlineHover" href="{{ url_for('roleslogin') }}">Login As</a>
+		  <a class="inactive underlineHover" href="{{ url_for('login') }}">Sign In</a>
+          <a class="inactive underlineHover" href="{{ url_for('register') }}">Sign Up</a>
+          <h2 class="active"> Login As </h2>
 	  
 		  <!-- Icon -->
 		  <div class="fadeIn first">
@@ -293,12 +299,39 @@
 		  </div>
 	  
 		  <!-- Login Form -->
-		  <form action="{{ url_for('login') }}" method="post">
-			<input type="text" id="username" class="fadeIn second" name="username" placeholder="Username" required>
-			<input type="password" id="password" class="fadeIn third" name="password" placeholder="password" required>
+          <form class="form-group" action="{{ url_for('roleslogin') }}" method="post">
+            <center>
+            
+            <input type="text" class="form-control" name="dcode" placeholder="code" id="code" required>
+        
+            <input type="password" class="form-control" name="dpassword" placeholder="Password" id="password" required>
+            <input type="checkbox" value="checked">
+
+            </center>
+        </form>
+        <form class="form-group" action="{{ url_for('roleslogin') }}" method="post">
+            <center>
+            
+            <input type="text" class="form-control" name="ncode" placeholder="code" id="code" required>
+            
+            <input type="password" class="form-control" name="npassword" placeholder="Password" id="password" required>
+            <input type="checkbox" value="checked">
+
+            </center>
+        </form>
+        <form class="form-group" action="{{ url_for('roleslogin') }}" method="post">
+            <center>
+            
+            <input type="text" class="form-control" name="pcode" placeholder="code" id="code" required>
+           
+            <input type="password" class="form-control" name="ppassword" placeholder="Password" id="password" required>
+            <input type="checkbox" value="checked">
+
+            </center>
+        </form> 
 			<input type="submit" class="fadeIn fourth" value="Log In" name="">
-			<a href="http://127.0.0.1:5000"><input type="button" class="fadeIn fourth" value="Back"></a>
-			<div id="msg">{{ msg }}</div>
+            <a href="http://127.0.0.1:5000"><input type="button" class="fadeIn fourth" value="Back"></a>
+            <div id="msg">{{ msg }}</div>
 		  </form>
 		   
 		</div>

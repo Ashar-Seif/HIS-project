@@ -1,1 +1,0 @@
-run app.py and open http://localhost:5000/pythonlogin/
