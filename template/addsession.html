@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/add.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/add.css') }}">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -13,19 +13,20 @@
 
     <!-- ******* Style *********-->
     <style>
-        a{
-          display: inline-block;
+        a {
+            display: inline-block;
         }
-        h5{
-          display: inline-block;
+        
+        h5 {
+            display: inline-block;
         }
     </style>
 </head>
 
 <body>
-    <div class="wrapper fadeInDown" >
-		<div id="formContent" style="background-color: #e8e8e8;">
-		  <!-- Tabs Titles -->
+    <div class="wrapper fadeInDown">
+        <div id="formContent" style="background-color: #e8e8e8;">
+            <!-- Tabs Titles -->
             <a class="inactive underlineHover" href="{{ url_for('hello_name') }}" style="text-decoration: none; font-size: 16px;">Home</a>
             <h5 class="active"> Add Session </h5>
             <a class="inactive underlineHover" href="{{ url_for('viewsession') }}" style="text-decoration: none;">View session</a>
@@ -33,7 +34,7 @@
             <div class="fadeIn first">
                 <img src="/static/img/logo.png" id="icon" alt="User Icon" style="max-width: 20%;" />
             </div>
-            
+
 
             <form action="http://localhost:5000/addsession" method="POST">
 
@@ -54,6 +55,26 @@
                         <div class="form-group">
                             <label for="priceinput">Price</label>
                             <input name="Price" type="number" class="form-control" id="idinput" placeholder="Enter session price">
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputPassword">P_code</label>
+                            <input name="P_code" type="text" class="form-control" id="inputPassword" placeholder="Enter patient code">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputPassword">D_code</label>
+                            <input name="D_code" type="text" class="form-control" id="inputPassword" placeholder="Enter doctor code">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputPassword">N_code</label>
+                            <input name="N_code" type="text" class="form-control" id="inputPassword" placeholder="Enter nurse code">
                         </div>
                     </div>
                 </div>
@@ -113,6 +134,7 @@
                     <textarea class="form-control br-radius-zero" name="comments" rows="col-auto" data-rule="required" data-msg="comments" placeholder="Please write comments if found "></textarea>
                     <div class="validation"></div>
                 </div>
+
                 <button type="submit" style="background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);">Submit</button>
             </form>
         </div>

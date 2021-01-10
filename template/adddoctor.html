@@ -11,34 +11,42 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Add Doctor</title>
     <style>
-        a{
-          display: inline-block;
+        a {
+            display: inline-block;
         }
-        h5{
-          display: inline-block;
+        
+        h5 {
+            display: inline-block;
         }
-      </style>
+    </style>
 </head>
 
 <body>
     <div class="wrapper fadeInDown">
-		<div id="formContent" >
-		  <!-- Tabs Titles -->
+        <div id="formContent">
+            <!-- Tabs Titles -->
             <a class="inactive underlineHover" href="{{ url_for('hello_name') }}" style="text-decoration: none;">Home</a>
             <h5 class="active"> Add Doctor </h5>
             <a class="inactive underlineHover" href="{{ url_for('viewdoctor') }}" style="text-decoration: none;">View Doctor</a>
 
             <!-- Icon -->
             <div class="fadeIn first">
-            <img src="/static/img/logo.png" id="icon" alt="User Icon" style="max-width: 20%;" />
+                <img src="/static/img/logo.png" id="icon" alt="User Icon" style="max-width: 20%;" />
             </div>
-        
+
             <form action="http://localhost:5000/adddoctor" method="POST">
                 <div class="row g-2">
                     <div class="col-md">
                         <div class="form-group">
                             <label for="inputPassword">Dcode</label>
                             <input name="Dcode" type="text" class="form-control" id="inputPassword" placeholder="Enter doctor code">
+                        </div>
+                    </div>
+                    <div class="col-md">
+
+                        <div class="form-group">
+                            <label for="inputPassword">password</label>
+                            <input name="password" type="text" class="form-control" id="inputPassword" placeholder="Enter doctor password">
                         </div>
                     </div>
                     <div class="col-md">
@@ -130,7 +138,7 @@
                         </div>
                     </div>
                 </div>
-                    <button type="submit" style="background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%); border-radius: 10px;">Submit</button>
+                <button type="submit" style="background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%); border-radius: 10px;">Submit</button>
             </form>
         </div>
     </div>
