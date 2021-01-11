@@ -10,7 +10,9 @@ mydb = mysql.connector.connect(
   
 )
 
-mycursor = mydb.cursor(buffered=True)
+mycursor = mydb.cursor()
+mycursor.execute("CREATE DATABASE IF NOT EXISTS Hemodialysis")
+mycursor.execute("USE Hemodialysis")
 mycursor.execute("CREATE TABLE IF NOT EXISTS Doctors(Dcode VARCHAR (255)  NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL , Dname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(50),mail VARCHAR(255) UNIQUE,Birth_date Date,Doctor_ID INT(100) UNIQUE,syndicate_number INT (100) UNIQUE,salary INT(50),gender VARCHAR(255),address text,job_rank VARCHAR(255),access_level int DEFAULT 2,image LONGBLOB)")
 mycursor.execute("CREATE TABLE IF NOT EXISTS nurses (Ncode VARCHAR (255) NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL ,Nname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(50),mail VARCHAR(255)UNIQUE,Birth_date Date,Nurse_ID INT(100)UNIQUE,syndicate_number INT (100) UNIQUE,salary INT(50),gender VARCHAR(255),address text,access_level int DEFAULT 3,image LONGBLOB )")
 mycursor.execute("CREATE TABLE IF NOT EXISTS patients(Pcode VARCHAR (255) NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL ,Pname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),Numofsessions int(11),Daysofsessions text,Patient_ID INT(100)UNIQUE,phone INT(14),mail VARCHAR(255)UNIQUE,age INT(11),gender VARCHAR(255),address text,Dry_weight INT (11),Described_drugs text,access_level int DEFAULT 4,SupD VARCHAR (255),FOREIGN KEY (SupD) REFERENCES doctors(Dcode))")
@@ -31,73 +33,7 @@ def hello_name():
     # User is not loggedin redirect to login page
     return render_template('index.html')
 
-#START OF Dashboard
-@app.route('/dashboard')
-def dashboard():
-#Numberofdoctors
-     mycursor.execute("SELECT * FROM doctors")
-     myresult = mycursor.fetchall()
-     Numberofdoctors=len(myresult)
-#Numberofpatients
-     mycursor.execute("SELECT * FROM patients")
-     myresult = mycursor.fetchall()
-     Numberofpatients=len(myresult)
-#NumberofNurses
-     mycursor.execute("SELECT * FROM nurses")
-     myresult = mycursor.fetchall()
-     Numberofnurses=len(myresult)
-#Numberofvisitors
-     mycursor.execute("SELECT * FROM accounts")
-     myresult = mycursor.fetchall()
-     Numberofvisitors=len(myresult)
-#Sumofsalaries
-     mycursor.execute("SELECT SUM(salary) FROM doctors")
-     myresult = mycursor.fetchall()
-     Sum= myresult
-     Sumsalaryofdoctors=Sum[0][0]
-     mycursor.execute("SELECT SUM(salary) FROM nurses")
-     myresult = mycursor.fetchall()
-     Sum= myresult
-     Sumsalaryofnurses=Sum[0][0]
-#Avgofsalaries
-     mycursor.execute("SELECT AVG(salary) FROM doctors") 
-     myresult = mycursor.fetchall()
-     Sum= myresult
-     AVGsalaryofdoctors=Sum[0][0]
-     mycursor.execute("SELECT  AVG(salary) FROM nurses")
-     row_headers=[x[0] for x in mycursor.description] 
-     myresult = mycursor.fetchall()
-     Sum= myresult
-     AVGsalaryofnurses=Sum[0][0]
-#Sumofprices
-     mycursor.execute("SELECT SUM(price) FROM sessions")
-     myresult = mycursor.fetchall()
-     Sum= myresult
-     Sumofprices=Sum[0][0]
-#sessions
-     mycursor.execute("SELECT Scode FROM sessions ")
-  
-     myresult = mycursor.fetchall()
-     Sumofprices=myresult
-     mycursor.execute("SELECT Scode FROM sessions ")
-     myresult = mycursor.fetchall()
-     Numberofsessions=len(myresult)
-     L1=[]
-     L2=[]
-     for x in myresult:
-         L1.append(x[0])
-     for i in L1 :
-         L2.append(i[3])
-     January=L2.count('1')
-     February=L2.count('2')
-     March=L2.count('3')
-     April=L2.count('4')
-     May=L2.count('5')
-     return render_template('dashboard.html', Numberofdoctors= Numberofdoctors, Numberofpatients= Numberofpatients, Numberofnurses= Numberofnurses,Sumsalaryofnurses=Sumsalaryofnurses,Sumsalaryofdoctors=Sumsalaryofdoctors, AVGsalaryofdoctors=AVGsalaryofdoctors,AVGsalaryofnurses=AVGsalaryofnurses,Sumofprices=Sumofprices,Numberofvisitors=Numberofvisitors,January=January,February=February,March=March,April=April,May=May)
-#End of Dashboard
-
-
-#START OF ADD DOCTOR 
+#START OF ADD DOCTOR **** http://127.0.0.1:5000/adddoctor
 @app.route('/adddoctor',methods =  ['POST', 'GET'])
 def adddoctor():
     if request.method == 'POST': ##check if there is post data
@@ -142,8 +78,8 @@ def deletedoctor(id):
    mycursor.execute("DELETE FROM doctors WHERE Dcode = %s", [id])
    mydb.commit()
    return render_template('viewdoctor.html')
-#END OF DELETE DOCTOR 
-
+#END OF DELETE DOCTOR
+ 
 #START OF Doctor profile
 @app.route('/doctorprofile')
 def doctorprofile():
@@ -333,69 +269,6 @@ def login():
             msg = 'Incorrect username/password!'
     
     return render_template('login.html', msg=msg)
-
-#********** roles log in page http://127.0.0.1:5000/roleslogin
-@app.route('/roleslogin/', methods=['GET', 'POST'])
-def roleslogin():
-
-    msg = ''
-    # Check if "username" and "password" POST requests exist (user submitted form)
-    if request.method == 'POST' and 'dcode' in request.form and 'dpassword' in request.form:
-        # Create variables for easy access
-        dcode = request.form['dcode']
-        dpassword = request.form['dpassword']
-        mycursor.execute('SELECT * FROM doctors WHERE Dcode = %s AND password = %s', (dcode, dpassword))
-        daccount = mycursor.fetchone()
-        if daccount:
-            # Create session data, we can access this data in other routes
-            session['dloggedin'] = True
-            session['dcode'] = daccount[0]
-            session['dpassword'] = daccount[1]
-            # Redirect to home page
-            #return 'Logged in successfully!'
-            return redirect(url_for('hello_name')) 
-        else:
-            # Account doesnt exist or username/password incorrect
-            msg = 'Incorrect code/password!'                   
-    elif request.method == 'POST' and 'ncode' in request.form and 'npassword' in request.form:
-        # Create variables for easy access
-        ncode = request.form['ncode']
-        npassword = request.form['npassword']
-        mycursor.execute('SELECT * FROM nurses WHERE Ncode = %s AND password = %s', (ncode, npassword))
-        naccount = mycursor.fetchone()  
-        if naccount:
-            # Create session data, we can access this data in other routes
-            session['nloggedin'] = True
-            session['ncode'] = naccount[0]
-            session['npassword'] = naccount[1]
-            # Redirect to home page
-            #return 'Logged in successfully!'
-            return redirect(url_for('hello_name'))
-        else:
-            # Account doesnt exist or username/password incorrect
-            msg = 'Incorrect code/password!'              
-    elif request.method == 'POST' and 'pcode' in request.form and 'ppassword' in request.form:
-        # Create variables for easy access
-        pcode = request.form['pcode']
-        ppassword = request.form['ppassword']    
-        mycursor.execute('SELECT * FROM patients WHERE Pcode = %s AND password = %s', (pcode, ppassword))
-        paccount = mycursor.fetchone()
-        if paccount:
-            # Create session data, we can access this data in other routes
-            session['ploggedin'] = True
-            session['pcode'] = paccount[0]
-            session['ppassword'] = paccount[1]
-            # Redirect to home page
-            #return 'Logged in successfully!'
-            return redirect(url_for('hello_name')) 
-        else:
-            # Account doesnt exist or username/password incorrect
-            msg = 'Incorrect code/password!'
-
-
-    
-    return render_template('roleslogin.html', msg=msg)
-
 @app.route('/register', methods =['GET', 'POST']) 
 def register(): 
     msg = '' 
@@ -417,7 +290,7 @@ def register():
             msg = 'Please fill out the form !'
         else: 
             #mycursor.execute('INSERT INTO accounts VALUES (NULL, % s, % s, % s, % s)', (fullname, username, password, email))
-            sql = 'INSERT INTO accounts (id, fullname, username, password, email,access_level) VALUES (NULL, %s, %s, %s, %s, %s)'
+            sql = 'INSERT INTO accounts (id, fullname, username, password, email,access_level) VALUES (NULL, %s, %s, %s, %s,%s)'
             val = (fullname, username, password, email,access_level)
 
             mycursor.execute(sql, val)
@@ -453,6 +326,6 @@ def profile():
 
 
 if __name__ == '__main__':
-   app.run()
-   #app.run(debug=True)
+   #app.run()
+   app.run(debug=True)
    

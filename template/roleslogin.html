@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Login</title>
+      <title>Login As</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+	  <link href="hide-show-fields-form.css" rel="stylesheet"/>
+	  
+	   
 	  <style>
 		@import url('https://fonts.googleapis.com/css?family=Poppins');
 
 		/* BASIC */
 
-		html {
-		background-image: linear-gradient(-225deg, #473B7B 0%, #3584A7 51%, #30D2BE 100%);
+		body{
+		background-image: linear-gradient(-225deg, #473B7B 0%, #3584A7 51%, #30D2BE 100%) ;
+		background-repeat: no-repeat;
+		min-height: 100%;
+		
+		
 		}
 
 		body {
@@ -70,8 +78,6 @@
 		border-radius: 0 0 10px 10px;
 		}
 
-
-
 		/* TABS */
 
 		h2.inactive {
@@ -82,8 +88,6 @@
 		color: #0d0d0d;
 		border-bottom: 2px solid #5fbae9;
 		}
-
-
 
 		/* FORM TYPOGRAPHY*/
 
@@ -236,7 +240,13 @@
 		-webkit-animation-delay: 1s;
 		-moz-animation-delay: 1s;
 		animation-delay: 1s;
-		}
+        }
+        
+		.fadeIn.fourth {
+		-webkit-animation-delay: 1s;
+		-moz-animation-delay: 1s;
+		animation-delay: 1s;
+		}        
 
 		/* Simple CSS3 Fade-in Animation */
 		.underlineHover:after {
@@ -258,8 +268,6 @@
 		width: 100%;
 		}
 
-
-
 		/* OTHERS */
 
 		*:focus {
@@ -273,6 +281,28 @@
 		* {
 		box-sizing: border-box;
 		}
+		
+		.select-css{
+			min-width: 100px;
+			min-height: 25px;
+			padding: 5px;
+			margin: 10px;
+			border-radius: 5px;
+			color: aliceblue;
+			background-image: radial-gradient( circle farthest-corner at 48.7% 44.3%,  rgba(30,144,231,1) 0%, rgba(56,113,209,1) 22.9%, rgba(38,76,140,1) 76.7%, rgba(31,63,116,1) 100.2% );		}
+		.select-css:focus {
+		border-color: #aaa;
+		box-shadow: 0 0 1px 1px rgba(59, 153, 252, .7);
+		box-shadow: 0 0 0 3px -moz-mac-focusring;
+		color: aliceblue;
+		background-color: rgba(31,63,116,1); 
+		outline: none;
+		}
+		a{
+			text-decoration: none;
+		}
+		
+		
 	  </style>
 
    </head>
@@ -281,9 +311,9 @@
 	<div class="wrapper fadeInDown">
 		<div id="formContent">
 		  <!-- Tabs Titles -->
-		  <h2 class="active"> Sign In </h2>
-		  <a class="inactive underlineHover" href="{{ url_for('register') }}">Sign Up</a>
-		  <a class="inactive underlineHover" href="{{ url_for('roleslogin') }}">Login As</a>
+		  <a class="inactive underlineHover" href="{{ url_for('login') }}" style="text-decoration: none;">Sign In</a>
+          <a class="inactive underlineHover" href="{{ url_for('register') }}" style="text-decoration: none;">Sign Up</a>
+          <h2 class="active"> Login As </h2>
 	  
 		  <!-- Icon -->
 		  <div class="fadeIn first">
@@ -291,18 +321,39 @@
 		  </div>
 	  
 		  <!-- Login Form -->
-		  <form action="{{ url_for('login') }}" method="post">
-			<input type="text" id="username" class="fadeIn second" name="username" placeholder="Username" required>
-			<input type="password" id="password" class="fadeIn third" name="password" placeholder="password" required>
-			<input type="submit" class="fadeIn fourth" value="Log In" name="">
-			<a href="http://127.0.0.1:5000"><input type="button" class="fadeIn fourth" value="Back"></a>
-			<div id="msg">{{ msg }}</div>
-		  </form>
-		   
+			<form action="{{ url_for('roleslogin') }}" method="post">
+				<div  class="selectoption" >
+					<select class="select-css" id="loginasrole" >
+						<option value="default">Choose ...</option>
+						<option value="Doctor">Doctor</option>
+						<option value="Nurse">Nurse</option>
+						<option value="Ptient">Patient</option>
+					</select>
+				</div>
+				<div id="drole">
+					<input type="text" id="code" class="fadeIn second" name="dcode" placeholder="Doctor Code" required>
+					<input type="password" id="password" class="fadeIn third" name="dpassword" placeholder="password" required>
+					<input type="submit" class="fadeIn fourth" value="Log In" name="">
+				</div>
+				<div id="nurole">
+					<input type="text" id="code" class="fadeIn second" name="ncode" placeholder="Nurse Code" required>
+					<input type="password" id="password" class="fadeIn third" name="npassword" placeholder="password" required>
+					<input type="submit" class="fadeIn fourth" value="Log In" name="">
+				</div>
+				<div id="prole">
+					<input type="text" id="code" class="fadeIn second" name="pcode" placeholder="Patient Code" required>
+					<input type="password" id="password" class="fadeIn third" name="ppassword" placeholder="password" required>
+					<input type="submit" class="fadeIn fourth" value="Log In" name="">
+				</div>
+				<a href="http://127.0.0.1:5000"><input type="button" class="fadeIn fourth" value="Back"></a>
+			</form>
+			
 		</div>
 	  </div>
 		
-		
-		
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+        <script src="{{url_for('static', filename='role.js')}}"></script>
+
    </body>
 </html> 
