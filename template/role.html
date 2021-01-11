@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--<script src="{{url_for('static', filename='role.js')}}"></script>-->
+    </head>
+    <body>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href="hide-show-fields-form.css" rel="stylesheet"/>
+        
+        <form action="{{ url_for('roleslogin') }}" method="post">
+            <div style="width:200px;">
+                <label for="loginasrole">Log In As</label>
+                <select class="form-control" id="loginasrole">
+                    <option value="Doctor">Doctor</option>
+                    <option value="Nurse">Nurse</option>
+                    <option value="Ptient">Patient</option>
+
+                </select>
+              </div>
+            <div id="drole">
+                <input type="text" id="code" class="fadeIn second" name="dcode" placeholder="Doctor Code" required>
+                <input type="password" id="password" class="fadeIn third" name="dpassword" placeholder="password" required>
+                <input type="submit" class="fadeIn fourth" value="Log In" name="">
+            </div>
+            <div id="nurole">
+                <input type="text" id="code" class="fadeIn second" name="ncode" placeholder="Nurse Code" required>
+                <input type="password" id="password" class="fadeIn third" name="npassword" placeholder="password" required>
+                <input type="submit" class="fadeIn fourth" value="Log In" name="">
+            </div>
+            <div id="prole">
+                <input type="text" id="code" class="fadeIn second" name="pcode" placeholder="Patient Code" required>
+                <input type="password" id="password" class="fadeIn third" name="ppassword" placeholder="password" required>
+                <input type="submit" class="fadeIn fourth" value="Log In" name="">
+            </div>
+            <a href="http://127.0.0.1:5000"><input type="button" class="fadeIn fourth" value="Back"></a>
+        </form>
+        
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+        <script src="/static/role.js"></script>
+    </body>
+</html>
