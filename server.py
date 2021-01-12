@@ -22,7 +22,22 @@ mycursor.execute("CREATE TABLE IF NOT EXISTS accounts (id INT(11) NOT NULL AUTO_
 app = Flask(__name__,template_folder='template')
 app.secret_key = 'team13'
 
-@app.route('/')
+@app.route('/',methods =  ['POST', 'GET'])
+def hello_name():
+       mycursor = mydb.cursor()
+   if request.method == "POST": 
+      name = request.form['name']
+      email = request.form['email']
+      subject= request.form['subject']
+      message= request.form['message']
+      sql = "INSERT INTO contact (name,email,subject, message) VALUES (%s, %s, %s, %s)"
+      val = (name,email,subject, message)
+      mycursor.execute(sql, val)
+      mydb.commit()  
+      mycursor.close()
+      return render_template("index.html")
+   else:
+      return render_template("index.html")
 def hello_name():
     # Check if user is loggedin
     if 'loggedin' in session:
@@ -32,6 +47,21 @@ def hello_name():
     # User is not loggedin redirect to login page
     return render_template('index.html')
 
+@app.route('/viewcontact')
+def viewcontact():
+   mycursor.execute("SELECT * FROM contact")
+   row_headers=[x[0] for x in mycursor.description] 
+   myresult = mycursor.fetchall()
+   return render_template('viewcontact.html',contactData = myresult)
+
+   @app.route('/deletecontact/<string:id>',methods=['GET','POST'])
+def deletecontact(id):
+   mycursor = mydb.cursor()
+   mycursor.execute("DELETE FROM contact WHERE ID= %s", [id])
+   mydb.commit()
+   return render_template('viewcontact.html')
+
+#START OF ADD DOCTOR **** http://127.0.0.1:5000/adddoctor
 #START OF Dashboard
 @app.route('/dashboard')
 def dashboard():
