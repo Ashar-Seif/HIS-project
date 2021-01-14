@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/add.css') }}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Add Doctor</title>
+    <style>
+        a {
+            display: inline-block;
+        }
+        
+        h5 {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent" style="background-color: #e8e8e8;">
+            <!-- Tabs Titles -->
+            <a class="inactive underlineHover" href="{{ url_for('hello_name') }}" style="text-decoration: none;">Home</a>
+            <h5 class="active"> Add Doctor </h5>
+            <a class="inactive underlineHover" href="{{ url_for('viewdoctor') }}" style="text-decoration: none;">View Doctor</a>
+
+            <!-- Icon -->
+            <div class="fadeIn first">
+                <img src="/static/img/logo.png" id="icon" alt="User Icon" style="max-width: 20%;" />
+            </div>
+
+            <form action="{{ url_for('adddoctor') }}" method="POST">
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputPassword">Dcode</label>
+                            <input name="Dcode" type="text" class="form-control" id="inputPassword" placeholder="Enter doctor code">
+                        </div>
+                    </div>
+                    <div class="col-md">
+
+                        <div class="form-group">
+                            <label for="inputPassword">password</label>
+                            <input name="password" type="text" class="form-control" id="inputPassword" placeholder="Enter doctor password">
+                        </div>
+                    </div>
+                    <div class="col-md">
+
+                        <div class="form-group">
+                            <label for="idinput">Doctor_ID</label>
+                            <input name="Doctor_ID" type="number" class="form-control" id="idinput" placeholder="Enter doctor ID">
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputDocName">Fname</label>
+                            <input name="Fname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter doctor first name">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputDocName">Mname</label>
+                            <input name="Mname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter doctor mid name">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputDocName">Lname</label>
+                            <input name="Lname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter doctor last name">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-group ">
+                            <label for="BDinput">Birth_date</label>
+                            <input name="Birth_date" type="date" class="form-control" id="idinput" placeholder="Enter doctor Birth Date">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputDocsex"> Gender </label></br>
+                            <select name="gender" class="form-select form-select-sm" style="background-color: white;border: thistle;">
+                                <option selected value="Male">Male</option>
+                                <option  value="Female">Female</option>    
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="phoneinput">Phone</label>
+                            <input name="Phone" type="tel" class="form-control" id="idinput" placeholder="Enter doctor Phone">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="Docemailinput" class="form-label">mail</label>
+                            <input name="mail" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputDocaddress">address</label>
+                            <input name="address" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter doctor address">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="salaryinput">Salary</label>
+                            <input name="Salary" type="number" class="form-control" id="idinput" placeholder="Enter doctor salary">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="codeinput">Syndicate_number</label>
+                            <input name="Syndicate_number" type="number" class="form-control" id="idinput" placeholder="Enter doctor syndicate num">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputDocjobrank">Job_rank</label>
+                            <input name="Job_rank" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter doctor job rank">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" style="background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%); border-radius: 10px;">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
