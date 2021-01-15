@@ -17,8 +17,10 @@ mycursor.execute("CREATE TABLE IF NOT EXISTS nurses (Ncode VARCHAR (255) NOT NUL
 mycursor.execute("CREATE TABLE IF NOT EXISTS patients(Pcode VARCHAR (255) NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL ,Pname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),Numofsessions int(11),Daysofsessions text,Patient_ID INT(100)UNIQUE,phone INT(14),mail VARCHAR(255)UNIQUE,age INT(11),gender VARCHAR(255),address text,Dry_weight INT (11),Described_drugs text,access_level int DEFAULT 4,SupD VARCHAR (255),FOREIGN KEY (SupD) REFERENCES doctors(Dcode))")
 mycursor.execute("CREATE TABLE IF NOT EXISTS sessions (Scode VARCHAR (255) NOT NULL PRIMARY KEY,Date Date,used_device VARCHAR(255),price INT(11),record_by VARCHAR(255),after_weight INT (11),duration INT(11),taken_drugs text,complications text, dealing_with_complications text,comments text,P_code VARCHAR (255),D_code VARCHAR (255),N_code VARCHAR (255) ,FOREIGN KEY(P_code) REFERENCES patients(Pcode),FOREIGN KEY(D_code) REFERENCES doctors(Dcode),FOREIGN KEY(N_code) REFERENCES nurses(Ncode))")
 mycursor.execute("CREATE TABLE IF NOT EXISTS contact (name VARCHAR(255),email VARCHAR(255),subject VARCHAR(255),message text)")
-mycursor.execute("CREATE TABLE IF NOT EXISTS accounts (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,fullname VARCHAR(255) NOT NULL,username VARCHAR(255) NOT NULL,password VARCHAR(255) UNIQUE NOT NULL ,email VARCHAR(255) UNIQUE NOT NULL,access_level int DEFAULT 1)")
-mycursor.execute("CREATE TABLE IF NOT EXISTS admins (admin_name VARCHAR(255) NOT NULL,password VARCHAR(255) UNIQUE NOT NULL,access_level int DEFAULT 5)")
+mycursor.execute("CREATE TABLE IF NOT EXISTS accounts (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,fullname VARCHAR(255) NOT NULL,username VARCHAR(255) NOT NULL)")
+mycursor.execute("CREATE TABLE IF NOT EXISTS admins (admin_name VARCHAR(255) UNIQUE NOT NULL,password VARCHAR(255) DEFAULT 'team13')")
+mycursor.execute('INSERT IGNORE INTO admins (admin_name) VALUES ("aya"), ("ashar") ,("alaa"), ("radwa"), ("walaa");')
+mydb.commit()
 
 app = Flask(__name__,template_folder='template')
 app.secret_key = 'team13'
@@ -29,7 +31,7 @@ app.secret_key = 'team13'
 
 def hello_name():
     # Check if user is loggedin
-    session['notloggedin'] = True
+    
     
     if 'adminloggedin' in session:
    
@@ -43,8 +45,9 @@ def hello_name():
         return render_template('index.html', nurse=session['Nname'])
     elif 'ploggedin' in session:  
         return render_template('index.html', patient=session['Pname'])                
-    # User is not loggedin redirect to login page
-    return render_template('index.html', notloggedin=session['notloggedin'])
+    else:
+      session['notloggedin']= True
+      return render_template('index.html', notloggedin=session['notloggedin'])
 
    
 
@@ -66,7 +69,6 @@ def deletecontact(id):
 #START OF Dashboard
 @app.route('/dashboard')
 def dashboard():
-
 #Numberofdoctors
      mycursor.execute("SELECT * FROM doctors")
      myresult = mycursor.fetchall()
@@ -127,7 +129,6 @@ def dashboard():
      April=L2.count('4')
      May=L2.count('5')
      return render_template('dashboard.html', Numberofdoctors= Numberofdoctors, Numberofpatients= Numberofpatients, Numberofnurses= Numberofnurses,Sumsalaryofnurses=Sumsalaryofnurses,Sumsalaryofdoctors=Sumsalaryofdoctors, AVGsalaryofdoctors=AVGsalaryofdoctors,AVGsalaryofnurses=AVGsalaryofnurses,Sumofprices=Sumofprices,Numberofvisitors=Numberofvisitors,January=January,February=February,March=March,April=April,May=May)
-  
 #End of Dashboard
 
 
@@ -166,10 +167,14 @@ def adddoctor():
 #START OF VIEW DOCTOR **** http://127.0.0.1:5000/viewdoctor
 @app.route('/viewdoctor')
 def viewdoctor():
+ if 'admin' in session:  
    mycursor.execute("SELECT * FROM Doctors")
    row_headers=[x[0] for x in mycursor.description] 
    myresult = mycursor.fetchall()
    return render_template('viewdoctor.html',DoctorsData = myresult)
+ else:
+     return redirect(url_for('hello_name'))     
+
 #END OF VIEW DOCTOR 
 
 
@@ -185,14 +190,6 @@ def deletedoctor(id):
      return redirect(url_for('hello_name'))   
 #END OF DELETE DOCTOR 
 
-#START OF Doctor profile
-@app.route('/doctorprofile')
-def doctorprofile():
-   mycursor.execute("SELECT Dcode,Dname,Nname,Pname,Scode,Date,used_device,record_by,Dry_weight,after_weight,duration,taken_drugs,described_drugs,complications,dealing_with_complications,comments FROM doctors JOIN sessions ON Dcode = D_code JOIN patients ON Pcode=P_code JOIN Nurses ON Ncode=N_code")
-   row_headers=[x[0] for x in mycursor.description] 
-   myresult = mycursor.fetchall()
-   return render_template('doctorprofile.html', DoctorprofileData= myresult)
-#END OF Doctor profile
 
 
 #START OF ADD PATIENT ***** http://127.0.0.1:5000/addpatient
@@ -231,10 +228,13 @@ def addpatient():
 @app.route('/viewpatient')
     #@app.route("/upload",methods=["post"])
 def viewpatient():
+ if 'admin' in session:   
    mycursor.execute("SELECT * FROM patients")
    row_headers =[x[0] for x in mycursor.description] #this will extract row headers
    myresult = mycursor.fetchall()
    return render_template('viewpatient.html',patientsData = myresult)
+ else:
+     return redirect(url_for('hello_name'))   
 #END OF VIEW PATIENT 
 
 #START OF DELETE patient
@@ -287,10 +287,13 @@ def addnurse():
 #START OF VIEW NURSE **** http://127.0.0.1:5000/viewnurse
 @app.route('/viewnurse')
 def viewnurse():
+ if 'admin' in session:  
    mycursor.execute("SELECT * FROM nurses")
    row_headers =[x[0] for x in mycursor.description] #this will extract row headers
    myresult = mycursor.fetchall()
    return render_template('viewnurse.html',nursesData=myresult)
+ else:
+     return redirect(url_for('hello_name'))    
 #END OF VIEW NURSE
 
 
@@ -351,11 +354,31 @@ def viewsession():
 @app.route('/pviewsession')
 def pviewsession():      
    if 'pcode' in session:
-       mycursor.execute("SELECT * FROM sessions WHERE P_code = %s", [session['pcode']] )
+       mycursor.execute("SELECT Scode, Date, price, after_weight, duration, taken_drugs, complications, dealing_with_complications, comments, Dname, Nname FROM sessions JOIN Doctors ON Dcode = D_code JOIN nurses ON Ncode = N_code WHERE P_code = %s", [session['pcode']] )
        psession = mycursor.fetchone()
        return render_template('pviewsession.html',psession = psession) 
    else:
-     return redirect(url_for('hello_name'))          
+     return redirect(url_for('hello_name'))     
+
+@app.route('/dviewsession')
+def dviewsession():      
+   if 'dcode' in session:
+       mycursor.execute("SELECT Dcode,Dname,Nname,Pname,Scode,Date,used_device,record_by,Dry_weight,after_weight,duration,taken_drugs,described_drugs,complications,dealing_with_complications,comments FROM doctors JOIN sessions ON Dcode = D_code JOIN patients ON Pcode=P_code JOIN Nurses ON Ncode=N_code WHERE Dcode = %s", [session['dcode']] )
+       dsession = mycursor.fetchall()
+       return render_template('dviewsession.html',dsession = dsession) 
+   else:
+     return redirect(url_for('hello_name'))       
+
+@app.route('/nviewsession')
+def nviewsession():      
+   if 'ncode' in session:
+       mycursor.execute("SELECT Ncode,Nname,Dname,Pname,Scode,Date,used_device,record_by,Dry_weight,after_weight,duration,taken_drugs,described_drugs,complications,dealing_with_complications,comments FROM nurses JOIN sessions ON Ncode = N_code JOIN patients ON Pcode=P_code JOIN Doctors ON Dcode=D_code WHERE Ncode = %s", [session['ncode']] )
+       nsession = mycursor.fetchall()
+       return render_template('nviewsession.html',nsession = nsession) 
+   else:
+     return redirect(url_for('hello_name'))       
+
+           
 #END OF VIEW sessions
 
 
@@ -491,8 +514,8 @@ def register():
         fullname = request.form['fullname']
         username = request.form['username'] 
         password = request.form['password'] 
-        email = request.form['email']  
-        access_level=1
+        email = request.form['email']
+        access_level=1  
         mycursor.execute('SELECT * FROM accounts WHERE username = %s', (username, )) 
         account = mycursor.fetchone() 
         if account: 
@@ -553,6 +576,14 @@ def profile():
         mycursor.execute('SELECT * FROM patients WHERE pcode = %s', [session['pcode']])
         paccount = mycursor.fetchone()
         return render_template('patientprofile.html', paccount=paccount)
+    elif 'dloggedin' in session: 
+        mycursor.execute('SELECT * FROM Doctors WHERE dcode = %s', [session['dcode']])
+        daccount = mycursor.fetchone()
+        return render_template('doctorprofile.html', daccount=daccount)
+    elif 'nloggedin' in session: 
+        mycursor.execute('SELECT * FROM nurses WHERE ncode = %s', [session['ncode']])
+        naccount = mycursor.fetchone()
+        return render_template('nurseprofile.html', naccount=naccount)                   
     # User is not loggedin redirect to login page
     return redirect(url_for('hello_name'))
 

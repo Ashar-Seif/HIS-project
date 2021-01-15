@@ -37,50 +37,59 @@
             <table class="table" style="font-size: 12px;">
                 <thead>
                     <tr>
-                        
-                        <th scope="col">Scode</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Nurse Code</th>
+                        <th scope="col">Nurse Name</th>
+                        <th scope="col">Doctor Name</th>
+                        <th scope="col">Patient Name</th>
+                        <th scope="col">Session Code</th>
                         <th scope="col">Date</th>
-
-                        <th scope="col">price</th>
-
+                        <th scope="col">Used Device</th>
+                        <th scope="col">Record By</th>
+                        <th scope="col">Dry Weight</th>
                         <th scope="col">after_weight</th>
                         <th scope="col">duration</th>
                         <th scope="col">taken_drugs</th>
+                        <th scope="col">descriped_drugs</th>
                         <th scope="col">complications</th>
                         <th scope="col">dealing_with_complications</th>
                         <th scope="col">comments</th>
-                        <th scope="col">Doctor</th>
-                        <th scope="col">Nurse</th>
+
                     
-                       
+                        
 
 
                     </tr>
                 </thead>
                 <tbody>
-                    {% block content %}
+                    {% for row in nsession %}
                     <tr>
-                        
-                        <td>{{psession.0}}</td>
-                        <td>{{psession.1}}</td>
+                        <th scope="row">{{loop.index}}</th>
+                        <td>{{row.0}}</td>
+                        <td>{{row.1}}</td>
+                        <td>{{row.2}}</td>
+                        <td>{{row.3}}</td>
+                        <td>{{row.4}}</td>
+                        <td>{{row.5}}</td>
+                        <td>{{row.6}}</td>
+                        <td>{{row.7}}</td>
+                        <td>{{row.8}}</td>
+                        <td>{{row.9}}</td>
+                        <td>{{row.10}}</td>
+                        <td>{{row.11}}</td>
+                        <td>{{row.12}}</td>
+                        <td>{{row.13}}</td>
+                        <td>{{row.14}}</td>
+                        <td>{{row.15}}</td>
+                        <td>{{row.16}}</td>
 
-                        <td>{{psession.2}}</td>
-
-                        <td>{{psession.3}}</td>
-                        <td>{{psession.4}}</td>
-                        <td>{{psession.5}}</td>
-                        <td>{{psession.6}}</td>
-                        <td>{{psession.7}}</td>
-                        <td>{{psession.8}}</td>
-                        <td>{{psession.9}}</td>
-                        <td>{{psession.10}}</td>
-                        <td>{{psession.11}}</td>                        
+                                              
 
                         <td style="min-width: 200px;">
 
                         </td>   
                     </tr>
-                    {% endblock %}
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

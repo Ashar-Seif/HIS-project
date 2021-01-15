@@ -86,7 +86,7 @@
 
                                 {% set MyList = ['admin', 'username', 'dcode', 'ncode', 'pcode'] %}
                                 
-                                {% if 'username' not in session %}
+                                {% if 'notloggedin' in session %}
                                     <li class="active"><a href="http://127.0.0.1:5000/login">Log In/Sign Up</a></li>
                                 {% endif %}
                                                                                            
@@ -216,7 +216,7 @@
                                 <i class="bi bi-plus-circle"></i>
                                 {% if 'admin' in session %}
                                  <li><a href="{{ url_for('adddoctor') }}"><i>Add</i></a></li>
-                                 <li><a href="http://127.0.0.1:5000/viewdoctor"><i>View</i></a></li>
+                                 <li><a href="{{ url_for('viewdoctor') }}"><i>View</i></a></li>
                                  <li><a href="http://127.0.0.1:5000/viewcontact"><i>View contact</i></a></li>
                                 {% endif %} 
                             </ul>
@@ -230,8 +230,8 @@
                             <h3>Patient</h3>
                             <ul class="list-inline">
                                 {% if 'admin' in session %}
-                                 <li><a href="http://127.0.0.1:5000/addpatient"><i>Add</i></a></li>
-                                 <li><a href="http://127.0.0.1:5000/viewpatient"><i>View</i></a></li>
+                                 <li><a href="{{ url_for('addpatient') }}"><i>Add</i></a></li>
+                                 <li><a href="{{ url_for('viewpatient') }}"><i>View</i></a></li>
                                 {% endif %} 
                             </ul>
                         </div>
@@ -244,8 +244,8 @@
                             <h3>Nurse</h3>
                             <ul class="list-inline">
                                 {% if 'admin' in session %}
-                                 <li><a href="http://127.0.0.1:5000/addnurse"><i>Add</i></a></li>
-                                 <li><a href="http://127.0.0.1:5000/viewnurse"><i>View</i></a></li>
+                                 <li><a href="{{ url_for('addnurse') }}"><i>Add</i></a></li>
+                                 <li><a href="{{ url_for('viewnurse') }}"><i>View</i></a></li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -262,7 +262,11 @@
                                  <li><a href="{{ url_for('viewsession') }}"><i>View</i></a></li>
                                 {% elif 'pcode' in session -%}
                                  <li><a href="{{ url_for('pviewsession') }}"><i>View My Sessions</i></a></li>
-                                {% endif %} 
+                                {% elif 'dcode' in session -%} 
+                                 <li><a href="{{ url_for('dviewsession') }}"><i>View My Sessions</i></a></li>
+                                {% elif 'ncode' in session -%} 
+                                 <li><a href="{{ url_for('nviewsession') }}"><i>View My Sessions</i></a></li>
+                                {%- endif %} 
                             </ul>
                         </div>
                     </div>
