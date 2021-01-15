@@ -67,29 +67,57 @@
         <!-----Pcode, Pname, Mname, Lname, PatientID, phone, mail, age, gender, address, dryweight, described drugs-->
         
         <div style="overflow-x:auto; text-align: center;" >
-            <h2 class="center">Personal Information</h2>
+            <h2 class="center">Here Is Patient Personal Information</h2>
             
             <table cellspacing="0" class="center">
-               <tr>
-                  <th>Code</th>
-                  <th>{{ paccount.0 }}</th>
-               </tr>
-               <tr>
-                <th>Password</th>
-                <th>{{ paccount.1 }}</th>
+                <tr>
+                    <th>Code</th>
+                    <th>{{ paccount.0 }}</th>
                 </tr>
                 <tr>
-                    <th>Password</th>
-                    <th></th>
+                    <th>Name</th>
+                    <th>{{ paccount.2 }} {{ paccount.3 }} {{ paccount.4 }}</th>
                 </tr>
                 <tr>
-                    <th>E-Mail</th>
-                    <th></th>
+                    <th>Patient_ID</th>
+                    <th>{{ paccount.7 }}</th>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <th>{{ paccount.8 }}</th>
+                </tr>
+                <tr>
+                    <th>E-mail</th>
+                    <th>{{ paccount.9 }}</th>
+                </tr>
+                <tr>
+                    <th>Age</th>
+                    <th>{{ paccount.10 }}</th>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <th>{{ paccount.11 }}</th>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <th>{{ paccount.12 }}</th>
+                </tr>
+                <tr>
+                    <th>Dry_weight</th>
+                    <th>{{ paccount.13 }}</th>
+                </tr>
+                <tr>
+                    <th>SupD</th>
+                    <th>{{ paccount.14 }}</th>
+                </tr>
+                <tr>
+                    <th>Action</th>
+                    <th>{{ paccount.15 }}</th>
                 </tr>
 
                </table>
 
-               <li><a href="{{ url_for('pviewsession') }}"><i>View My Sessions</i></a></li>
+               <a href="{{ url_for('pviewsession') }}" style="text-align: center;"><input type="button" class="btn btn-secondary btn-lg" value="View My Sessions"></a>
                <a href="http://127.0.0.1:5000" style="text-align: center;"><input type="button" class="btn btn-secondary btn-lg" value="Back"></a>
 
         </div>

@@ -49,21 +49,44 @@ def hello_name():
       session['notloggedin']= True
       return render_template('index.html', notloggedin=session['notloggedin'])
 
+    def hello_name():
+      mycursor = mydb.cursor()
+      if request.method == "POST": 
+        name = request.form['name']
+        email = request.form['email']
+        subject= request.form['subject']
+        message= request.form['message']
+        sql = "INSERT INTO contact (name,email,subject, message) VALUES (%s, %s, %s, %s)"
+        val = (name,email,subject, message)
+        mycursor.execute(sql, val)
+        mydb.commit()  
+        mycursor.close()
+        return render_template("index.html")
+      else:
+        return render_template("index.html")    
+
    
 
+# Start of view contact 
 @app.route('/viewcontact')
 def viewcontact():
    mycursor.execute("SELECT * FROM contact")
    row_headers=[x[0] for x in mycursor.description] 
    myresult = mycursor.fetchall()
    return render_template('viewcontact.html',contactData = myresult)
+#End of view contact 
 
+# Start of delete contact 
 @app.route('/deletecontact/<string:id>',methods=['GET','POST'])
 def deletecontact(id):
    mycursor = mydb.cursor()
-   mycursor.execute("DELETE FROM contact WHERE ID= %s", [id])
+   mycursor.execute("DELETE FROM contact WHERE name= %s", [id])
    mydb.commit()
-   return render_template('viewcontact.html')
+   mycursor.execute("SELECT * FROM contact")
+   row_headers=[x[0] for x in mycursor.description] 
+   myresult = mycursor.fetchall()
+   return render_template('viewcontact.html' ,contactData = myresult)
+#End of delete contact 
 
 #START OF ADD DOCTOR **** http://127.0.0.1:5000/adddoctor
 #START OF Dashboard
@@ -177,7 +200,6 @@ def viewdoctor():
 
 #END OF VIEW DOCTOR 
 
-
 #START OF DELETE DOCTOR 
 @app.route('/deletedoctor/<string:id>',methods=['GET','POST'])
 def deletedoctor(id):
@@ -185,10 +207,13 @@ def deletedoctor(id):
    mycursor = mydb.cursor()
    mycursor.execute("DELETE FROM doctors WHERE Dcode = %s", [id])
    mydb.commit()
-   return render_template('viewdoctor.html')
+   mycursor.execute("SELECT * FROM Doctors")
+   row_headers=[x[0] for x in mycursor.description] 
+   myresult = mycursor.fetchall()
+   return render_template('viewdoctor.html',DoctorsData = myresult)
  else:
-     return redirect(url_for('hello_name'))   
-#END OF DELETE DOCTOR 
+     return redirect(url_for('hello_name'))        
+#END OF DELETE DOCTOR
 
 
 
@@ -240,15 +265,17 @@ def viewpatient():
 #START OF DELETE patient
 @app.route('/deletepatient/<string:id>',methods=['GET','POST'])
 def deletepatient(id):
- if 'admin' in session:    
+ if 'admin' in session:   
    mycursor = mydb.cursor()
    mycursor.execute("DELETE FROM patients WHERE Pcode = %s", [id])
    mydb.commit()
-   return render_template('viewpatient.html')
+   mycursor.execute("SELECT * FROM patients")
+   row_headers =[x[0] for x in mycursor.description] #this will extract row headers
+   myresult = mycursor.fetchall()
+   return render_template('viewpatient.html',patientsData = myresult)
  else:
      return redirect(url_for('hello_name'))    
-#END OF DELETE patient 
-
+#END OF DELETE patient
 
 #def upload():
  #   file = request.files["inputfile"]
@@ -297,16 +324,19 @@ def viewnurse():
 #END OF VIEW NURSE
 
 
-#START OF DELETE patient
+#START OF DELETE nurse
 @app.route('/deletenurse/<string:id>',methods=['GET','POST'])
 def deletenurse(id):
- if 'admin' in session:    
+ if 'admin' in session:   
    mycursor = mydb.cursor()
    mycursor.execute("DELETE FROM nurses WHERE Ncode = %s", [id])
    mydb.commit()
-   return render_template('viewnurse.html')
+   mycursor.execute("SELECT * FROM nurses")
+   row_headers =[x[0] for x in mycursor.description] #this will extract row headers
+   myresult = mycursor.fetchall()
+   return render_template('viewnurse.html',nursesData=myresult)
  else:
-     return redirect(url_for('hello_name'))    
+     return redirect(url_for('hello_name'))     
 #END OF DELETE nurse
 
 
@@ -376,24 +406,26 @@ def nviewsession():
        nsession = mycursor.fetchall()
        return render_template('nviewsession.html',nsession = nsession) 
    else:
-     return redirect(url_for('hello_name'))       
-
-           
-#END OF VIEW sessions
-
+     return redirect(url_for('hello_name'))  
 
 #START OF DELETE session
 @app.route('/deletesession/<string:id>',methods=['GET','POST'])
 def deletesession(id):
- if 'admin' in session:    
-   mycursor = mydb.cursor()
-   mycursor.execute("DELETE FROM sessions WHERE Scode = %s", [id])
-   mydb.commit()
-   return render_template('viewsession.html')
+ if 'admin' in session:  
+    mycursor = mydb.cursor()
+    mycursor.execute("DELETE FROM sessions WHERE Scode = %s", [id])
+    mydb.commit()
+    mycursor.execute("SELECT * FROM sessions")
+    row_headers=[x[0] for x in mycursor.description] 
+    myresult = mycursor.fetchall()
+    return render_template('viewsession.html',sessionsData = myresult)
  else:
-     return redirect(url_for('hello_name'))   
-#END OF DELETE session
+     return redirect(url_for('hello_name'))     
+#END OF DELETE session          
+
            
+#END OF VIEW sessions
+
 
 #**********log in page http://127.0.0.1:5000/login 
 @app.route('/login', methods=['GET', 'POST'])
