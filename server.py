@@ -576,7 +576,7 @@ def updatesession():
 def pviewsession():      
    if 'pcode' in session:
        mycursor.execute("SELECT Scode, Date, price, after_weight, duration, taken_drugs, complications, dealing_with_complications, comments, Dname, Nname FROM sessions JOIN Doctors ON Dcode = D_code JOIN nurses ON Ncode = N_code WHERE P_code = %s", [session['pcode']] )
-       psession = mycursor.fetchone()
+       psession = mycursor.fetchall()
        return render_template('pviewsession.html',psession = psession) 
    else:
      return redirect(url_for('hello_name'))     
