@@ -38,6 +38,7 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Patient Code</th>
                         <th scope="col">Nurse Code</th>
                         <th scope="col">Nurse Name</th>
                         <th scope="col">Doctor Name</th>
@@ -51,6 +52,7 @@
                         <th scope="col">duration</th>
                         <th scope="col">taken_drugs</th>
                         <th scope="col">descriped_drugs</th>
+                        <th scope="col">scan</th>
                         <th scope="col">complications</th>
                         <th scope="col">dealing_with_complications</th>
                         <th scope="col">comments</th>
@@ -79,9 +81,11 @@
                         <td>{{row.11}}</td>
                         <td>{{row.12}}</td>
                         <td>{{row.13}}</td>
-                        <td>{{row.14}}</td>
-                        <td>{{row.15}}</td>
+                        <td>{{row.15}},<p><form  action="{{  url_for('ndownload')  }}" method="POST"><label for="npcode"><input type="text" name="nscanimg"><a href="/ndownload"><button class="btn btn-default" >download</button></a>
+                        </form></p></td>
                         <td>{{row.16}}</td>
+                        <td>{{row.17}}</td>
+                        <td>{{row.18}}</td>
 
                                               
 
