@@ -38,7 +38,7 @@ GCAL = discovery.build('calendar', 'v3', http=creds.authorize(Http()))
 mycursor = mydb.cursor(buffered=True)
 mycursor.execute("CREATE TABLE IF NOT EXISTS Doctors(Dcode VARCHAR (255)  NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL , Dname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(50),mail VARCHAR(255) UNIQUE,Birth_date Date,Doctor_ID INT(150) UNIQUE,syndicate_number INT (100) UNIQUE,salary INT(50),gender VARCHAR(255),address text,job_rank VARCHAR(255),access_level int DEFAULT 2,image LONGBLOB,calendarid VARCHAR (600) UNIQUE )")
 mycursor.execute("CREATE TABLE IF NOT EXISTS nurses (Ncode VARCHAR (255) NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL ,Nname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(50),mail VARCHAR(255)UNIQUE,Birth_date Date,Nurse_ID INT(150)UNIQUE,syndicate_number INT (100) UNIQUE,salary INT(50),gender VARCHAR(255),address text,access_level int DEFAULT 3 )")
-mycursor.execute("CREATE TABLE IF NOT EXISTS patients(Pcode VARCHAR (255) NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL ,Pname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),Numofsessions int(11),Daysofsessions text,Patient_ID INT(100)UNIQUE,phone INT(14),mail VARCHAR(255)UNIQUE,age INT(11),gender VARCHAR(255),address text,Dry_weight INT (11),Described_drugs text,scan LONGBLOB,scan_name VARCHAR (255),access_level int DEFAULT 4,SupD VARCHAR (255),FOREIGN KEY (SupD) REFERENCES doctors(Dcode))")
+mycursor.execute("CREATE TABLE IF NOT EXISTS patients(Pcode VARCHAR (255) NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL ,Pname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),Numofsessions int(11),Daysofsessions text,Patient_ID INT(100)UNIQUE,phone INT(14),mail VARCHAR(255)UNIQUE,age INT(11),gender VARCHAR(255),address text,Dry_weight INT (11),Described_drugs text,SupD VARCHAR (255),scan LONGBLOB,scan_name VARCHAR (255),access_level int DEFAULT 4,FOREIGN KEY (SupD) REFERENCES doctors(Dcode))")
 mycursor.execute("CREATE TABLE IF NOT EXISTS sessions (Scode VARCHAR (255) NOT NULL PRIMARY KEY,Date Date,used_device VARCHAR(255),price INT(11),record_by VARCHAR(255),after_weight INT (11),duration INT(11),taken_drugs text,complications text, dealing_with_complications text,comments text,P_code VARCHAR (255),D_code VARCHAR (255),N_code VARCHAR (255) ,FOREIGN KEY(P_code) REFERENCES patients(Pcode),FOREIGN KEY(D_code) REFERENCES doctors(Dcode),FOREIGN KEY(N_code) REFERENCES nurses(Ncode))")
 mycursor.execute("CREATE TABLE IF NOT EXISTS contact (name VARCHAR(255),email VARCHAR(255),subject VARCHAR(255),message text)")
 mycursor.execute("CREATE TABLE IF NOT EXISTS accounts (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,fullname VARCHAR(255) NOT NULL,username VARCHAR(255) NOT NULL,password VARCHAR(255) UNIQUE NOT NULL ,email VARCHAR(255) UNIQUE NOT NULL)")
@@ -295,13 +295,13 @@ def addpatient():
     address = request.form["address"]
     Dry_weight= request.form["Dry_weight"]
     Described_drugs=request.form["Described_drugs"]
+    SupD=request.form["SupD"]
     scan=request.files["scan"]
     img=scan.read()
     img_name=scan.filename 
-    SupD=request.form["SupD"]
     sql = 'INSERT INTO patients (Pcode, password,SupD,Pname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,address,Dry_weight,Described_drugs,scan,scan_name) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
     val = (Pcode, password,SupD,Fname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,address,Dry_weight,Described_drugs,img,img_name)
-    mycursor.execute(sql, val)
+    mycursor.execute(sql,val)
     mydb.commit() 
     return render_template('index.html')
    else:
@@ -342,7 +342,7 @@ def editpatient(id):
 @app.route('/updatepatient', methods=['POST'])
 def updatepatient():
     if request.method == 'POST': 
-     pcode=request.form ["Pcode"]
+     Pcode=request.form ["Pcode"]
      password = request.form["password"]
      Fname = request.form["Fname"]
      Mname = request.form["Mname"]
@@ -358,7 +358,7 @@ def updatepatient():
      Dry_weight= request.form["Dry_weight"]
      Described_drugs=request.form["Described_drugs"]
      SupD=request.form["SupD"]
-     mycursor.execute(f"UPDATE `patients` SET Pcode ={Pcode}, password = {password} ,Numofsessions={Numofsessions}, Patient_ID = {Patient_ID},phone = {phone},age = {age},Dry_weight = {Dry_weight} WHERE Pcode = {code}")
+     mycursor.execute(f"UPDATE `patients` SET Pcode ={Pcode}, password = {password} ,Numofsessions={Numofsessions}, Patient_ID = {Patient_ID},phone = {phone},age = {age},Dry_weight = {Dry_weight} WHERE Pcode = {Pcode}")
      mydb.commit()
      mycursor.execute("SELECT * FROM patients")
      row_headers=[x[0] for x in mycursor.description] 
