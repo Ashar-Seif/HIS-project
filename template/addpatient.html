@@ -35,7 +35,7 @@
                 <img src="/static/img/logo.png" id="icon" alt="User Icon" style="max-width: 20%;" />
             </div>
 
-            <form action="{{ url_for('addpatient') }}" method="POST">
+            <form action="{{ url_for('addpatient') }}" method="POST"  enctype="multipart/form-data">
                 <div class="row g-2">
                     <div class="col-md">
                         <div class="form-group">
@@ -155,14 +155,14 @@
                         </div>
                     </div>
                 </div>
-                <!--<div class="row g-3">
+                
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="scans">scan</label>
                             <input name="scan" type="file" class="form-control" id="idinput" placeholder="Enter patient dry weight">
                         </div>
-                    </div>-->
-        </div>
+                    </div>
+       
         <button type="submit" style="background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%); border-radius: 10px;">Submit</button>
 
         </form>

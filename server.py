@@ -6,7 +6,8 @@ from google.oauth2 import service_account
 import googleapiclient.discovery
 #from pprint import pprint
 import mysql.connector
-from flask import Flask, redirect, url_for, render_template, request, session
+from flask import Flask, redirect, url_for, render_template, request, session,send_file
+from io import BytesIO
 import re
 
 mydb = mysql.connector.connect(
@@ -36,7 +37,7 @@ GCAL = discovery.build('calendar', 'v3', http=creds.authorize(Http()))
 
 mycursor = mydb.cursor(buffered=True)
 mycursor.execute("CREATE TABLE IF NOT EXISTS Doctors(Dcode VARCHAR (255)  NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL , Dname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(50),mail VARCHAR(255) UNIQUE,Birth_date Date,Doctor_ID INT(150) UNIQUE,syndicate_number INT (100) UNIQUE,salary INT(50),gender VARCHAR(255),address text,job_rank VARCHAR(255),access_level int DEFAULT 2,image LONGBLOB,calendarid VARCHAR (600) UNIQUE )")
-mycursor.execute("CREATE TABLE IF NOT EXISTS nurses (Ncode VARCHAR (255) NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL ,Nname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(50),mail VARCHAR(255)UNIQUE,Birth_date Date,Nurse_ID INT(150)UNIQUE,syndicate_number INT (100) UNIQUE,salary INT(50),gender VARCHAR(255),address text,access_level int DEFAULT 3,image LONGBLOB )")
+mycursor.execute("CREATE TABLE IF NOT EXISTS nurses (Ncode VARCHAR (255) NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL ,Nname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(50),mail VARCHAR(255)UNIQUE,Birth_date Date,Nurse_ID INT(150)UNIQUE,syndicate_number INT (100) UNIQUE,salary INT(50),gender VARCHAR(255),address text,access_level int DEFAULT 3 )")
 mycursor.execute("CREATE TABLE IF NOT EXISTS patients(Pcode VARCHAR (255) NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL ,Pname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),Numofsessions int(11),Daysofsessions text,Patient_ID INT(100)UNIQUE,phone INT(14),mail VARCHAR(255)UNIQUE,age INT(11),gender VARCHAR(255),address text,Dry_weight INT (11),Described_drugs text,scan LONGBLOB,scan_name VARCHAR (255),access_level int DEFAULT 4,SupD VARCHAR (255),FOREIGN KEY (SupD) REFERENCES doctors(Dcode))")
 mycursor.execute("CREATE TABLE IF NOT EXISTS sessions (Scode VARCHAR (255) NOT NULL PRIMARY KEY,Date Date,used_device VARCHAR(255),price INT(11),record_by VARCHAR(255),after_weight INT (11),duration INT(11),taken_drugs text,complications text, dealing_with_complications text,comments text,P_code VARCHAR (255),D_code VARCHAR (255),N_code VARCHAR (255) ,FOREIGN KEY(P_code) REFERENCES patients(Pcode),FOREIGN KEY(D_code) REFERENCES doctors(Dcode),FOREIGN KEY(N_code) REFERENCES nurses(Ncode))")
 mycursor.execute("CREATE TABLE IF NOT EXISTS contact (name VARCHAR(255),email VARCHAR(255),subject VARCHAR(255),message text)")
@@ -294,12 +295,12 @@ def addpatient():
     address = request.form["address"]
     Dry_weight= request.form["Dry_weight"]
     Described_drugs=request.form["Described_drugs"]
-    #scan=request.files["scan"]
-    #img=scan.read()
-    #img_name=scan.filename 
+    scan=request.files["scan"]
+    img=scan.read()
+    img_name=scan.filename 
     SupD=request.form["SupD"]
-    sql = 'INSERT INTO patients (Pcode, password,SupD,Pname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,address,Dry_weight,Described_drugs) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'#scan,scan_name
-    val = (Pcode, password,SupD,Fname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,address,Dry_weight,Described_drugs)#,img,img_name
+    sql = 'INSERT INTO patients (Pcode, password,SupD,Pname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,address,Dry_weight,Described_drugs,scan,scan_name) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    val = (Pcode, password,SupD,Fname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,address,Dry_weight,Described_drugs,img,img_name)
     mycursor.execute(sql, val)
     mydb.commit() 
     return render_template('index.html')
@@ -311,7 +312,6 @@ def addpatient():
 
 #START OF VIEW PATIENT *** http://127.0.0.1:5000/viewpatient
 @app.route('/viewpatient')
-    #@app.route("/upload",methods=["post"])
 def viewpatient():
    mycursor.execute("SELECT * FROM patients")
    row_headers =[x[0] for x in mycursor.description] #this will extract row headers
@@ -369,16 +369,16 @@ def updatepatient():
 #START OF Download 
 @app.route('/download',methods=["POST",'GET'])
 def download(): 
-        pcode=request.form["scanimg"]
-        mycursor.execute(" SELECT * FROM  patients WHERE pcode=%s",[pcode])
+        patient_code=request.form["scanimg"]
+        mycursor.execute(" SELECT * FROM  patients WHERE pcode=%s",[patient_code])
         for x in mycursor.fetchall():
-            name_v=x[16]
-            data_v=x[15]
-            print(data_v)
+            nameofscan=x[16]
+            dataofscan=x[15]
+            print(dataofscan)
  
         mydb.commit()
        
-        return send_file(BytesIO(data_v),attachment_filename= str(name_v), as_attachment=True)
+        return send_file(BytesIO(dataofscan),attachment_filename= str(nameofscan), as_attachment=True)
  #END OF Download 
 
 #START OF ADD NURSE **** http://127.0.0.1:5000/addnurse 
@@ -575,31 +575,64 @@ def updatesession():
 @app.route('/pviewsession')
 def pviewsession():      
    if 'pcode' in session:
-       mycursor.execute("SELECT Scode, Date, price, after_weight, duration, taken_drugs, complications, dealing_with_complications, comments, Dname, Nname FROM sessions JOIN Doctors ON Dcode = D_code JOIN nurses ON Ncode = N_code WHERE P_code = %s", [session['pcode']] )
+       mycursor.execute("SELECT pcode,Scode, Date, price, after_weight, duration, taken_drugs,scan,scan_name, complications, dealing_with_complications, comments, Dname, Nname FROM sessions JOIN Doctors ON Dcode = D_code JOIN patients ON Pcode=P_code JOIN nurses ON Ncode = N_code WHERE P_code = %s", [session['pcode']] )
        psession = mycursor.fetchall()
        return render_template('pviewsession.html',psession = psession) 
    else:
      return redirect(url_for('hello_name'))     
-
+@app.route('/pdownload',methods=["POST",'GET'])
+def pdownload(): 
+        ppatient_code=request.form["pscanimg"]
+        mycursor.execute(" SELECT * FROM  patients WHERE pcode=%s",[ppatient_code])
+        for x in mycursor.fetchall():
+            pnameofscan=x[16]
+            pdataofscan=x[15]
+            print(pdataofscan)
+ 
+        mydb.commit()
+       
+        return send_file(BytesIO(pdataofscan),attachment_filename= str(pnameofscan), as_attachment=True)
 @app.route('/dviewsession')
 def dviewsession():      
    if 'dcode' in session:
-       mycursor.execute("SELECT Dcode,Dname,Nname,Pname,Scode,Date,used_device,record_by,Dry_weight,after_weight,duration,taken_drugs,described_drugs,complications,dealing_with_complications,comments FROM doctors JOIN sessions ON Dcode = D_code JOIN patients ON Pcode=P_code JOIN Nurses ON Ncode=N_code WHERE Dcode = %s", [session['dcode']] )
+       mycursor.execute("SELECT pcode,Dcode,Dname,Nname,Pname,Scode,Date,used_device,record_by,Dry_weight,after_weight,duration,taken_drugs,described_drugs,scan,scan_name,complications,dealing_with_complications,comments FROM doctors JOIN sessions ON Dcode = D_code JOIN patients ON Pcode=P_code JOIN Nurses ON Ncode=N_code WHERE Dcode = %s", [session['dcode']] )
        dsession = mycursor.fetchall()
        return render_template('dviewsession.html',dsession = dsession) 
    else:
      return redirect(url_for('hello_name'))       
-
+@app.route('/ddownload',methods=["POST",'GET'])
+def ddownload(): 
+        dpatient_code=request.form["dscanimg"]
+        mycursor.execute(" SELECT * FROM  patients WHERE pcode=%s",[dpatient_code])
+        for x in mycursor.fetchall():
+            dnameofscan=x[16]
+            ddataofscan=x[15]
+            print(ddataofscan)
+ 
+        mydb.commit()
+       
+        return send_file(BytesIO(ddataofscan),attachment_filename= str(dnameofscan), as_attachment=True)
 @app.route('/nviewsession')
 def nviewsession():      
    if 'ncode' in session:
-       mycursor.execute("SELECT Ncode,Nname,Dname,Pname,Scode,Date,used_device,record_by,Dry_weight,after_weight,duration,taken_drugs,described_drugs,complications,dealing_with_complications,comments FROM nurses JOIN sessions ON Ncode = N_code JOIN patients ON Pcode=P_code JOIN Doctors ON Dcode=D_code WHERE Ncode = %s", [session['ncode']] )
+       mycursor.execute("SELECT pcode,Ncode,Nname,Dname,Pname,Scode,Date,used_device,record_by,Dry_weight,after_weight,duration,taken_drugs,described_drugs,scan,scan_name,complications,dealing_with_complications,comments FROM nurses JOIN sessions ON Ncode = N_code JOIN patients ON Pcode=P_code JOIN Doctors ON Dcode=D_code WHERE Ncode = %s", [session['ncode']] )
        nsession = mycursor.fetchall()
        return render_template('nviewsession.html',nsession = nsession) 
    else:
      return redirect(url_for('hello_name')) 
 #END OF sesssion 
-
+@app.route('/ndownload',methods=["POST",'GET'])
+def ndownload(): 
+        npatient_code=request.form["nscanimg"]
+        mycursor.execute(" SELECT * FROM  patients WHERE pcode=%s",[npatient_code])
+        for x in mycursor.fetchall():
+            nnameofscan=x[16]
+            ndataofscan=x[15]
+            print(ndataofscan)
+ 
+        mydb.commit()
+       
+        return send_file(BytesIO(ndataofscan),attachment_filename= str(nnameofscan), as_attachment=True)
 #START OF DELETE session
 @app.route('/deletesession/<string:id>',methods=['GET','POST'])
 def deletesession(id):

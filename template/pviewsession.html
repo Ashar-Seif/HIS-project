@@ -37,15 +37,15 @@
             <table class="table" style="font-size: 12px;">
                 <thead>
                     <tr>
-                        
+                        <th scope="col">#</th>
+                        <th scope="col">pcode</th>
                         <th scope="col">Scode</th>
                         <th scope="col">Date</th>
-
                         <th scope="col">price</th>
-
                         <th scope="col">after_weight</th>
                         <th scope="col">duration</th>
                         <th scope="col">taken_drugs</th>
+                        <th scope="col">scan</th>
                         <th scope="col">complications</th>
                         <th scope="col">dealing_with_complications</th>
                         <th scope="col">comments</th>
@@ -68,11 +68,14 @@
                         <td>{{row.4}}</td>
                         <td>{{row.5}}</td>
                         <td>{{row.6}}</td>
-                        <td>{{row.7}}</td>
-                        <td>{{row.8}}</td>
+                        <td>{{row.8}},,<p><form  action="{{  url_for('pdownload')  }}" method="POST"><label for="ppcode"><input type="text" name="pscanimg"><a href="/pdownload"><button class="btn btn-default" >download</button></a>
+                        </form></p></td>
                         <td>{{row.9}}</td>
                         <td>{{row.10}}</td>
                         <td>{{row.11}}</td>
+                        <td>{{row.12}}</td>
+                        <td>{{row.13}}</td>
+                       
 
 
                                               
