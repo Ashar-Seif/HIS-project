@@ -1,0 +1,130 @@
+
+  @import url('https://fonts.googleapis.com/css?family=Poppins');
+     body {
+         font-family: "Poppins", sans-serif; 
+         font-weight: bold; 
+         font-size: 10px;  
+         background-image: linear-gradient( 113.3deg,  rgba(134,209,228,1) -1.8%, rgba(60,80,115,1) 86.4% );
+         background-repeat: no-repeat;
+         background-size: cover;
+         background-position: fixed;
+         min-height: 600px;
+         }
+         a {
+         color: #92badd;
+         text-decoration: none;
+         font-weight: 400;
+         }
+        h4{
+         text-align: center;
+         font-size: 16px;
+         font-weight: 600;
+         text-transform: uppercase;
+         margin: 40px 8px 10px 8px; 
+         color: #cccccc;
+         } 
+         table, td, th { 
+            background-image: radial-gradient( circle 621px at 25.3% 13.8%,  rgba(255,255,255,1) 0%, rgba(234,236,255,1) 90% );  
+            border: 2px solid #d9e4dd;
+            text-align: left;
+            align-content: center;
+            }
+
+            table {
+            margin: 20px;    
+            padding: 20px;
+            border-collapse: collapse;
+            width: auto;
+            }
+
+            th, td {
+            padding: 15px;
+            }
+            tr:hover {background-color:grey;}
+            table.center {
+                margin-left: auto; 
+                margin-right: auto;
+            }
+         .wrapper {
+         display: flex;
+         align-items: center;
+         flex-direction: column; 
+         justify-content: center;
+         width: 100%;
+         min-height: 100%;
+         padding: 20px;
+     } 
+         .fadeInDown {
+         -webkit-animation-name: fadeInDown;
+         animation-name: fadeInDown;
+         -webkit-animation-duration: 1s;
+         animation-duration: 1s;
+         -webkit-animation-fill-mode: both;
+         animation-fill-mode: both;
+         }
+         h2.inactive {
+         color: #cccccc;
+         }
+
+         h2.active {
+         color: #0d0d0d;
+         border-bottom: 2px solid #5fbae9;
+         }
+         #formContent{
+         border-radius: 10px;
+         background: #fff;
+         width: 100%;
+         padding: 20px 10px 20px 10px;
+         -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+         box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+         text-align: center;
+         }
+         @-webkit-keyframes fadeInDown {
+ 0% {
+   opacity: 0;
+   -webkit-transform: translate3d(0, -100%, 0);
+   transform: translate3d(0, -100%, 0);
+ }
+ 100% {
+   opacity: 1;
+   -webkit-transform: none;
+   transform: none;
+ }
+ }
+
+ @keyframes fadeInDown {
+ 0% {
+   opacity: 0;
+   -webkit-transform: translate3d(0, -100%, 0);
+   transform: translate3d(0, -100%, 0);
+ }
+ 100% {
+   opacity: 1;
+   -webkit-transform: none;
+   transform: none;
+ }
+ }
+
+ /* Simple CSS3 Fade-in Animation */
+ @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+ @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+ @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+     .underlineHover:after {
+         display: block;
+         left: 0;
+         bottom: -10px;
+         width: 0;
+         height: 2px;
+         background-color: #56baed;
+         content: "";
+         transition: width 0.2s;
+         }
+
+ .underlineHover:hover {
+         color: #0d0d0d;
+         }
+
+ .underlineHover:hover:after{
+         width: 100%;
+         }
+     

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/view.css') }}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>view session</title>
+    <style>
+        a {
+            display: inline-block;
+        }
+        
+        h5 {
+            display: inline-block;
+        }
+        button{
+            display: inline-block;
+            border-radius: 5px;
+            border: 1px gray;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent" style="overflow-x:auto;">
+            <a class="inactive underlineHover" href="{{ url_for('hello_name') }}" style="text-decoration: none; font-size: 16px;">Home</a>
+            <h5 class="active"> View Session </h5>
+            <div class="fadeIn first">
+                <img src="/static/img/logo.png" id="icon" alt="User Icon" style="max-width: 20%;" />
+            </div>
+            <table class="table" style="font-size: 12px;">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nurse Code</th>
+                        <th scope="col">Nurse Name</th>
+                        <th scope="col">Doctor Name</th>
+                        <th scope="col">Patient Name</th>
+                        <th scope="col">Session Code</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Used Device</th>
+                        <th scope="col">Record By</th>
+                        <th scope="col">Dry Weight</th>
+                        <th scope="col">after_weight</th>
+                        <th scope="col">duration</th>
+                        <th scope="col">taken_drugs</th>
+                        <th scope="col">descriped_drugs</th>
+                        <th scope="col">complications</th>
+                        <th scope="col">dealing_with_complications</th>
+                        <th scope="col">comments</th>
+
+                    
+                        
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in nsession %}
+                    <tr>
+                        <th scope="row">{{loop.index}}</th>
+                        <td>{{row.0}}</td>
+                        <td>{{row.1}}</td>
+                        <td>{{row.2}}</td>
+                        <td>{{row.3}}</td>
+                        <td>{{row.4}}</td>
+                        <td>{{row.5}}</td>
+                        <td>{{row.6}}</td>
+                        <td>{{row.7}}</td>
+                        <td>{{row.8}}</td>
+                        <td>{{row.9}}</td>
+                        <td>{{row.10}}</td>
+                        <td>{{row.11}}</td>
+                        <td>{{row.12}}</td>
+                        <td>{{row.13}}</td>
+                        <td>{{row.14}}</td>
+                        <td>{{row.15}}</td>
+                        <td>{{row.16}}</td>
+
+                                              
+
+                        <td style="min-width: 200px;">
+
+                        </td>   
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>

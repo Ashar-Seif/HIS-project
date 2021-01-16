@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/add.css') }}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Add Session</title>
+
+    <!-- ******* Style *********-->
+    <style>
+        a {
+            display: inline-block;
+        }
+        
+        h5 {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent" style="background-color: #e8e8e8;">
+            <!-- Tabs Titles -->
+            <a class="inactive underlineHover" href="{{ url_for('hello_name') }}" style="text-decoration: none; font-size: 16px;">Home</a>
+            <h5 class="active"> Add Session </h5>
+            <a class="inactive underlineHover" href="{{ url_for('viewsession') }}" style="text-decoration: none;">View session</a>
+            <!-- Icon -->
+            <div class="fadeIn first">
+                <img src="/static/img/logo.png" id="icon" alt="User Icon" style="max-width: 20%;" />
+            </div>
+
+
+            <form action="{{ url_for('addsession') }}" method="POST">
+
+                <div class="row g-3">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">Scode</label>
+                            <input name="Scode" type="text" class="form-control" id="inputPassword" placeholder="Enter doctor code">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="sessdateinput">Date</label>
+                            <input name="Date" type="date" class="form-control" id="idinput" placeholder="Enter session date">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="priceinput">Price</label>
+                            <input name="Price" type="number" class="form-control" id="idinput" placeholder="Enter session price">
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputPassword">P_code</label>
+                            <input name="P_code" type="text" class="form-control" id="inputPassword" placeholder="Enter patient code">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputPassword">D_code</label>
+                            <input name="D_code" type="text" class="form-control" id="inputPassword" placeholder="Enter doctor code">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputPassword">N_code</label>
+                            <input name="N_code" type="text" class="form-control" id="inputPassword" placeholder="Enter nurse code">
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputrecord_byName">record_by</label>
+                            <input name="record_by" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter record_by name">
+                            <small id="emailHelp" class="form-text text-muted"></small>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputused_deviceName">used_device</label>
+                            <input name="used_device" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter used_device">
+                            <small id="emailHelp" class="form-text text-muted"></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-auto">
+                        <div class="form-group">
+                            <label for="after_weightinput">after_weight</label>
+                            <input name="after_weight" type="number" class="form-control" id="idinput" placeholder="Enter patient after_weight">
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group ">
+                            <label for="durationinput">duration</label>
+                            <input name="duration" type="number" class="form-control" id="idinput" placeholder="Enter session duration">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <label for="taken_drugsinput">taken_drugs</label>
+                        <textarea class="form-control br-radius-zero" name="taken_drugs" rows="mr-auto" data-rule="required" data-msg="taken_drugs" placeholder="Please write patient taken_drugs "></textarea>
+                        <div class="validation"></div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="complicationsinput">complications</label>
+                            <textarea class="form-control br-radius-zero" name="complications" rows="col-auto" data-rule="required" data-msg="complications" placeholder="Please write complications "></textarea>
+                            <div class="validation"></div>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <label for="dealing_with_complicationsinput">dealing_with_complications</label>
+                        <textarea class="form-control br-radius-zero" name="dealing_with_complications" rows="col-auto" data-rule="required" data-msg="dealing_with_complications" placeholder="Dealing_with_complications"></textarea>
+                        <div class="validation"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="commentsinput">comments</label>
+                    <textarea class="form-control br-radius-zero" name="comments" rows="col-auto" data-rule="required" data-msg="comments" placeholder="Please write comments if found "></textarea>
+                    <div class="validation"></div>
+                </div>
+
+                <button type="submit" style="background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>

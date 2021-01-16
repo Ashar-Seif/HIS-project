@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/add.css') }}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Add Nurse</title>
+
+    <!-- ******* Style *********-->
+    <style>
+        a {
+            display: inline-block;
+        }
+        
+        h5 {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent" style="background-color: #e8e8e8;">
+            <!-- Tabs Titles -->
+            <a class="inactive underlineHover" href="{{ url_for('hello_name') }}" style="text-decoration: none;">Home</a>
+            <h5 class="active"> Add Nurse </h5>
+            <a class="inactive underlineHover" href="{{ url_for('viewnurse') }}" style="text-decoration: none;">View Nurse</a>
+            <!-- Icon -->
+            <div class="fadeIn first">
+                <img src="/static/img/logo.png" id="icon" alt="User Icon" style="max-width: 20%;" />
+            </div>
+
+
+            <form action="{{ url_for('addnurse') }}" method="POST">
+
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputPassword">Ncode</label>
+                            <input name="Ncode" type="text" class="form-control" id="inputPassword" placeholder="Enter nurse code">
+                        </div>
+                    </div>
+                    <div class="col-md">
+
+                        <div class="form-group">
+                            <label for="inputPassword">password</label>
+                            <input name="password" type="text" class="form-control" id="inputPassword" placeholder="Enter Nurse password">
+                        </div>
+                    </div>
+                    <div class="col-md">
+
+                        <div class="form-group">
+                            <label for="idinput">Nurse_ID</label>
+                            <input name="Nurse_ID" type="number" class="form-control" id="idinput" placeholder="Enter nurse ID">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputnurName">Fname</label>
+                            <input name="Fname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter nurse first name">
+                            <small id="emailHelp" class="form-text text-muted"></small>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputnurName">Mname</label>
+                            <input name="Mname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter nurse mid name">
+                            <small id="emailHelp" class="form-text text-muted"></small>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputnurName">Lname</label>
+                            <input name="Lname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter nurse last name">
+                            <small id="emailHelp" class="form-text text-muted"></small>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="BDinput">Birth_Date</label>
+                            <input name="Birth_Date" type="date" class="form-control" id="idinput" placeholder="Enter nurse Birth Date">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputnursex"> Gender</label></br>
+                            <select name="gender" class="form-select form-select-sm" aria-label=".form-select-sm example" style="background-color: white;border: thistle;">
+                                <option value="Male" selected>Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row g-3">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="phoneinput">Phone</label>
+                            <input name="Phone" type="tel" class="form-control" id="idinput" placeholder="Enter nurse Phone Number">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="nuremailinput" class="form-label">mail</label>
+                            <input name="mail" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="inputDocaddress">address</label>
+                            <input name="address" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter doctor address">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="salaryinput">salary</label>
+                            <input name="salary" type="number" class="form-control" id="idinput" placeholder="Enter nurse salary">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="codeinput">Syndicate_number</label>
+                            <input name="Syndicate_number" type="number" class="form-control" id="idinput" placeholder="Enter nurse syndicate num">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" style="background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%); border-radius: 10px;">Submit</button>
+            </form>
+
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
