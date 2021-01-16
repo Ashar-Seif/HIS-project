@@ -274,7 +274,7 @@ def updatedoctor():
       return render_template('viewdoctor.html',DoctorsData = myresult)
 #END OF EDIT DOCTOR
 
-#START OF ADD PATIENT ***** http://127.0.0.1:5000/addpatient
+#START OF ADD PATIENT *** http://127.0.0.1:5000/addpatient
 @app.route('/addpatient',methods=["GET","POST"])
 def addpatient():
  if 'admin' in session:  
@@ -309,7 +309,7 @@ def addpatient():
      return redirect(url_for('hello_name')) 
 #END OF ADD PATIENT 
 
-#START OF VIEW PATIENT ***** http://127.0.0.1:5000/viewpatient
+#START OF VIEW PATIENT *** http://127.0.0.1:5000/viewpatient
 @app.route('/viewpatient')
     #@app.route("/upload",methods=["post"])
 def viewpatient():
@@ -338,16 +338,16 @@ def editpatient(id):
       mycursor = mydb.cursor()
       mycursor.execute("SELECT * FROM patients WHERE Pcode = %s", [id])
       myresult= mycursor.fetchall()
-      return render_template('editpatient.html',Pcode=myresult[0][0], password = myresult[0][1],Fname= myresult[0][2],Mname=myresult[0][3],Lname= myresult[0][4],Numofsessions=myresult[0][5],Daysofsessions=myresult[0][6],Patient_ID=myresult[0][7],Phone= myresult[0][8],mail= myresult[0][9],age= myresult[0][10],gender = myresult[0][11],address= myresult[0][12],Dry_weight= myresult[0][10],Described_drugs = myresult[0][11],SupD= myresult[0][12])
+      return render_template('editpatient.html',Pcode=myresult[0][0], password = myresult[0][1],Fname= myresult[0][2],Mname=myresult[0][3],Lname= myresult[0][4],Numofsessions=myresult[0][5],Daysofsessions=myresult[0][6],Patient_ID=myresult[0][7],Phone= myresult[0][8],mail= myresult[0][9],age= myresult[0][10],gender = myresult[0][11],address= myresult[0][12],Dry_weight= myresult[0][13],Described_drugs = myresult[0][14],SupD= myresult[0][15])
 @app.route('/updatepatient', methods=['POST'])
 def updatepatient():
     if request.method == 'POST': 
-     Pcode=request.form ["Pcode"]
+     pcode=request.form ["Pcode"]
      password = request.form["password"]
      Fname = request.form["Fname"]
      Mname = request.form["Mname"]
      Lname = request.form["Lname"]
-     Numofsessions=request.form["Numofsessions"]
+     Numofsessions=request.form["Num of sessions"]
      Daysofsessions=request.form["Days of sessions"]
      Patient_ID = request.form["Patient_ID"]
      phone = request.form["Phone"]
@@ -358,7 +358,7 @@ def updatepatient():
      Dry_weight= request.form["Dry_weight"]
      Described_drugs=request.form["Described_drugs"]
      SupD=request.form["SupD"]
-     mycursor.execute(f"UPDATE `patients` SET Pcode ={Pcode}, password = {password},Numofsessionss={Numofsessions}, Patient_ID = {Patient_ID},phone = {phone},age = {age},Dry_weight = {Dry_weight} WHERE Pcode = {Pcode}")
+     mycursor.execute(f"UPDATE `patients` SET Pcode ={Pcode}, password = {password} ,Numofsessions={Numofsessions}, Patient_ID = {Patient_ID},phone = {phone},age = {age},Dry_weight = {Dry_weight} WHERE Pcode = {code}")
      mydb.commit()
      mycursor.execute("SELECT * FROM patients")
      row_headers=[x[0] for x in mycursor.description] 
