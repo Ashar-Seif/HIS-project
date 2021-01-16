@@ -468,7 +468,7 @@ def updatepatient():
      Dry_weight= request.form["Dry_weight"]
      Described_drugs=request.form["Described_drugs"]
      SupD=request.form["SupD"]
-     mycursor.execute(f"UPDATE `patients` SET Pcode ={Pcode}, password = {password},Num of sessions={Num of sessions}, Patient_ID = {Patient_ID},phone = {phone},age = {age},Dry_weight = {Dry_weight} WHERE Pcode = {Pcode}")
+     mycursor.execute(f"UPDATE `patients` SET Pcode ={Pcode}, password = {password},Num of sessions={Numofsessions}, Patient_ID = {Patient_ID},phone = {phone},age = {age},Dry_weight = {Dry_weight} WHERE Pcode = {Pcode}")
      mydb.commit()
      mycursor.execute("SELECT * FROM patients")
      row_headers=[x[0] for x in mycursor.description] 
@@ -547,7 +547,7 @@ def editsession(id):
       mycursor = mydb.cursor()
       mycursor.execute("SELECT * FROM sessions WHERE Scode = %s", [id])
       myresult= mycursor.fetchall()
-      return render_template('editsession.html',Scode=myresult[0][0], Date = myresult[0][1],used_device= myresult[0][2],Price=myresult[0][3],record_by=myresult[0][5],after_weight=myresult[0][6],duration=myresult[0][7],taken_drugs= myresult[0][8],complications= myresult[0][9],taken_drugs= myresult[0][10],complications = myresult[0][11],dealing_with_complications= myresult[0][12],comments= myresult[0][13],P_code= myresult[0][13],D_code= myresult[0][13],N_code= myresult[0][13])
+      return render_template('editsession.html',Scode=myresult[0][0], Date = myresult[0][1],used_device= myresult[0][2],Price=myresult[0][3],record_by=myresult[0][4],after_weight=myresult[0][5],duration=myresult[0][6],complications= myresult[0][7],dealing_with_complications= myresult[0][8],taken_drugs= myresult[0][9],comments= myresult[0][10],P_code= myresult[0][11],D_code= myresult[0][12],N_code= myresult[0][13])
 @app.route('/updatesession', methods=['POST'])
 def updatesession():
 
@@ -743,7 +743,7 @@ def register():
         username = request.form['username'] 
         password = request.form['password'] 
         email = request.form['email']
-        access_level=1  
+   
         mycursor.execute('SELECT * FROM accounts WHERE username = %s', (username, )) 
         account = mycursor.fetchone() 
         if account: 
@@ -756,9 +756,8 @@ def register():
             msg = 'Please fill out the form !'
         else: 
             #mycursor.execute('INSERT INTO accounts VALUES (NULL, % s, % s, % s, % s)', (fullname, username, password, email))
-            sql = 'INSERT INTO accounts (id, fullname, username, password, email,access_level) VALUES (NULL, %s, %s, %s, %s, %s)'
-            val = (fullname, username, password, email,access_level)
-
+            sql = 'INSERT INTO accounts (id, fullname, username, password, email) VALUES (NULL, %s, %s, %s, %s)'
+            val = (fullname, username, password, email)
             mycursor.execute(sql, val)
             mydb.commit() 
             msg = 'You have successfully registered !'
