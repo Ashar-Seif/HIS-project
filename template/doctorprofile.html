@@ -1,48 +1,137 @@
-{% extends "adddoctor.html" %} {% block main %}
-<h1>HI DOCTOR,Here is your Information</h1>
+<!DOCTYPE html>
+<html>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Dcode</th>
-            <th scope="col">Fname</th>
-            <th scope="col">Mname</th>
-            <th scope="col">Lname</th>
-            <th scope="col">phone</th>
-            <th scope="col">mail</th>
-            <th scope="col">Birth_date</th>
-            <th scope="col">Doctor_ID</th>
-            <th scope="col">syndicate_number</th>
-            <th scope="col">salary</th>
-            <th scope="col">gender</th>
-            <th scope="col">address</th>
-            <th scope="col">jop_rank</th>
-            <th scope="col">access_level</th>
-        </tr>
-    </thead>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profile</title>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Candal">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-image: url('/static/img/logbg+1.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: fixed;
+            min-height: 600px;
+        }
+        
+        table,
+        td,
+        th {
+            background-image: radial-gradient( circle 621px at 25.3% 13.8%, rgba(255, 255, 255, 1) 0%, rgba(234, 236, 255, 1) 90%);
+            border: 2px solid #d9e4dd;
+            text-align: left;
+            align-content: center;
+        }
+        
+        table {
+            margin: 20px;
+            padding: 20px;
+            border-collapse: collapse;
+            width: auto;
+        }
+        
+        th,
+        td {
+            padding: 15px;
+        }
+        
+        tr:hover {
+            background-color: grey;
+        }
+        
+        table.center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        input[type=button] {
+            background-image: linear-gradient(-225deg, #473B7B 0%, #3584A7 51%, #30D2BE 100%);
+            border: none;
+            color: white;
+            padding: 15px 80px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 13px;
+            -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+            box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+            -webkit-border-radius: 5px 5px 5px 5px;
+            border-radius: 5px 5px 5px 5px;
+            margin: 5px 20px 40px 20px;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -ms-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
 
-    <tbody>
-        {% for data in DoctorprofileData %}
-        <tr>
-            <th scope="row">{{loop.index}}</th>
-            <td>{{data.0}}</td>
-            <td>{{data.1}}</td>
-            <td>{{data.2}}</td>
-            <td>{{data.3}}</td>
-            <td>{{data.4}}</td>
-            <td>{{data.5}}</td>
-            <td>{{data.6}}</td>
-            <td>{{data.7}}</td>
-            <td>{{data.8}}</td>
-            <td>{{data.9}}</td>
-            <td>{{data.10}}</td>
-            <td>{{data.11}}</td>
-            <td>{{data.12}}</td>
-            <td>{{data.13}}</td>
+<body>
+    {% block content %}
 
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{% endblock %}
+
+    <div style="overflow-x:auto; text-align: center;">
+        <h2 class="center">Hi Doctor {{ daccount.2 }} , Here is your Information</h2>
+
+        <table cellspacing="0" class="center">
+            <!-----starting here -->
+            <tr>
+                <th>Code</th>
+                <th>{{ daccount.0 }}</th>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <th>{{ daccount.2 }} {{ daccount.3 }} {{ daccount.4 }}</th>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <th>{{ daccount.5 }}</th>
+            </tr>
+            <tr>
+                <th>E-mail</th>
+                <th>{{ daccount.6 }}</th>
+            </tr>
+            <tr>
+                <th>Birth_date</th>
+                <th>{{ daccount.7 }}</th>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <th>{{ daccount.8 }}</th>
+            </tr>
+            <tr>
+                <th>syndicate_number</th>
+                <th>{{ daccount.9 }}</th>
+            </tr>
+            <tr>
+                <th>Salary</th>
+                <th>{{ daccount.10 }}</th>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <th>{{ daccount.11 }}</th>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <th>{{ daccount.12 }}</th>
+            </tr>
+            <tr>
+                <th>jop_rank</th>
+                <th>{{ daccount.13 }}</th>
+            </tr>
+
+        </table>
+
+        <a href="{{ url_for('dviewsession') }}" style="text-align: center;"><input type="button" class="btn btn-secondary btn-lg" value="View My Sessions"></a>
+        <a href="http://127.0.0.1:5000" style="text-align: center;"><input type="button" class="btn btn-secondary btn-lg" value="Back"></a>
+
+    </div>
+    {% endblock %}
+
+</body>
+
+</html>

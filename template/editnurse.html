@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Add Nurse</title>
 
-    <!-- ******* Style *********-->
+    <!-- *** Style ***-->
     <style>
         a {
             display: inline-block;
@@ -36,27 +36,27 @@
             </div>
 
 
-            <form action="{{ url_for('addnurse') }}" method="POST">
+            <form action=" http://127.0.0.1:5000/updatenurse" method="POST">
 
                 <div class="row g-2">
                     <div class="col-md">
                         <div class="form-group">
                             <label for="inputPassword">Ncode</label>
-                            <input name="Ncode" type="text" class="form-control" id="inputPassword" placeholder="Enter nurse code">
+                            <input name="Ncode" type="text" value={{Ncode}} class="form-control" id="inputPassword" placeholder="Enter nurse code">
                         </div>
                     </div>
                     <div class="col-md">
 
                         <div class="form-group">
                             <label for="inputPassword">password</label>
-                            <input name="password" type="text" class="form-control" id="inputPassword" placeholder="Enter Nurse password">
+                            <input name="password" type="text" value={{password}} class="form-control" id="inputPassword" placeholder="Enter Nurse password">
                         </div>
                     </div>
                     <div class="col-md">
 
                         <div class="form-group">
                             <label for="idinput">Nurse_ID</label>
-                            <input name="Nurse_ID" type="number" class="form-control" id="idinput" placeholder="Enter nurse ID">
+                            <input name="Nurse_ID" type="number" value={{Nurse_ID}} class="form-control" id="idinput" placeholder="Enter nurse ID">
                         </div>
                     </div>
                 </div>
@@ -65,21 +65,21 @@
                     <div class="col-md">
                         <div class="form-group">
                             <label for="inputnurName">Fname</label>
-                            <input name="Fname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter nurse first name">
+                            <input name="Fname" type="text" value={{Fname}} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter nurse first name">
                             <small id="emailHelp" class="form-text text-muted"></small>
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-group">
                             <label for="inputnurName">Mname</label>
-                            <input name="Mname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter nurse mid name">
+                            <input name="Mname" type="text" value={{Mname}} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter nurse mid name">
                             <small id="emailHelp" class="form-text text-muted"></small>
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-group">
                             <label for="inputnurName">Lname</label>
-                            <input name="Lname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter nurse last name">
+                            <input name="Lname" type="text" value={{Lname}} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter nurse last name">
                             <small id="emailHelp" class="form-text text-muted"></small>
                         </div>
                     </div>
@@ -90,13 +90,13 @@
                     <div class="col-md">
                         <div class="form-group">
                             <label for="BDinput">Birth_Date</label>
-                            <input name="Birth_Date" type="date" class="form-control" id="idinput" placeholder="Enter nurse Birth Date">
+                            <input name="Birth_Date" type="date" value={{Birth_Date}} class="form-control" id="idinput" placeholder="Enter nurse Birth Date">
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-group">
                             <label for="inputnursex"> Gender</label></br>
-                            <select name="gender" class="form-select form-select-sm" aria-label=".form-select-sm example" style="background-color: white;border: thistle;">
+                            <select name="gender" value={{gender}} class="form-select form-select-sm" aria-label=".form-select-sm example" style="background-color: white;border: thistle;">
                                 <option value="Male" selected>Male</option>
                                 <option value="Female">Female</option>
                             </select>
@@ -108,20 +108,21 @@
                 <div class="row g-3">
                     <div class="col-md">
                         <div class="form-group">
+
                             <label for="phoneinput">Phone</label>
-                            <input name="Phone" type="tel" class="form-control" id="idinput" placeholder="Enter nurse Phone Number">
+                            <input name="Phone" type="tel" class="form-control" value={{phone}} id="idinput" placeholder="Enter doctor Phone">
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-group">
                             <label for="nuremailinput" class="form-label">mail</label>
-                            <input name="mail" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                            <input name="mail" type="email" value={{mail}} class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-group">
                             <label for="inputDocaddress">address</label>
-                            <input name="address" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter doctor address">
+                            <input name="address" type="text" value={{address}} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter doctor address">
                         </div>
                     </div>
                 </div>
@@ -130,13 +131,13 @@
                     <div class="col-md">
                         <div class="form-group">
                             <label for="salaryinput">salary</label>
-                            <input name="salary" type="number" class="form-control" id="idinput" placeholder="Enter nurse salary">
+                            <input name="salary" type="number" value={{salary}} class="form-control" id="idinput" placeholder="Enter nurse salary">
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-group">
                             <label for="codeinput">Syndicate_number</label>
-                            <input name="Syndicate_number" type="number" class="form-control" id="idinput" placeholder="Enter nurse syndicate num">
+                            <input name="Syndicate_number" type="number" value={{Syndicate_number}} class="form-control" id="idinput" placeholder="Enter nurse syndicate num">
                         </div>
                     </div>
                 </div>

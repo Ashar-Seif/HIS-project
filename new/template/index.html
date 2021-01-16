@@ -78,34 +78,27 @@
                                 <li class="active"><a href="#banner">Home</a></li>
                                 <li class=""><a href="#service">About</a></li>
                                 {% if 'admin' in session %}
-                                  <li class=""><a href="#doctor-team">DataBase</a></li>
-                                  <li class=""><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                                <li class=""><a href="#doctor-team">DataBase</a></li>
+                                <li class=""><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
                                 {% endif %}
                                 <li class=""><a href="#contact">Contact</a></li>
 
 
-                                {% set MyList = ['admin', 'username', 'dcode', 'ncode', 'pcode'] %}
-                                
-                                {% if 'notloggedin' in session %}
-                                    <li class="active"><a href="http://127.0.0.1:5000/login">Log In/Sign Up</a></li>
-                                {% endif %}
-                                                                                           
+                                {% set MyList = ['admin', 'username', 'dcode', 'ncode', 'pcode'] %} {% if 'notloggedin' in session %}
+                                <li class="active"><a href="http://127.0.0.1:5000/login">Log In/Sign Up</a></li>
+                                {% endif %} {% for item in MyList -%} {% if item in session -%}
 
-                                {% for item in MyList -%}
-                                  {% if item in session -%}
-                                    
-                                      <li class="dropdown">
-                                         <button class="dropbtn"><i class="glyphicon glyphicon-user"></i></button>
-                                           <div class="dropdown-content">
-                                            <a href="{{ url_for('profile') }}">Profile</a>
-                                            
-                                            <a href="{{ url_for('logout') }}">Log Out</a>
-                                           </div>
-                                      </li> 
-                                   
-                                  {%- endif %}
-                                {%- endfor %}                                
-                                  
+                                <li class="dropdown">
+                                    <button class="dropbtn"><i class="glyphicon glyphicon-user"></i></button>
+                                    <div class="dropdown-content">
+                                        <a href="{{ url_for('profile') }}">Profile</a>
+
+                                        <a href="{{ url_for('logout') }}">Log Out</a>
+                                    </div>
+                                </li>
+
+                                {%- endif %} {%- endfor %}
+
 
                             </ul>
                         </div>
@@ -128,7 +121,7 @@
                             {% elif 'pcode' in session -%}
                             <h2 class="white">Welcome back Patient, {{ patient }}!</h2>
                             {% elif 'admin' in session -%}
-                            <h2 class="white">Welcome back Admin, {{ admin }}!</h2>                            
+                            <h2 class="white">Welcome back Admin, {{ admin }}!</h2>
                             {%- endif %}
                             <h1 class="white">Healthcare at your desk!!</h1>
                             <p>We are a non-profit service organization</br>
@@ -202,8 +195,8 @@
             <div class="row">
                 <div class="col-md-12">
                     {% if 'admin' in session -%}
-                     <h2 class="ser-title">DataBase!</h2>
-                    {%- endif %} 
+                    <h2 class="ser-title">DataBase!</h2>
+                    {%- endif %}
 
                     <hr class="botm-line">
                 </div>
@@ -213,12 +206,11 @@
                         <div class="caption">
                             <h3>Doctor</h3>
                             <ul class="list-inline">
-                                <i class="bi bi-plus-circle"></i>
-                                {% if 'admin' in session %}
-                                 <li><a href="{{ url_for('adddoctor') }}"><i>Add</i></a></li>
-                                 <li><a href="{{ url_for('viewdoctor') }}"><i>View</i></a></li>
-                                 <li><a href="http://127.0.0.1:5000/viewcontact"><i>View contact</i></a></li>
-                                {% endif %} 
+                                <i class="bi bi-plus-circle"></i> {% if 'admin' in session %}
+                                <li><a href="{{ url_for('adddoctor') }}"><i>Add</i></a></li>
+                                <li><a href="{{ url_for('viewdoctor') }}"><i>View</i></a></li>
+                                <li><a href="http://127.0.0.1:5000/viewcontact"><i>View contact</i></a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -230,9 +222,9 @@
                             <h3>Patient</h3>
                             <ul class="list-inline">
                                 {% if 'admin' in session %}
-                                 <li><a href="{{ url_for('addpatient') }}"><i>Add</i></a></li>
-                                 <li><a href="{{ url_for('viewpatient') }}"><i>View</i></a></li>
-                                {% endif %} 
+                                <li><a href="{{ url_for('addpatient') }}"><i>Add</i></a></li>
+                                <li><a href="{{ url_for('viewpatient') }}"><i>View</i></a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -244,8 +236,8 @@
                             <h3>Nurse</h3>
                             <ul class="list-inline">
                                 {% if 'admin' in session %}
-                                 <li><a href="{{ url_for('addnurse') }}"><i>Add</i></a></li>
-                                 <li><a href="{{ url_for('viewnurse') }}"><i>View</i></a></li>
+                                <li><a href="{{ url_for('addnurse') }}"><i>Add</i></a></li>
+                                <li><a href="{{ url_for('viewnurse') }}"><i>View</i></a></li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -258,15 +250,15 @@
                             <h3>Sessions</h3>
                             <ul class="list-inline">
                                 {% if 'admin' in session -%}
-                                 <li><a href="http://127.0.0.1:5000/addsession"><i>Add</i></a></li>
-                                 <li><a href="{{ url_for('viewsession') }}"><i>View</i></a></li>
+                                <li><a href="http://127.0.0.1:5000/addsession"><i>Add</i></a></li>
+                                <li><a href="{{ url_for('viewsession') }}"><i>View</i></a></li>
                                 {% elif 'pcode' in session -%}
-                                 <li><a href="{{ url_for('pviewsession') }}"><i>View My Sessions</i></a></li>
-                                {% elif 'dcode' in session -%} 
-                                 <li><a href="{{ url_for('dviewsession') }}"><i>View My Sessions</i></a></li>
-                                {% elif 'ncode' in session -%} 
-                                 <li><a href="{{ url_for('nviewsession') }}"><i>View My Sessions</i></a></li>
-                                {%- endif %} 
+                                <li><a href="{{ url_for('pviewsession') }}"><i>View My Sessions</i></a></li>
+                                {% elif 'dcode' in session -%}
+                                <li><a href="{{ url_for('dviewsession') }}"><i>View My Sessions</i></a></li>
+                                {% elif 'ncode' in session -%}
+                                <li><a href="{{ url_for('nviewsession') }}"><i>View My Sessions</i></a></li>
+                                {%- endif %}
                             </ul>
                         </div>
                     </div>
@@ -316,7 +308,7 @@
                         <div class="space"></div>
                         <div id="sendmessage">Your message has been sent. Thank you!</div>
                         <div id="errormessage"></div>
-                        <form action="" method="post" role="form" class="contactForm">
+                        <form action="http://localhost:5000/" method="post" role="form" class="contactForm">
                             <div class="form-group">
                                 <input type="text" name="name" class="form-control br-radius-zero" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                                 <div class="validation"></div>

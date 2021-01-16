@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Add Session</title>
 
-    <!-- ******* Style *********-->
+    <!-- *** Style ***-->
     <style>
         a {
             display: inline-block;
@@ -36,25 +36,25 @@
             </div>
 
 
-            <form action="{{ url_for('addsession') }}" method="POST">
+            <form action=" http://127.0.0.1:5000/updatesession" method="POST">
 
                 <div class="row g-3">
                     <div class="col-md">
                         <div class="form-group">
                             <label for="inputPassword" class="col-sm-2 col-form-label">Scode</label>
-                            <input name="Scode" type="text" class="form-control" id="inputPassword" placeholder="Enter doctor code">
+                            <input name="Scode" type="text" value={{Scode}} class="form-control" id="inputPassword" placeholder="Enter doctor code">
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-group">
                             <label for="sessdateinput">Date</label>
-                            <input name="Date" type="date" class="form-control" id="idinput" placeholder="Enter session date">
+                            <input name="Date" type="date" value={{Date}} class="form-control" id="idinput" placeholder="Enter session date">
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-group">
                             <label for="priceinput">Price</label>
-                            <input name="Price" type="number" class="form-control" id="idinput" placeholder="Enter session price">
+                            <input name="Price" type="number" value={{Price}} class="form-control" id="idinput" placeholder="Enter session price">
                         </div>
                     </div>
                 </div>
@@ -62,19 +62,19 @@
                     <div class="col-md">
                         <div class="form-group">
                             <label for="inputPassword">P_code</label>
-                            <input name="P_code" type="text" class="form-control" id="inputPassword" placeholder="Enter patient code">
+                            <input name="P_code" type="text" value={{P_code}} class="form-control" id="inputPassword" placeholder="Enter patient code">
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-group">
                             <label for="inputPassword">D_code</label>
-                            <input name="D_code" type="text" class="form-control" id="inputPassword" placeholder="Enter doctor code">
+                            <input name="D_code" type="text" value={{D_code}} class="form-control" id="inputPassword" placeholder="Enter doctor code">
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-group">
                             <label for="inputPassword">N_code</label>
-                            <input name="N_code" type="text" class="form-control" id="inputPassword" placeholder="Enter nurse code">
+                            <input name="N_code" type="text" value={{N_code}} class="form-control" id="inputPassword" placeholder="Enter nurse code">
                         </div>
                     </div>
                 </div>
@@ -82,14 +82,14 @@
                     <div class="col-md">
                         <div class="form-group">
                             <label for="inputrecord_byName">record_by</label>
-                            <input name="record_by" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter record_by name">
+                            <input name="record_by" type="text" value={{record_by}} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter record_by name">
                             <small id="emailHelp" class="form-text text-muted"></small>
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-group">
                             <label for="inputused_deviceName">used_device</label>
-                            <input name="used_device" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter used_device">
+                            <input name="used_device" type="text" value={{used_device}} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter used_device">
                             <small id="emailHelp" class="form-text text-muted"></small>
                         </div>
                     </div>
@@ -98,18 +98,18 @@
                     <div class="col-auto">
                         <div class="form-group">
                             <label for="after_weightinput">after_weight</label>
-                            <input name="after_weight" type="number" class="form-control" id="idinput" placeholder="Enter patient after_weight">
+                            <input name="after_weight" type="number" value={{after_weight}} class="form-control" id="idinput" placeholder="Enter patient after_weight">
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group ">
                             <label for="durationinput">duration</label>
-                            <input name="duration" type="number" class="form-control" id="idinput" placeholder="Enter session duration">
+                            <input name="duration" type="number" value={{duration}} class="form-control" id="idinput" placeholder="Enter session duration">
                         </div>
                     </div>
                     <div class="col-md">
                         <label for="taken_drugsinput">taken_drugs</label>
-                        <textarea class="form-control br-radius-zero" name="taken_drugs" rows="mr-auto" data-rule="required" data-msg="taken_drugs" placeholder="Please write patient taken_drugs "></textarea>
+                        <textarea class="form-control br-radius-zero" name="taken_drugs" value={{taken_drugs}} rows="mr-auto" data-rule="required" data-msg="taken_drugs" placeholder="Please write patient taken_drugs "></textarea>
                         <div class="validation"></div>
                     </div>
                 </div>
@@ -118,20 +118,20 @@
                     <div class="col-md">
                         <div class="form-group">
                             <label for="complicationsinput">complications</label>
-                            <textarea class="form-control br-radius-zero" name="complications" rows="col-auto" data-rule="required" data-msg="complications" placeholder="Please write complications "></textarea>
+                            <textarea class="form-control br-radius-zero" name="complications" value={{complications}} rows="col-auto" data-rule="required" data-msg="complications" placeholder="Please write complications "></textarea>
                             <div class="validation"></div>
                         </div>
                     </div>
                     <div class="col-md">
                         <label for="dealing_with_complicationsinput">dealing_with_complications</label>
-                        <textarea class="form-control br-radius-zero" name="dealing_with_complications" rows="col-auto" data-rule="required" data-msg="dealing_with_complications" placeholder="Dealing_with_complications"></textarea>
+                        <textarea class="form-control br-radius-zero" name="dealing_with_complications" value={{dealing_with_complications}} rows="col-auto" data-rule="required" data-msg="dealing_with_complications" placeholder="Dealing_with_complications"></textarea>
                         <div class="validation"></div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="commentsinput">comments</label>
-                    <textarea class="form-control br-radius-zero" name="comments" rows="col-auto" data-rule="required" data-msg="comments" placeholder="Please write comments if found "></textarea>
+                    <textarea class="form-control br-radius-zero" name="comments" value={{comments}} rows="col-auto" data-rule="required" data-msg="comments" placeholder="Please write comments if found "></textarea>
                     <div class="validation"></div>
                 </div>
 
