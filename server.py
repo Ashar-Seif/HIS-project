@@ -35,8 +35,8 @@ GCAL = discovery.build('calendar', 'v3', http=creds.authorize(Http()))
 #Calendar 
 
 mycursor = mydb.cursor(buffered=True)
-mycursor.execute("CREATE TABLE IF NOT EXISTS Doctors(Dcode VARCHAR (255)  NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL , Dname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(50),mail VARCHAR(255) UNIQUE,Birth_date Date,Doctor_ID INT(100) UNIQUE,syndicate_number INT (100) UNIQUE,salary INT(50),gender VARCHAR(255),address text,job_rank VARCHAR(255),access_level int DEFAULT 2,image LONGBLOB,calendarid VARCHAR (600) UNIQUE )")
-mycursor.execute("CREATE TABLE IF NOT EXISTS nurses (Ncode VARCHAR (255) NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL ,Nname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(50),mail VARCHAR(255)UNIQUE,Birth_date Date,Nurse_ID INT(100)UNIQUE,syndicate_number INT (100) UNIQUE,salary INT(50),gender VARCHAR(255),address text,access_level int DEFAULT 3,image LONGBLOB )")
+mycursor.execute("CREATE TABLE IF NOT EXISTS Doctors(Dcode VARCHAR (255)  NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL , Dname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(50),mail VARCHAR(255) UNIQUE,Birth_date Date,Doctor_ID INT(150) UNIQUE,syndicate_number INT (100) UNIQUE,salary INT(50),gender VARCHAR(255),address text,job_rank VARCHAR(255),access_level int DEFAULT 2,image LONGBLOB,calendarid VARCHAR (600) UNIQUE )")
+mycursor.execute("CREATE TABLE IF NOT EXISTS nurses (Ncode VARCHAR (255) NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL ,Nname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(50),mail VARCHAR(255)UNIQUE,Birth_date Date,Nurse_ID INT(150)UNIQUE,syndicate_number INT (100) UNIQUE,salary INT(50),gender VARCHAR(255),address text,access_level int DEFAULT 3,image LONGBLOB )")
 mycursor.execute("CREATE TABLE IF NOT EXISTS patients(Pcode VARCHAR (255) NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL ,Pname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),Numofsessions int(11),Daysofsessions text,Patient_ID INT(100)UNIQUE,phone INT(14),mail VARCHAR(255)UNIQUE,age INT(11),gender VARCHAR(255),address text,Dry_weight INT (11),Described_drugs text,scan LONGBLOB,scan_name VARCHAR (255),access_level int DEFAULT 4,SupD VARCHAR (255),FOREIGN KEY (SupD) REFERENCES doctors(Dcode))")
 mycursor.execute("CREATE TABLE IF NOT EXISTS sessions (Scode VARCHAR (255) NOT NULL PRIMARY KEY,Date Date,used_device VARCHAR(255),price INT(11),record_by VARCHAR(255),after_weight INT (11),duration INT(11),taken_drugs text,complications text, dealing_with_complications text,comments text,P_code VARCHAR (255),D_code VARCHAR (255),N_code VARCHAR (255) ,FOREIGN KEY(P_code) REFERENCES patients(Pcode),FOREIGN KEY(D_code) REFERENCES doctors(Dcode),FOREIGN KEY(N_code) REFERENCES nurses(Ncode))")
 mycursor.execute("CREATE TABLE IF NOT EXISTS contact (name VARCHAR(255),email VARCHAR(255),subject VARCHAR(255),message text)")
@@ -51,39 +51,37 @@ app.secret_key = 'team13'
 
 def hello_name():
     # Check if user is loggedin
-    
-    
-    if 'adminloggedin' in session:
-   
-        # User is loggedin show them the home page
-        return render_template('index.html', admin=session['admin'])
-    elif 'loggedin' in session:  
-        return render_template('index.html', username=session['username'])
-    elif 'dloggedin' in session:  
-        return render_template('index.html', doctor=session['Dname'])        
-    elif 'nloggedin' in session:  
-        return render_template('index.html', nurse=session['Nname'])
-    elif 'ploggedin' in session:  
-        return render_template('index.html', patient=session['Pname'])                
-    else:
-      session['notloggedin']= True
-      return render_template('index.html', notloggedin=session['notloggedin'])
+  
+  if 'adminloggedin' in session:
+ # User is loggedin show them the home page
+    return render_template('index.html', admin=session['admin'])
+  elif 'loggedin' in session:  
+    return render_template('index.html', username=session['username'])
+  elif 'dloggedin' in session:  
+     return render_template('index.html', doctor=session['Dname'])        
+  elif 'nloggedin' in session:  
+     return render_template('index.html', nurse=session['Nname'])
+  elif 'ploggedin' in session:  
+    return render_template('index.html', patient=session['Pname'])                
+  else:
+    session['notloggedin']= True
+    return render_template('index.html', notloggedin=session['notloggedin'])
 
-    def hello_name():
-      mycursor = mydb.cursor()
-      if request.method == "POST": 
-        name = request.form['name']
-        email = request.form['email']
-        subject= request.form['subject']
-        message= request.form['message']
-        sql = "INSERT INTO contact (name,email,subject, message) VALUES (%s, %s, %s, %s)"
-        val = (name,email,subject, message)
-        mycursor.execute(sql, val)
-        mydb.commit()  
-        mycursor.close()
-        return render_template("index.html")
-      else:
-        return render_template("index.html")   
+def hello_name():
+  mycursor = mydb.cursor()
+  if request.method == "POST": 
+    name = request.form['name']
+    email = request.form['email']
+    subject= request.form['subject']
+    message= request.form['message']
+    sql = "INSERT INTO contact (name,email,subject, message) VALUES (%s, %s, %s, %s)"
+    val = (name,email,subject, message)
+    mycursor.execute(sql, val)
+    mydb.commit()  
+    mycursor.close()
+    return render_template("index.html")
+  else:
+    return render_template("index.html")   
 # Start of view contact 
 @app.route('/viewcontact')
 def viewcontact():
@@ -188,7 +186,7 @@ def adddoctor():
       address= request.form['address']
       Job_rank= request.form['Job_rank']
       calendar = {
-      'summary': 'MY SESIONS',
+      'summary': 'MY SESSIONS',
       'timeZone': 'Africa/Cairo'
       }
       created_calendar = GCAL.calendars().insert(body=calendar).execute()
@@ -275,7 +273,7 @@ def updatedoctor():
       myresult = mycursor.fetchall()
       return render_template('viewdoctor.html',DoctorsData = myresult)
 #END OF EDIT DOCTOR
-"""
+
 #START OF ADD PATIENT ***** http://127.0.0.1:5000/addpatient
 @app.route('/addpatient',methods=["GET","POST"])
 def addpatient():
@@ -296,12 +294,12 @@ def addpatient():
     address = request.form["address"]
     Dry_weight= request.form["Dry_weight"]
     Described_drugs=request.form["Described_drugs"]
-    scan=request.files["scan"]
-    img=scan.read()
-    img_name=scan.filename 
+    #scan=request.files["scan"]
+    #img=scan.read()
+    #img_name=scan.filename 
     SupD=request.form["SupD"]
-    sql = 'INSERT INTO patients (Pcode, password,SupD,Pname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,address,Dry_weight,Described_drugs,scan,scan_name) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
-    val = (Pcode, password,SupD,Fname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,address,Dry_weight,Described_drugs,img,img_name)
+    sql = 'INSERT INTO patients (Pcode, password,SupD,Pname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,address,Dry_weight,Described_drugs) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'#scan,scan_name
+    val = (Pcode, password,SupD,Fname,Mname,Lname,Numofsessions,Daysofsessions,Patient_ID,phone,mail,age,gender,address,Dry_weight,Described_drugs)#,img,img_name
     mycursor.execute(sql, val)
     mydb.commit() 
     return render_template('index.html')
@@ -311,7 +309,6 @@ def addpatient():
      return redirect(url_for('hello_name')) 
 #END OF ADD PATIENT 
 
-"""
 #START OF VIEW PATIENT ***** http://127.0.0.1:5000/viewpatient
 @app.route('/viewpatient')
     #@app.route("/upload",methods=["post"])
@@ -334,7 +331,7 @@ def deletepatient(id):
    myresult = mycursor.fetchall()
    return render_template('viewpatient.html',patientsData = myresult)
 #END OF DELETE patient
-"""
+
 #START OF edit patient
 @app.route('/editpatient/<id>', methods = ['POST', 'GET'])
 def editpatient(id):
@@ -368,7 +365,7 @@ def updatepatient():
      myresult = mycursor.fetchall()
      return render_template('viewpatient.html',patientsData = myresult)
 #END OF edit patient
-"""
+
 #START OF Download 
 @app.route('/download',methods=["POST",'GET'])
 def download(): 
@@ -442,40 +439,40 @@ def deletenurse(id):
      return redirect(url_for('hello_name'))
 #END OF DELETE nurse
 
-#START OF edit patient
-@app.route('/editpatient/<id>', methods = ['POST', 'GET'])
-def editpatient(id):
+#START OF edit nurse
+@app.route('/editnurse/<id>', methods = ['POST', 'GET'])
+def editnurse(id):
       mycursor = mydb.cursor()
-      mycursor.execute("SELECT * FROM patients WHERE Pcode = %s", [id])
+      mycursor.execute("SELECT * FROM nurses WHERE Ncode = %s", [id])
       myresult= mycursor.fetchall()
-      return render_template('editpatient.html',Pcode=myresult[0][0], password = myresult[0][1],Fname= myresult[0][2],Mname=myresult[0][3],Lname= myresult[0][4],Sessions=myresult[0][5],Daysofsessions=myresult[0][6],Patient_ID=myresult[0][7],Phone= myresult[0][8],mail= myresult[0][9],age= myresult[0][10],gender = myresult[0][11],address= myresult[0][12],Dry_weight= myresult[0][10],Described_drugs = myresult[0][11],SupD= myresult[0][12])
-@app.route('/updatepatient', methods=['POST'])
-def updatepatient():
-    if request.method == 'POST': 
-     Pcode=request.form ["Pcode"]
-     password = request.form["password"]
-     Fname = request.form["Fname"]
-     Mname = request.form["Mname"]
-     Lname = request.form["Lname"]
-     Numofsessions=request.form["Num of sessions"]
-     Daysofsessions=request.form["Days of sessions"]
-     Patient_ID = request.form["Patient_ID"]
-     phone = request.form["Phone"]
-     mail = request.form["mail"]
-     age= request.form["age"]
-     gender=request.form["gender"]
-     address = request.form["address"]
-     Dry_weight= request.form["Dry_weight"]
-     Described_drugs=request.form["Described_drugs"]
-     SupD=request.form["SupD"]
-     mycursor.execute(f"UPDATE `patients` SET Pcode ={Pcode}, password = {password},Num of sessions={Numofsessions}, Patient_ID = {Patient_ID},phone = {phone},age = {age},Dry_weight = {Dry_weight} WHERE Pcode = {Pcode}")
-     mydb.commit()
-     mycursor.execute("SELECT * FROM patients")
-     row_headers=[x[0] for x in mycursor.description] 
-     myresult = mycursor.fetchall()
-     return render_template('viewpatient.html',patientsData = myresult)
+      return render_template('editnurse.html',Ncode=myresult[0][0], password = myresult[0][1],Fname= myresult[0][2],Mname=myresult[0][3],Lname= myresult[0][4],phone=myresult[0][5],mail=myresult[0][6],Birth_Date=myresult[0][7],Nurse_ID= myresult[0][8],Syndicate_number= myresult[0][9],salary= myresult[0][10],gender = myresult[0][11],address= myresult[0][12])
+ 
+@app.route('/updatenurse', methods=['POST'])
+def updatenurse():
+       if request.method == 'POST':
+        Ncode = request.form["Ncode"]
+        password = request.form["password"]
+        Fname = request.form["Fname"]
+        Mname = request.form["Mname"]
+        Lname = request.form["Lname"]
+        phone = request.form["Phone"]
+        mail = request.form["mail"]
+        Birth_Date = request.form["Birth_Date"]
+        Nurse_ID = request.form["Nurse_ID"]
+        salary = request.form["salary"]
+        gender = request.form["gender"]
+        address = request.form["address"]
+        syndicate_number=request.form["Syndicate_number"]
+      
+        mycursor.execute(f"UPDATE `nurses` SET Ncode ={Ncode}, password = {password},salary={salary}, Nurse_ID = {Nurse_ID},phone = {phone},Syndicate_number = {syndicate_number} WHERE Ncode = {Ncode}")
+        mydb.commit()
+        mycursor.execute("SELECT * FROM nurses")
+        row_headers=[x[0] for x in mycursor.description] 
+        myresult = mycursor.fetchall()
+        return render_template('viewnurse.html',nursesData = myresult)
+#END OF edit nurse
 
-#END OF edit patient
+
 
 #START OF ADD sessions ***** http://127.0.0.1:5000/addsession
 @app.route('/addsession',methods =  ['POST', 'GET'])
@@ -512,9 +509,8 @@ def addsession():
       ID= mycursor.fetchone()
       id=ID[0]
       calendar = GCAL.calendars().get(calendarId='primary').execute()
-      GMT_OFF = '-07:00' 
       event = {
-      'summary': 'New session',
+      'summary': 'New session With patient{}'.format(Pcode),
       "description": 'Hemodialysis_Departement',
       "start": {"dateTime": '{}T{:d}:00:00'.format(Date,T), "timeZone": 'Africa/Cairo'}, 
       "end": {"dateTime":'{}T{:d}:00:00'.format(Date,Duration), "timeZone": 'Africa/Cairo'},

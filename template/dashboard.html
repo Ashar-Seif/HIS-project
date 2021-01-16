@@ -189,83 +189,83 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a class="list-group-item list-group-item-action" href="/viewcontact">
-                                    <div class="media">
-                                        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/45x45" alt="">
+                                <a class="list-group-item list-group-item-action" href="#">
+                                    <div class="media" <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/45x45" alt="">
                                         <div class="media-body">
                                             <i class="fa fa-code-fork"></i>
                                             <strong>Monica Dennis</strong>forked the
                                             <strong>startbootstrap-sb-admin</strong>repository on
-                                            <strong>GitHub</strong>.
+                                            <strong>GitHub</strong>
                                             <div class="text-muted smaller">Today at 3:54 PM - 2hrs ago</div>
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                            <a class="list-group-item list-group-item-action" href="#">View all activity...</a>
+                            <a class="list-group-item list-group-item-action" href="/viewcontact">
+                                <div class="media">"View all activity...</a>
+                            </div>
+                            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                         </div>
-                        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                     </div>
                 </div>
+                <footer class="sticky-footer">
+                    <div class="container">
+                        <div class="text-center">
+                            <small>Copyright © Hemodialysis_Departement 2020</small>
+                        </div>
+                    </div>
+                </footer>
+
+                <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+                <!-- Page level plugin JavaScript-->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+                <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+                <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+                <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+
+                <script src="{{ url_for('static', filename='js/customer.js') }}"></script>
+                <script src="{{ url_for('static', filename='js/order.js') }}"></script>
+                <script src="{{ url_for('static', filename='js/message.js') }}"></script>
             </div>
-            <footer class="sticky-footer">
-                <div class="container">
-                    <div class="text-center">
-                        <small>Copyright © Hemodialysis_Departement 2020</small>
-                    </div>
-                </div>
-            </footer>
+            <script type="text/javascript">
+                window.onload = function() {
+                    var chart = new CanvasJS.Chart("chartContainer", {
 
-            <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-            <!-- Page level plugin JavaScript-->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-            <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-            <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-            <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+                        title: {
+                            text: "Number Of Sessions For The First half of 2021"
+                        },
 
-            <script src="{{ url_for('static', filename='js/customer.js') }}"></script>
-            <script src="{{ url_for('static', filename='js/order.js') }}"></script>
-            <script src="{{ url_for('static', filename='js/message.js') }}"></script>
-        </div>
-        <script type="text/javascript">
-            window.onload = function() {
-                var chart = new CanvasJS.Chart("chartContainer", {
+                        data: [ //array of dataSeries              
+                            { //dataSeries object
 
-                    title: {
-                        text: "Number Of Sessions For The First half of 2021"
-                    },
+                                /*** Change type "column" to "bar", "area", "line" or "pie"***/
+                                type: "column",
+                                dataPoints: [{
+                                    label: "January",
+                                    y: 3
+                                }, {
+                                    label: "February",
+                                    y: 4
+                                }, {
+                                    label: "March",
+                                    y: 6
+                                }, {
+                                    label: "April",
+                                    y: 4
+                                }, {
+                                    label: "May",
+                                    y: 5
+                                }]
+                            }
+                        ]
+                    });
 
-                    data: [ //array of dataSeries              
-                        { //dataSeries object
-
-                            /*** Change type "column" to "bar", "area", "line" or "pie"***/
-                            type: "column",
-                            dataPoints: [{
-                                label: "January",
-                                y: 3
-                            }, {
-                                label: "February",
-                                y: 4
-                            }, {
-                                label: "March",
-                                y: 6
-                            }, {
-                                label: "April",
-                                y: 4
-                            }, {
-                                label: "May",
-                                y: 5
-                            }]
-                        }
-                    ]
-                });
-
-                chart.render();
-            }
-        </script>
-        <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+                    chart.render();
+                }
+            </script>
+            <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 </body>
 
