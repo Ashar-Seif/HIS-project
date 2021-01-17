@@ -19,7 +19,7 @@ mydb = mysql.connector.connect(
   
 )
 #Calendar 
-
+'''
 SCOPES = ['https://www.googleapis.com/auth/sqlservice.admin']
 SERVICE_ACCOUNT_FILE = 'service.json'
 credentials = service_account.Credentials.from_service_account_file(
@@ -33,7 +33,7 @@ if not creds or creds.invalid:
     flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
     creds = tools.run_flow(flow, store)
 GCAL = discovery.build('calendar', 'v3', http=creds.authorize(Http()))
-#Calendar 
+#Calendar '''
 
 mycursor = mydb.cursor(buffered=True)
 mycursor.execute("CREATE TABLE IF NOT EXISTS Doctors(Dcode VARCHAR (255)  NOT NULL PRIMARY KEY,password VARCHAR(255) UNIQUE NOT NULL , Dname VARCHAR(255),Mname VARCHAR(255),Lname VARCHAR(255),phone INT(50),mail VARCHAR(255) UNIQUE,Birth_date Date,Doctor_ID INT(150) UNIQUE,syndicate_number INT (100) UNIQUE,salary INT(50),gender VARCHAR(255),address text,job_rank VARCHAR(255),access_level int DEFAULT 2,image LONGBLOB,calendarid VARCHAR (600) UNIQUE )")
@@ -185,7 +185,7 @@ def adddoctor():
       Syndicate_number= request.form['Syndicate_number']
       address= request.form['address']
       Job_rank= request.form['Job_rank']
-      calendar = {
+      '''calendar = {
       'summary': 'MY SESSIONS',
       'timeZone': 'Africa/Cairo'
       }
@@ -198,7 +198,7 @@ def adddoctor():
         },
         'role': 'reader'
       }
-      created_rule = GCAL.acl().insert(calendarId=Calendar_ID, body=rule).execute()
+      created_rule = GCAL.acl().insert(calendarId=Calendar_ID, body=rule).execute()'''
       sql = "INSERT INTO doctors ( Dcode,password,Dname,Mname,Lname,phone,mail,Birth_date,Doctor_ID,Syndicate_number,salary,gender,address,Job_rank,calendarid ) VALUES (%s, %s, %s,%s, %s, %s,%s, %s, %s,%s,%s, %s,%s,%s,%s)"
       val = (Dcode, password ,Fname,Mname,Lname,phone,mail,BD,Doctor_ID,Syndicate_number,Salary,gender,address,Job_rank,Calendar_ID)
       mycursor.execute(sql, val)
@@ -504,7 +504,7 @@ def addsession():
       mycursor.execute("SELECT calendarid FROM Doctors WHERE Dcode = %s", [D_code])
       ID= mycursor.fetchone()
       id=ID[0]
-      calendar = GCAL.calendars().get(calendarId='primary').execute()
+      '''calendar = GCAL.calendars().get(calendarId='primary').execute()
       event = {
       'summary': 'New session With patient{}'.format(P_code),
       "description": 'Hemodialysis_Departement',
@@ -512,7 +512,7 @@ def addsession():
       "end": {"dateTime":'{}T{:d}:00:00'.format(Date,Duration), "timeZone": 'Africa/Cairo'},
      }
      
-      e = GCAL.events().insert(calendarId=id,sendNotifications=True, body=event).execute()
+      e = GCAL.events().insert(calendarId=id,sendNotifications=True, body=event).execute()'''
       return render_template('index.html')
    else:
       return render_template('addsession.html')
