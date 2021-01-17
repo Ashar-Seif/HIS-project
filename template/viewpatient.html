@@ -55,8 +55,8 @@
                         <th scope="col">address</th>
                         <th scope="col">Dry_weight</th>
                         <th scope="col">Described_drugs</th>
-                        <th scope="col">SupD</th>
                         <th scope="col">scan</th>
+                        <th scope="col">SupD</th>
                         <th scope="col">Action</th>
 
                     </tr>
@@ -81,12 +81,12 @@
                         <td>{{data.12}}</td>
                         <td>{{data.13}}</td>
                         <td>{{data.14}}</td>
-                        <td>{{data.15}}</td>
                         <td>{{data.16}},
                             <p>
                                 <form action="{{  url_for('download')  }}" method="POST"><label for="pcode"><input type="text" name="scanimg"><a href="/download"><button class="btn btn-default" >download</button></a>
                         </form></p></td>
-                       
+                        <td>{{data.18}}</td>
+                      
                         <td style="min-width: 200px;">
                             <button style="background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(0,52,89,1) 0%, rgba(0,168,232,1) 90% );">
                                 <a href="{{url_for('editpatient',id=data.0)}}" style="color: white;"> Edit

@@ -18,7 +18,8 @@
         h5 {
             display: inline-block;
         }
-        button{
+        
+        button {
             display: inline-block;
             border-radius: 5px;
             border: 1px gray;
@@ -51,9 +52,6 @@
                         <th scope="col">comments</th>
                         <th scope="col">Doctor</th>
                         <th scope="col">Nurse</th>
-                    
-                       
-
 
                     </tr>
                 </thead>
@@ -68,21 +66,15 @@
                         <td>{{row.4}}</td>
                         <td>{{row.5}}</td>
                         <td>{{row.6}}</td>
-                        <td>{{row.8}},,<p><form  action="{{  url_for('pdownload')  }}" method="POST"><label for="ppcode"><input type="text" name="pscanimg"><a href="/pdownload"><button class="btn btn-default" >download</button></a>
+                        <td>{{row.8}},,
+                            <p>
+                                <form action="{{  url_for('pdownload')  }}" method="POST"><label for="ppcode"><input type="text" name="pscanimg"><a href="/pdownload"><button class="btn btn-default" >download</button></a>
                         </form></p></td>
                         <td>{{row.9}}</td>
                         <td>{{row.10}}</td>
                         <td>{{row.11}}</td>
                         <td>{{row.12}}</td>
                         <td>{{row.13}}</td>
-                       
-
-
-                                              
-
-                        <td style="min-width: 200px;">
-
-                        </td>   
                     </tr>
                     {% endfor %}
                 </tbody>

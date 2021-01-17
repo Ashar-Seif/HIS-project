@@ -82,8 +82,7 @@
                                 <li class=""><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
                                 {% endif %}
                                 <li class=""><a href="#contact">Contact</a></li>
-
-
+                                <li class=""><a href="#follow">Follow Us</a></li>
                                 {% set MyList = ['admin', 'username', 'dcode', 'ncode', 'pcode'] %} {% if 'notloggedin' in session %}
                                 <li class="active"><a href="http://127.0.0.1:5000/login">Log In/Sign Up</a></li>
                                 {% endif %} {% for item in MyList -%} {% if item in session -%}
@@ -143,7 +142,8 @@
                 <div class="col-md-4 col-sm-4">
                     <h2 class="ser-title">Our Service</h2>
                     <hr class="botm-line">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris cillum.</p>
+                    <p>Dialysis & Kidney Care Center highly regards the health and safety of our patients and team members. We are closely monitoring the coronavirus (COVID-19) situation and all new developments. Our organization is actively reinforcing
+                        our extensive infection control practices to ensure the protection of all those within our facilities.</p>
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="service-info">
@@ -152,7 +152,7 @@
                         </div>
                         <div class="icon-info">
                             <h4>24 Hour Support</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <p> Our organization provides 24-hour service with experienced emergency medical specialists and dynamic staff.</p>
                         </div>
                     </div>
                     <div class="service-info">
@@ -161,7 +161,8 @@
                         </div>
                         <div class="icon-info">
                             <h4>Emergency Services</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <p>In an emergency, it is vital that you receive treatment as soon as possible.</br> If you suddenly become seriously ill for any reason, you should immediately dial <span style="color: red; font-weight: bold;">999</span> for
+                                an ambulance.</p>
                         </div>
                     </div>
                 </div>
@@ -172,7 +173,7 @@
                         </div>
                         <div class="icon-info">
                             <h4>Medical Counseling</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <p>Our counselling services are provided by certified counsellors who deliver confidential personal counselling.</p>
                         </div>
                     </div>
                     <div class="service-info">
@@ -180,8 +181,8 @@
                             <i class="fa fa-medkit"></i>
                         </div>
                         <div class="icon-info">
-                            <h4>Premium Healthcare</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <h4>Driving innovation</h4>
+                            <p>We reinvest profits back into our healthcare facilities around the world. This allows us to develop new medical technology and support clinical trials, helping you get the best possible care.</p>
                         </div>
                     </div>
                 </div>
@@ -273,10 +274,11 @@
             <div class=" row">
                 <div class="col-md-2"></div>
                 <div class="text-right-md col-md-4 col-sm-4">
-                    <h2 class="section-title white lg-line">« A few words<br> about us »</h2>
+                    <h2 class="section-title white lg-line">« WHO WE ARE »</h2>
                 </div>
                 <div class="col-md-4 col-sm-5">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a typek
+                    <p style="color: white;">We care for people with chronic kidney failure, of whom around 3.5 million worldwide depend on dialysis treatment. Thanks to our decades of experience in dialysis, our innovative research and our value-based care approach, we can help
+                        them to enjoy the very best quality of life.</p>
                     <p class="text-right text-primary"><i>Dialysis & Kidney Care</i></p>
                 </div>
                 <div class="col-md-2"></div>
@@ -295,11 +297,11 @@
                 <div class="col-md-4 col-sm-4">
                     <h3>Contact Info</h3>
                     <div class="space"></div>
-                    <p><i class="fa fa-map-marker fa-fw pull-left fa-2x"></i>321 Awesome Street<br> New York, NY 17022</p>
+                    <p><a href="https://goo.gl/maps/WQDWjZHTDWzAPjVa8" target="_blank"><i class="fa fa-map-marker fa-fw pull-left fa-2x"></i></a>321 Awesome Street<br> New York, NY 17022</p>
                     <div class="space"></div>
-                    <p><i class="fa fa-envelope-o fa-fw pull-left fa-2x"></i>info@companyname.com</p>
+                    <p><a href="mailto:radwa.saeedm@gmail.com"><i class="fa fa-envelope-o fa-fw pull-left fa-2x"></i></a>info@companyname.com</p>
                     <div class="space"></div>
-                    <p><i class="fa fa-phone fa-fw pull-left fa-2x"></i>+1 800 123 1234</p>
+                    <p><a href="tel:+1 800 123 1234"><i class="fa fa-phone fa-fw pull-left fa-2x"></i></a>+1 800 123 1234</p>
                 </div>
                 <div class="col-md-8 col-sm-8 marb20">
                     <div class="contact-info">
@@ -364,14 +366,14 @@
                 </div>
                 <div class="col-md-4 col-sm-4 marb20">
                     <div class="ftr-tle">
-                        <h4 class="white no-padding">Follow us</h4>
+                        <h4 class="white no-padding" id="follow">Follow us</h4>
                     </div>
                     <div class="info-sec">
                         <ul class="social-icon">
-                            <li class="bglight-blue"><i class="fa fa-facebook"></i></li>
-                            <li class="bgred"><i class="fa fa-google-plus"></i></li>
-                            <li class="bgdark-blue"><i class="fa fa-linkedin"></i></li>
-                            <li class="bglight-blue"><i class="fa fa-twitter"></i></li>
+                            <li class="bglight-blue"><a href="https://www.facebook.com/FreseniusMedicalCare.Corporate/" target="_blank"><i class="fa fa-facebook" style="font-size:24px;color:white"></i></a></li>
+                            <li class="bgred"><a href="https://www.youtube.com/user/freseniusmedicare" target="_blank"><i class="fa fa-youtube" style="font-size:24px;color:white"></i></a></li>
+                            <li class="bgdark-blue"><a href="https://www.linkedin.com/company/freseniusmedicalcare/" target="_blank"><i class="fa fa-linkedin"style="font-size:24px;color:white"></i></a></li>
+                            <li class="bglight-blue"><a href="https://twitter.com/fmc_ag/" target="_blank"><i class="fa fa-twitter" style="font-size:24px;color:white"></i></a></li>
                         </ul>
                     </div>
                 </div>
